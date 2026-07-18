@@ -29,11 +29,12 @@ interface Unit {
 interface UnitListProps {
   subjectId: string;
   subjectName: string;
+  year: string;
   units: Unit[];
   bonus: Resource[];
 }
 
-export default function UnitList({ subjectId, subjectName, units, bonus }: UnitListProps) {
+export default function UnitList({ subjectId, subjectName, year, units, bonus }: UnitListProps) {
   const [openUnits, setOpenUnits] = useState<Record<number, boolean>>({ 1: true });
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activePreviewUrl, setActivePreviewUrl] = useState<string | null>(null);
@@ -75,6 +76,7 @@ export default function UnitList({ subjectId, subjectName, units, bonus }: UnitL
         type: resource.type,
         subjectId,
         subjectName,
+        year,
       }));
     }
     setBookmarks(updated);
