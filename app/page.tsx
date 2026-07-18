@@ -14,6 +14,7 @@ interface BookmarkedResource {
   type: string;
   subjectId: string;
   subjectName: string;
+  year: string;
 }
 
 export default function Home() {
@@ -104,7 +105,7 @@ export default function Home() {
                   
                   <div className="flex justify-between items-center mt-5 pt-3 border-t border-border-light dark:border-border-dark">
                     <Link 
-                      href={`/${bm.subjectId.includes("discrete") || bm.subjectId.includes("deld") || bm.subjectId.includes("dbms") || bm.subjectId.includes("operating") || bm.subjectId.includes("maths-3") || bm.subjectId.includes("software") || bm.subjectId.includes("data-structure") ? "second-year" : "first-year"}/${bm.subjectId}`}
+                      href={`/${bm.year}/${bm.subjectId}`}
                       className="text-body-sm text-primary dark:text-primary-fixed-dim font-medium hover:underline flex items-center gap-1"
                     >
                       View subject <ArrowRight size={12} />

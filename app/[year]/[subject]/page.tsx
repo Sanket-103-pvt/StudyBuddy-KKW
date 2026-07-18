@@ -127,6 +127,7 @@ export default async function SubjectPage({ params }: PageProps) {
         <UnitList 
           subjectId={subjectData.id}
           subjectName={subjectData.name}
+          year={year}
           units={subjectData.units} 
           bonus={subjectData.bonus} 
         />
