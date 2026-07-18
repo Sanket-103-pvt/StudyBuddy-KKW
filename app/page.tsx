@@ -6,6 +6,7 @@ import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink } from "lucid
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import indexData from "@/content/index.json";
 
 interface BookmarkedResource {
   label: string;
@@ -136,7 +137,7 @@ export default function Home() {
                   <GraduationCap size={24} />
                 </div>
                 <span className="font-mono text-label-mono text-text-secondary-light dark:text-text-secondary-dark bg-surface-container dark:bg-inverse-surface px-2.5 py-1 rounded-full border border-border-light dark:border-border-dark">
-                  10 Subjects
+                  {indexData["first-year"].length} Subjects
                 </span>
               </div>
               
@@ -172,7 +173,7 @@ export default function Home() {
                   <GraduationCap size={24} />
                 </div>
                 <span className="font-mono text-label-mono text-text-secondary-light dark:text-text-secondary-dark bg-surface-container dark:bg-inverse-surface px-2.5 py-1 rounded-full border border-border-light dark:border-border-dark">
-                  8 Subjects
+                  {indexData["second-year"].length} Subjects
                 </span>
               </div>
               
