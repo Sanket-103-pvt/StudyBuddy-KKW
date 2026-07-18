@@ -83,7 +83,7 @@ export default function Navbar() {
 
             {/* Quick Github Link - Desktop Only */}
             <a
-              href="https://github.com"
+              href="https://github.com/Sanket-103-pvt/StudyBuddy-KKW"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:flex w-10 h-10 items-center justify-center rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
