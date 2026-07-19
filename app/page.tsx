@@ -6,6 +6,7 @@ import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink } from "lucid
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import RecentlyViewed from "@/components/RecentlyViewed";
 import indexData from "@/content/index.json";
 
 interface BookmarkedResource {
@@ -71,6 +72,8 @@ export default function Home() {
           
           <SearchBar />
         </section>
+
+        <RecentlyViewed />
 
         {/* Bookmarks Section (Only shows if there are saved items) */}
         {bookmarks.length > 0 && (

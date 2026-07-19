@@ -8,6 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
+import SubjectViewTracker from "@/components/SubjectViewTracker";
 import indexData from "@/content/index.json";
 
 interface Resource {
@@ -187,6 +188,11 @@ export default async function SubjectPage({ params }: PageProps) {
           year={year}
           units={subjectData.units} 
           bonus={subjectData.bonus} 
+        />
+        <SubjectViewTracker 
+          subjectId={subjectData.id} 
+          subjectName={subjectData.name} 
+          year={year} 
         />
       </main>
 
