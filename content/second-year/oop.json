@@ -1,22 +1,22 @@
 {
-  "id": "deld",
-  "name": "Digital Electronics & Logic Design",
+  "id": "oop",
+  "name": "Object Oriented Programming",
   "year": "second-year",
-  "icon": "layers",
+  "icon": "code",
   "lastUpdated": "2026-07-15",
   "units": [
     {
       "unitNumber": 1,
-      "title": "Number Systems",
+      "title": "Classes & Objects",
       "resources": [
         {
-          "label": "Unit 1 Number Systems & Codes Notes",
+          "label": "Unit 1 Classes & Constructors Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Binary Arithmetic PYQs",
+          "label": "OOP Concepts PYQs",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -25,17 +25,17 @@
     },
     {
       "unitNumber": 2,
-      "title": "Boolean Algebra",
+      "title": "Inheritance",
       "resources": [
         {
-          "label": "Unit 2 Boolean Algebra & K-Maps Notes",
+          "label": "Unit 2 Types of Inheritance Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "K-Map Simplification Practice",
-          "type": "question-bank",
+          "label": "Inheritance Code Examples",
+          "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
@@ -43,16 +43,16 @@
     },
     {
       "unitNumber": 3,
-      "title": "Combinational Circuits",
+      "title": "Polymorphism",
       "resources": [
         {
-          "label": "Unit 3 MUX & DEMUX Notes",
+          "label": "Unit 3 Function Overloading & Overriding Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Adder & Subtractor Reference",
+          "label": "Virtual Functions Reference",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -61,16 +61,16 @@
     },
     {
       "unitNumber": 4,
-      "title": "Sequential Circuits",
+      "title": "Exception Handling",
       "resources": [
         {
-          "label": "Unit 4 Flip-Flops & Counters Notes",
+          "label": "Unit 4 Try-Catch & Custom Exceptions Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "State Machine PYQs",
+          "label": "Exception Handling Practice",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -79,29 +79,22 @@
     },
     {
       "unitNumber": 5,
-      "title": "Memory & PLDs",
+      "title": "File I/O",
       "resources": [
         {
-          "label": "Unit 5 ROM, RAM & PLA Notes",
+          "label": "Unit 5 Streams & File Handling Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "PLD Design Reference Guide",
-          "type": "file",
+          "label": "File I/O PYQs",
+          "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
       ]
     }
   ],
-  "bonus": [
-    {
-      "label": "All Units Folder",
-      "type": "folder",
-      "url": "https://drive.google.com/drive/folders/1cbCCkCzYZ2JsXpHo01C9i0UUIXuZK8p4?usp=sharing",
-      "lastUpdated": "2026-06-30"
-    }
-  ]
+  "bonus": []
 }

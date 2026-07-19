@@ -1,22 +1,22 @@
 {
-  "id": "deld",
-  "name": "Digital Electronics & Logic Design",
+  "id": "em3",
+  "name": "Engineering Mathematics III",
   "year": "second-year",
-  "icon": "layers",
+  "icon": "calculator",
   "lastUpdated": "2026-07-15",
   "units": [
     {
       "unitNumber": 1,
-      "title": "Number Systems",
+      "title": "Fourier Series",
       "resources": [
         {
-          "label": "Unit 1 Number Systems & Codes Notes",
+          "label": "Unit 1 Fourier Series Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Binary Arithmetic PYQs",
+          "label": "Fourier Series Practice Problems",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -25,16 +25,16 @@
     },
     {
       "unitNumber": 2,
-      "title": "Boolean Algebra",
+      "title": "Laplace Transform",
       "resources": [
         {
-          "label": "Unit 2 Boolean Algebra & K-Maps Notes",
+          "label": "Unit 2 Laplace Transform Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "K-Map Simplification Practice",
+          "label": "Inverse Laplace Transform PYQs",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -43,16 +43,16 @@
     },
     {
       "unitNumber": 3,
-      "title": "Combinational Circuits",
+      "title": "Z-Transform",
       "resources": [
         {
-          "label": "Unit 3 MUX & DEMUX Notes",
+          "label": "Unit 3 Z-Transform Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Adder & Subtractor Reference",
+          "label": "Z-Transform Reference Guide",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -61,16 +61,16 @@
     },
     {
       "unitNumber": 4,
-      "title": "Sequential Circuits",
+      "title": "Statistics",
       "resources": [
         {
-          "label": "Unit 4 Flip-Flops & Counters Notes",
+          "label": "Unit 4 Probability & Distributions Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "State Machine PYQs",
+          "label": "Statistics PYQs",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -79,16 +79,16 @@
     },
     {
       "unitNumber": 5,
-      "title": "Memory & PLDs",
+      "title": "Numerical Methods",
       "resources": [
         {
-          "label": "Unit 5 ROM, RAM & PLA Notes",
+          "label": "Unit 5 Numerical Solutions Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "PLD Design Reference Guide",
+          "label": "Numerical Methods Reference",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -96,12 +96,5 @@
       ]
     }
   ],
-  "bonus": [
-    {
-      "label": "All Units Folder",
-      "type": "folder",
-      "url": "https://drive.google.com/drive/folders/1cbCCkCzYZ2JsXpHo01C9i0UUIXuZK8p4?usp=sharing",
-      "lastUpdated": "2026-06-30"
-    }
-  ]
+  "bonus": []
 }

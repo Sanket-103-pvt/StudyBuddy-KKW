@@ -73,37 +73,44 @@
   ],
   "second-year": [
     {
-      "id": "discrete-structures",
-      "name": "Discrete structure (mathematics)",
-      "icon": "network",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
+      "id": "dsa",
+      "name": "Data Structures & Algorithms",
+      "icon": "code",
+      "unitCount": 5,
+      "lastUpdated": "2026-07-15"
     },
     {
-      "id": "data-structure",
-      "name": "Data structure",
-      "icon": "book-open",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
+      "id": "discrete-math",
+      "name": "Discrete Mathematics",
+      "icon": "network",
+      "unitCount": 5,
+      "lastUpdated": "2026-07-15"
     },
     {
       "id": "deld",
-      "name": "DELD(Digital electronics &logic design)",
+      "name": "Digital Electronics & Logic Design",
       "icon": "layers",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
+      "unitCount": 5,
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "id": "oop",
+      "name": "Object Oriented Programming",
+      "icon": "code",
+      "unitCount": 5,
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "id": "em3",
+      "name": "Engineering Mathematics III",
+      "icon": "calculator",
+      "unitCount": 5,
+      "lastUpdated": "2026-07-15"
     },
     {
       "id": "operating-systems",
       "name": "Operating system",
       "icon": "server",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
-    },
-    {
-      "id": "maths-3",
-      "name": "Maths 3",
-      "icon": "calculator",
       "unitCount": 0,
       "lastUpdated": "2026-06-30"
     },

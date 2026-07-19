@@ -1,23 +1,29 @@
 {
-  "id": "deld",
-  "name": "Digital Electronics & Logic Design",
+  "id": "dsa",
+  "name": "Data Structures & Algorithms",
   "year": "second-year",
-  "icon": "layers",
+  "icon": "code",
   "lastUpdated": "2026-07-15",
   "units": [
     {
       "unitNumber": 1,
-      "title": "Number Systems",
+      "title": "Arrays & Linked Lists",
       "resources": [
         {
-          "label": "Unit 1 Number Systems & Codes Notes",
+          "label": "Unit 1 Lecture Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Binary Arithmetic PYQs",
+          "label": "Unit 1 Question Bank & PYQs",
           "type": "question-bank",
+          "url": "#",
+          "lastUpdated": "2026-07-15"
+        },
+        {
+          "label": "Linked Lists Reference Guide",
+          "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
@@ -25,17 +31,17 @@
     },
     {
       "unitNumber": 2,
-      "title": "Boolean Algebra",
+      "title": "Stacks & Queues",
       "resources": [
         {
-          "label": "Unit 2 Boolean Algebra & K-Maps Notes",
+          "label": "Unit 2 Lecture Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "K-Map Simplification Practice",
-          "type": "question-bank",
+          "label": "Stacks & Queues Implementation Notes",
+          "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
@@ -43,34 +49,16 @@
     },
     {
       "unitNumber": 3,
-      "title": "Combinational Circuits",
+      "title": "Trees",
       "resources": [
         {
-          "label": "Unit 3 MUX & DEMUX Notes",
+          "label": "Unit 3 Binary Trees Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Adder & Subtractor Reference",
-          "type": "file",
-          "url": "#",
-          "lastUpdated": "2026-07-15"
-        }
-      ]
-    },
-    {
-      "unitNumber": 4,
-      "title": "Sequential Circuits",
-      "resources": [
-        {
-          "label": "Unit 4 Flip-Flops & Counters Notes",
-          "type": "file",
-          "url": "#",
-          "lastUpdated": "2026-07-15"
-        },
-        {
-          "label": "State Machine PYQs",
+          "label": "Tree Traversal PYQs",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -78,30 +66,41 @@
       ]
     },
     {
-      "unitNumber": 5,
-      "title": "Memory & PLDs",
+      "unitNumber": 4,
+      "title": "Graphs",
       "resources": [
         {
-          "label": "Unit 5 ROM, RAM & PLA Notes",
+          "label": "Unit 4 Graph Algorithms Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "PLD Design Reference Guide",
+          "label": "BFS & DFS Reference",
           "type": "file",
+          "url": "#",
+          "lastUpdated": "2026-07-15"
+        }
+      ]
+    },
+    {
+      "unitNumber": 5,
+      "title": "Sorting & Searching",
+      "resources": [
+        {
+          "label": "Unit 5 Sorting Algorithms Notes",
+          "type": "file",
+          "url": "#",
+          "lastUpdated": "2026-07-15"
+        },
+        {
+          "label": "Sorting PYQs & Practice Problems",
+          "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
       ]
     }
   ],
-  "bonus": [
-    {
-      "label": "All Units Folder",
-      "type": "folder",
-      "url": "https://drive.google.com/drive/folders/1cbCCkCzYZ2JsXpHo01C9i0UUIXuZK8p4?usp=sharing",
-      "lastUpdated": "2026-06-30"
-    }
-  ]
+  "bonus": []
 }

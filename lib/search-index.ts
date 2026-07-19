@@ -25,6 +25,11 @@ import operatingSystems from "@/content/second-year/operating-systems.json";
 import softwareEngineering from "@/content/second-year/software-engineering.json";
 import syllabus from "@/content/second-year/syllabus.json";
 
+import dsa from "@/content/second-year/dsa.json";
+import discreteMath from "@/content/second-year/discrete-math.json";
+import oop from "@/content/second-year/oop.json";
+import em3 from "@/content/second-year/em3.json";
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export type SearchResultType = "subject" | "resource";
@@ -90,6 +95,10 @@ const ALL_SUBJECTS: RawSubjectData[] = [
   operatingSystems,
   softwareEngineering,
   syllabus,
+  dsa,
+  discreteMath,
+  oop,
+  em3,
 ] as RawSubjectData[];
 
 // ── Builder ───────────────────────────────────────────────────────────────────

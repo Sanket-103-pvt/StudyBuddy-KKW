@@ -1,22 +1,22 @@
 {
-  "id": "deld",
-  "name": "Digital Electronics & Logic Design",
+  "id": "discrete-math",
+  "name": "Discrete Mathematics",
   "year": "second-year",
-  "icon": "layers",
+  "icon": "network",
   "lastUpdated": "2026-07-15",
   "units": [
     {
       "unitNumber": 1,
-      "title": "Number Systems",
+      "title": "Set Theory",
       "resources": [
         {
-          "label": "Unit 1 Number Systems & Codes Notes",
+          "label": "Unit 1 Set Theory Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Binary Arithmetic PYQs",
+          "label": "Set Operations Practice Problems",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -25,16 +25,16 @@
     },
     {
       "unitNumber": 2,
-      "title": "Boolean Algebra",
+      "title": "Relations & Functions",
       "resources": [
         {
-          "label": "Unit 2 Boolean Algebra & K-Maps Notes",
+          "label": "Unit 2 Relations & Functions Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "K-Map Simplification Practice",
+          "label": "Equivalence Relations PYQs",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -43,16 +43,16 @@
     },
     {
       "unitNumber": 3,
-      "title": "Combinational Circuits",
+      "title": "Graph Theory",
       "resources": [
         {
-          "label": "Unit 3 MUX & DEMUX Notes",
+          "label": "Unit 3 Graph Theory & Trees Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "Adder & Subtractor Reference",
+          "label": "Graph Theory Reference",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -61,16 +61,16 @@
     },
     {
       "unitNumber": 4,
-      "title": "Sequential Circuits",
+      "title": "Logic & Propositional Calculus",
       "resources": [
         {
-          "label": "Unit 4 Flip-Flops & Counters Notes",
+          "label": "Unit 4 Logic Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "State Machine PYQs",
+          "label": "Truth Tables & Proofs Practice",
           "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
@@ -79,29 +79,22 @@
     },
     {
       "unitNumber": 5,
-      "title": "Memory & PLDs",
+      "title": "Combinatorics",
       "resources": [
         {
-          "label": "Unit 5 ROM, RAM & PLA Notes",
+          "label": "Unit 5 Combinatorics & Permutations Notes",
           "type": "file",
           "url": "#",
           "lastUpdated": "2026-07-15"
         },
         {
-          "label": "PLD Design Reference Guide",
-          "type": "file",
+          "label": "Combinatorics PYQs",
+          "type": "question-bank",
           "url": "#",
           "lastUpdated": "2026-07-15"
         }
       ]
     }
   ],
-  "bonus": [
-    {
-      "label": "All Units Folder",
-      "type": "folder",
-      "url": "https://drive.google.com/drive/folders/1cbCCkCzYZ2JsXpHo01C9i0UUIXuZK8p4?usp=sharing",
-      "lastUpdated": "2026-06-30"
-    }
-  ]
+  "bonus": []
 }
