@@ -34,18 +34,76 @@ interface UnitListProps {
   bonus: Resource[];
 }
 
+function PdfPreviewBox({ url, label }: { url: string; label: string }) {
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [iframeError, setIframeError] = useState(false);
+
+  const getEmbedUrl = (driveUrl: string) => {
+    const match = driveUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://drive.google.com/file/d/${match[1]}/preview`;
+    }
+    return driveUrl;
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!iframeLoaded) {
+        setIframeError(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [iframeLoaded]);
+
+  return (
+    <div className="mt-3 border border-border-light dark:border-border-dark rounded-xl overflow-hidden shadow-inner bg-bg-light dark:bg-bg-dark">
+      <div className="flex justify-between items-center px-4 py-2 bg-surface-container dark:bg-inverse-surface border-b border-border-light dark:border-border-dark text-body-sm">
+        <span className="font-semibold text-on-surface dark:text-text-primary-dark">
+          PDF Live Preview
+        </span>
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-primary dark:text-primary-fixed-dim hover:underline font-semibold flex items-center gap-1.5"
+        >
+          Open in Drive <ExternalLink size={12} />
+        </a>
+      </div>
+      <div className="w-full aspect-[4/3] md:aspect-[16/9] relative flex items-center justify-center">
+        {iframeError ? (
+          <div className="flex flex-col items-center justify-center p-6 text-center bg-surface-container-low dark:bg-inverse-surface w-full h-full">
+            <p className="text-body-sm text-text-secondary-light dark:text-text-secondary-dark mb-4">
+              Preview unavailable — this file may be private or has been moved.
+            </p>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-medium text-body-sm hover:bg-primary/90 transition-colors shadow-sm"
+            >
+              Open in Google Drive <ExternalLink size={14} />
+            </a>
+          </div>
+        ) : (
+          <iframe
+            src={getEmbedUrl(url)}
+            className="w-full h-full border-none"
+            allow="autoplay"
+            title={label}
+            onLoad={() => setIframeLoaded(true)}
+          ></iframe>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function UnitList({ subjectId, subjectName, year, units, bonus }: UnitListProps) {
   const [openUnits, setOpenUnits] = useState<Record<number, boolean>>({ 1: true });
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activePreviewUrl, setActivePreviewUrl] = useState<string | null>(null);
-
-  const getEmbedUrl = (url: string) => {
-    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (match && match[1]) {
-      return `https://drive.google.com/file/d/${match[1]}/preview`;
-    }
-    return url;
-  };
 
   useEffect(() => {
     // Load bookmarks from localStorage
@@ -182,31 +240,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                             </div>
                           </div>
 
-                          {isFile && isPreviewOpen && (
-                            <div className="mt-3 border border-border-light dark:border-border-dark rounded-xl overflow-hidden shadow-inner bg-bg-light dark:bg-bg-dark">
-                              <div className="flex justify-between items-center px-4 py-2 bg-surface-container dark:bg-inverse-surface border-b border-border-light dark:border-border-dark text-body-sm">
-                                <span className="font-semibold text-on-surface dark:text-text-primary-dark">
-                                  PDF Live Preview
-                                </span>
-                                <a 
-                                  href={res.url} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="text-primary dark:text-primary-fixed-dim hover:underline font-semibold flex items-center gap-1.5"
-                                >
-                                  Open in Drive <ExternalLink size={12} />
-                                </a>
-                              </div>
-                              <div className="w-full aspect-[4/3] md:aspect-[16/9]">
-                                <iframe
-                                  src={getEmbedUrl(res.url)}
-                                  className="w-full h-full border-none"
-                                  allow="autoplay"
-                                  title={res.label}
-                                ></iframe>
-                              </div>
-                            </div>
-                          )}
+                          {isFile && isPreviewOpen && <PdfPreviewBox url={res.url} label={res.label} />}
                         </div>
                       );
                     })
@@ -276,31 +310,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                     </div>
                   </div>
 
-                  {isFile && isPreviewOpen && (
-                    <div className="mt-3 border border-border-light dark:border-border-dark rounded-xl overflow-hidden shadow-inner bg-bg-light dark:bg-bg-dark">
-                      <div className="flex justify-between items-center px-4 py-2 bg-surface-container dark:bg-inverse-surface border-b border-border-light dark:border-border-dark text-body-sm">
-                        <span className="font-semibold text-on-surface dark:text-text-primary-dark">
-                          PDF Live Preview
-                        </span>
-                        <a 
-                          href={res.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-primary dark:text-primary-fixed-dim hover:underline font-semibold flex items-center gap-1.5"
-                        >
-                          Open in Drive <ExternalLink size={12} />
-                        </a>
-                      </div>
-                      <div className="w-full aspect-[4/3] md:aspect-[16/9]">
-                        <iframe
-                          src={getEmbedUrl(res.url)}
-                          className="w-full h-full border-none"
-                          allow="autoplay"
-                          title={res.label}
-                        ></iframe>
-                      </div>
-                    </div>
-                  )}
+                  {isFile && isPreviewOpen && <PdfPreviewBox url={res.url} label={res.label} />}
                 </div>
               );
             })}
