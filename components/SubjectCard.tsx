@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
+import { getRelativeTime } from "@/lib/date-utils";
 
 interface SubjectCardProps {
   id: string;
@@ -30,23 +31,10 @@ export default function SubjectCard({
     iconName.replace(/-([a-z])/g, (g) => g[1].toUpperCase()).slice(1)
   ] || Icons.BookOpen;
 
-  const formatDate = (dateStr: string) => {
-    try {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
-    } catch {
-      return dateStr;
-    }
-  };
-
   return (
     <Link 
       href={`/${year}/${id}`}
-      className="group bg-surface-container-lowest dark:bg-bg-dark rounded-xl-12 p-6 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md hover:-translate-y-[2px] transition-all duration-300 cursor-pointer flex flex-col justify-between"
+      className="group bg-surface-container-lowest dark:bg-bg-dark rounded-xl p-6 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md hover:-translate-y-[2px] transition-all duration-300 cursor-pointer flex flex-col justify-between"
     >
       <div>
         <div className="flex justify-between items-start mb-4">
@@ -67,7 +55,7 @@ export default function SubjectCard({
       <div className="mt-4 pt-4 border-t border-border-light dark:border-border-dark flex items-center justify-between text-body-sm text-text-secondary-light dark:text-text-secondary-dark">
         <span>Last updated</span>
         <span className="font-medium text-on-surface dark:text-text-primary-dark">
-          {formatDate(lastUpdated)}
+          {getRelativeTime(lastUpdated)}
         </span>
       </div>
     </Link>
