@@ -104,10 +104,10 @@ Rules:
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const candidateModels = [
+      "gemini-flash-latest",
       "gemini-2.0-flash",
-      "gemini-2.0-flash-lite",
-      "gemini-1.5-flash",
-      "gemini-1.5-pro",
+      "gemini-pro-latest",
+      "gemini-2.5-pro",
     ];
 
     let text: string | null = null;
@@ -122,9 +122,10 @@ Rules:
           text = candidateText;
           break;
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         lastError = err;
-        console.warn(`Model ${modelName} failed:`, err.message || err);
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn(`Model ${modelName} failed:`, msg);
       }
     }
 
