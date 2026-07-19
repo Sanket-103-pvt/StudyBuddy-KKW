@@ -63,6 +63,7 @@ export async function POST(req: Request) {
 
     const diffTime = targetDate.getTime() - today.getTime();
     const daysRemaining = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+    const planDays = Math.min(daysRemaining, 30);
 
     const unitsList = subjectData.units.map(
       (u) => `Unit ${u.unitNumber}: ${u.title}`
@@ -74,7 +75,7 @@ Full Syllabus Units:
 ${unitsList.join("\n")}
 
 Exam Date: ${examDate}
-Days remaining: ${daysRemaining}
+Total Days until exam: ${daysRemaining}
 Already completed units (or partially done): ${completedUnits.length > 0 ? completedUnits.map(u => `Unit ${u}`).join(", ") : "None"}
 
 Generate a realistic, day-wise study plan in JSON format.
@@ -96,11 +97,12 @@ Output MUST be strictly valid JSON matching this structure:
 }
 
 Rules:
-1. Priority values must ONLY be one of: "HIGH", "MEDIUM", or "LOW".
-2. Prioritize uncompleted units first.
-3. Give 1-2 revision days at the end before the exam.
-4. Keep hours realistic (1.5 to 3.5 hours per day).
-5. Return ONLY the JSON object. Do not include markdown codeblocks, explanations, or commentary.`;
+1. Generate dailyPlan array for AT MOST ${planDays} entries (Day 1 to Day ${planDays}).
+2. Priority values must ONLY be one of: "HIGH", "MEDIUM", or "LOW".
+3. Prioritize uncompleted units first.
+4. Give 1-2 revision days at the end before the exam.
+5. Keep hours realistic (1.5 to 3.5 hours per day).
+6. Return ONLY the JSON object. Do not include markdown codeblocks, explanations, or commentary.`;
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const candidateModels = [
