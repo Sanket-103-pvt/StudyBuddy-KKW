@@ -22,6 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://study-buddy-kkw.vercel.app"),
   title: "Study Buddy KKW - K.K. Wagh Engineering Study Hub",
   description: "One hub for every note, PYQ, and resource K.K. Wagh students actually need.",
 };

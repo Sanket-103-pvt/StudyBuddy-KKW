@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
@@ -58,6 +59,59 @@ export async function generateStaticParams() {
   }
 
   return paths;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { year, subject } = params;
+
+  if (year !== "first-year" && year !== "second-year") {
+    return {};
+  }
+
+  const filePath = path.join(process.cwd(), "content", year, `${subject}.json`);
+
+  if (!fs.existsSync(filePath)) {
+    return {};
+  }
+
+  let subjectData: SubjectData;
+
+  try {
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    subjectData = JSON.parse(fileContent);
+  } catch (error) {
+    console.error("Failed to load subject details for metadata:", error);
+    return {};
+  }
+
+  const yearLabel = year === "first-year" ? "1st Year" : "2nd Year";
+  const title = `${subjectData.name} (${yearLabel}) | Study Buddy KKW`;
+  const description = `Access notes, PYQs, question banks, and study resources for ${subjectData.name} at K.K. Wagh.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/${year}/${subject}`,
+      siteName: "Study Buddy KKW",
+      images: [
+        {
+          url: "/og-preview.png",
+          width: 1200,
+          height: 630,
+          alt: `${subjectData.name} - Study Buddy KKW`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-preview.png"],
+    },
+  };
 }
 
 export default async function SubjectPage({ params }: PageProps) {
