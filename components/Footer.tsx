@@ -43,9 +43,19 @@ export default function Footer() {
 
         <div>
           <h3 className="font-sora font-semibold text-body-md text-on-surface dark:text-text-primary-dark mb-3">
-            Community & Legal
+            Community & Links
           </h3>
           <ul className="space-y-2">
+            <li>
+              <a 
+                href="https://github.com/Sanket-103-pvt/StudyBuddy-KKW" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
+              >
+                GitHub Repository
+              </a>
+            </li>
             <li>
               <Link 
                 href="/contribute" 
@@ -67,7 +77,7 @@ export default function Footer() {
                 href="/contact" 
                 className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
               >
-                Contact Developer
+                Contact & Innovator
               </Link>
             </li>
           </ul>

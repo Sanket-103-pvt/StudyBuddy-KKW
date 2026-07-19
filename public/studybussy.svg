@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sb-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="sb-accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    <filter id="sb-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="url(#sb-bg-grad)" filter="url(#sb-shadow)"/>
+  <path d="M 256 128 L 416 208 L 256 288 L 96 208 Z" fill="#FFFFFF" opacity="0.95"/>
+  <path d="M 160 248 L 160 320 C 160 352, 352 352, 352 320 L 352 248" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round"/>
+  <path d="M 140 352 C 200 336, 240 352, 256 368 C 272 352, 312 336, 372 352 L 372 384 C 312 368, 272 384, 256 400 C 240 384, 200 368, 140 384 Z" fill="url(#sb-accent-grad)"/>
+  <circle cx="416" cy="208" r="12" fill="url(#sb-accent-grad)"/>
+  <path d="M 416 208 L 416 304" stroke="url(#sb-accent-grad)" stroke-width="12" stroke-linecap="round"/>
+</svg>
