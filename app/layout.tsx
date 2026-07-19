@@ -26,6 +26,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://study-buddy-kkw.vercel.app"),
   title: "Study Buddy KKW - K.K. Wagh Engineering Study Hub",
   description: "One hub for every note, PYQ, and resource K.K. Wagh students actually need.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
