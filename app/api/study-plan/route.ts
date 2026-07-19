@@ -105,10 +105,9 @@ Rules:
     const genAI = new GoogleGenerativeAI(apiKey);
     const candidateModels = [
       "gemini-2.0-flash",
-      "gemini-1.5-flash-latest",
+      "gemini-2.0-flash-lite",
       "gemini-1.5-flash",
       "gemini-1.5-pro",
-      "gemini-pro",
     ];
 
     let text: string | null = null;
@@ -123,13 +122,17 @@ Rules:
           text = candidateText;
           break;
         }
-      } catch (err) {
+      } catch (err: any) {
         lastError = err;
-        console.warn(`Model ${modelName} failed, trying next candidate...`, err);
+        console.warn(`Model ${modelName} failed:`, err.message || err);
       }
     }
 
     if (!text) {
+      const errMsg = lastError instanceof Error ? lastError.message : String(lastError);
+      if (errMsg.includes("429") || errMsg.includes("Quota") || errMsg.includes("quota")) {
+        throw new Error("Gemini API quota exceeded or not enabled for this API key. Please generate a new key at aistudio.google.com/app/apikey.");
+      }
       throw lastError || new Error("All Gemini model candidates failed.");
     }
 
