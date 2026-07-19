@@ -140,12 +140,13 @@ export default function ContactPage() {
 
               {/* Right Avatar / Innovator Image Card */}
               <div className="lg:col-span-4 flex items-center justify-center">
-                <div className="relative w-56 h-64 sm:w-64 sm:h-72 rounded-3xl p-1 bg-gradient-to-tr from-primary via-blue-500 to-amber-400 shadow-2xl overflow-hidden group">
+                <div className="p-1 rounded-3xl bg-gradient-to-tr from-primary via-blue-500 to-amber-400 shadow-xl overflow-hidden shrink-0">
                   <Image
                     src="/sanket-chaudhari.jpeg"
                     alt="Sanket Chaudhari"
-                    fill
-                    className="object-cover rounded-[22px] group-hover:scale-105 transition-transform duration-300"
+                    width={260}
+                    height={320}
+                    className="w-full max-w-[260px] h-[320px] object-cover rounded-[22px] hover:scale-[1.02] transition-transform duration-300"
                     priority
                   />
                 </div>
