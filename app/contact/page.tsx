@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { 
   Mail, 
   MessageSquare, 
@@ -137,20 +138,17 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Right Avatar Card */}
-              <div className="lg:col-span-4 flex flex-col items-center justify-center text-center">
-                <div className="relative w-44 h-44 rounded-3xl p-1 bg-gradient-to-tr from-primary via-blue-500 to-amber-400 shadow-2xl overflow-hidden group">
-                  <div className="w-full h-full rounded-[22px] bg-surface-container-high dark:bg-inverse-surface flex items-center justify-center text-primary dark:text-primary-fixed-dim font-sora font-bold text-4xl shadow-inner">
-                    SC
-                  </div>
+              {/* Right Avatar / Innovator Image Card */}
+              <div className="lg:col-span-4 flex items-center justify-center">
+                <div className="relative w-56 h-64 sm:w-64 sm:h-72 rounded-3xl p-1 bg-gradient-to-tr from-primary via-blue-500 to-amber-400 shadow-2xl overflow-hidden group">
+                  <Image
+                    src="/sanket-chaudhari.jpeg"
+                    alt="Sanket Chaudhari"
+                    fill
+                    className="object-cover rounded-[22px] group-hover:scale-105 transition-transform duration-300"
+                    priority
+                  />
                 </div>
-
-                <a
-                  href="mailto:Studybuddykkw@gmail.com"
-                  className="mt-6 w-full py-3 px-4 rounded-xl bg-primary text-white font-sora font-semibold text-body-sm hover:bg-primary/90 transition-colors shadow-md flex items-center justify-center gap-2"
-                >
-                  <Mail size={16} /> Get in Touch
-                </a>
               </div>
             </div>
           </section>
