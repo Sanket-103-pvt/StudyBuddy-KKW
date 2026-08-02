@@ -67,21 +67,22 @@ export default function Home() {
 
         {/* Hero Section */}
         <section className="text-center max-w-3xl mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2 bg-surface-container dark:bg-inverse-surface px-3.5 py-1 rounded-full text-label-mono font-mono text-text-secondary-light dark:text-text-secondary-dark mb-6 border border-border-light dark:border-border-dark transition-colors">
-            <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
-            400+ students use this every year
+          <div className="inline-flex items-center gap-2.5 bg-surface-container/80 dark:bg-inverse-surface/80 px-4 py-1.5 rounded-full text-label-mono font-mono text-text-secondary-light dark:text-text-secondary-dark mb-6 border border-border-light dark:border-border-dark backdrop-blur-xs shadow-xs">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span>400+ K.K. Wagh students use this every year</span>
           </div>
-          
-          <h1 className="font-sora font-bold text-headline-lg md:text-headline-xl text-on-surface dark:text-text-primary-dark mb-4 tracking-tight">
-            Find your notes in seconds
+
+          <h1 className="font-sora font-extrabold text-headline-lg md:text-headline-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-blue-300 dark:to-indigo-300 mb-4 tracking-tight leading-tight">
+            Find your engineering notes in seconds
           </h1>
-          
-          <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl mx-auto">
-            One hub for every note, PYQ, and resource K.K. Wagh students actually need.
+
+          <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-xl mx-auto leading-relaxed">
+            One hub for verified syllabus notes, solved PYQs, SGPA calculator, and AI study planners for KKWIEER.
           </p>
-          
+
           <SearchBar />
         </section>
+
 
         <QuickToolsGrid />
 

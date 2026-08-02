@@ -147,15 +147,27 @@ export default function SearchBar() {
     }
   };
 
+  // Global Ctrl+K / Cmd+K listener to focus search input
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+  }, []);
+
   const hasResults = subjectResults.length > 0 || resourceResults.length > 0;
 
   return (
     <div ref={searchRef} className="relative w-full max-w-2xl mx-auto z-40">
-      {/* Search Input Box */}
-      <div className="relative">
+      {/* Search Input Box — Command Palette Style */}
+      <div className="relative shadow-md hover:shadow-lg transition-shadow rounded-2xl">
         <Search
           className="absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark"
-          size={20}
+          size={22}
         />
         <input
           ref={inputRef}
@@ -164,24 +176,29 @@ export default function SearchBar() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => query.trim() !== "" && setIsOpen(true)}
-          placeholder="Search subjects, notes, PYQs, resources..."
-          className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-border-light dark:border-border-dark shadow-sm focus:ring-2 focus:ring-primary dark:focus:ring-primary-fixed focus:border-primary dark:focus:border-primary-fixed bg-surface-container-lowest dark:bg-bg-dark text-body-lg text-on-surface dark:text-text-primary-dark transition-all outline-none"
+          placeholder="Search subjects, notes, PYQs, unit resources..."
+          className="w-full pl-12 pr-24 py-4 rounded-2xl border border-border-light dark:border-border-dark focus:ring-4 focus:ring-blue-500/20 focus:border-blue-600 dark:focus:border-blue-400 bg-surface-container-lowest dark:bg-bg-dark text-body-lg font-medium text-on-surface dark:text-text-primary-dark transition-all outline-none"
         />
 
-        {query && (
+        {query ? (
           <button
             onClick={() => {
               setQuery("");
               setSubjectResults([]);
               setResourceResults([]);
             }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark hover:text-on-surface dark:hover:text-text-primary-dark"
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-on-surface dark:hover:text-text-primary-dark hover:bg-surface-container transition-colors"
             aria-label="Clear search"
           >
             <X size={18} />
           </button>
+        ) : (
+          <kbd className="hidden sm:inline-flex items-center gap-1 absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-surface-container dark:bg-inverse-surface border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark pointer-events-none shadow-xs">
+            Ctrl + K
+          </kbd>
         )}
       </div>
+
 
       {/* Floating Results Dropdown */}
       {isOpen && (
