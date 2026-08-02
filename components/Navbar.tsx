@@ -10,6 +10,7 @@ import {
   Info, 
   Sun, 
   Moon,
+  Contrast,
   MessageSquare,
   BarChart2,
   Calculator
@@ -17,15 +18,48 @@ import {
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
 import { formatYearTitle, formatShortYear } from "@/lib/year-utils";
+import { useToast } from "@/components/ToastProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const toast = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
+
   React.useEffect(() => {
     setMounted(true);
-  }, []);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.shiftKey && e.key.toLowerCase() === "h") {
+        e.preventDefault();
+        setTheme((prevTheme) => {
+          const next = prevTheme === "high-contrast" ? "dark" : "high-contrast";
+          if (next === "high-contrast") {
+            toast.success("High Contrast Accessibility Mode Enabled 👁️ (Alt+Shift+H)");
+          } else {
+             toast.info("High Contrast Mode Disabled");
+          }
+          return next;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [setTheme, toast]);
+
+  const cycleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else if (theme === "dark") {
+      setTheme("high-contrast");
+      toast.success("Switched to High Contrast Theme 👁️");
+    } else {
+      setTheme("light");
+    }
+  };
+
 
   const yearKeys = Object.keys(indexData);
 
@@ -92,14 +126,29 @@ export default function Navbar() {
 
           {/* Actions: Theme Switcher & GitHub Icon */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle Button */}
+            {/* Theme Toggle Button (Light -> Dark -> High Contrast -> Light) */}
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={cycleTheme}
               className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
-              aria-label={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              title="Toggle Theme: Light / Dark / High Contrast (Alt+Shift+H)"
+              aria-label={
+                mounted
+                  ? theme === "high-contrast"
+                    ? "Switch to Light Mode"
+                    : theme === "dark"
+                    ? "Switch to High Contrast Mode"
+                    : "Switch to Dark Mode"
+                  : "Toggle Theme"
+              }
             >
               {mounted ? (
-                theme === "dark" ? <Sun size={20} /> : <Moon size={20} />
+                theme === "high-contrast" ? (
+                  <Contrast size={20} className="text-amber-400 font-bold" />
+                ) : theme === "dark" ? (
+                  <Moon size={20} />
+                ) : (
+                  <Sun size={20} />
+                )
               ) : (
                 <div className="w-5 h-5 rounded-full bg-surface-container dark:bg-inverse-surface animate-pulse" />
               )}
