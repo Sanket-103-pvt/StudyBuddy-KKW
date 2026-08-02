@@ -83,7 +83,7 @@ export default function Navbar() {
   const navLinks: NavItem[] = [
     { name: "Home", href: "/", icon: Home },
     ...dynamicYearNavLinks,
-    { name: "Calculator", href: "/calculator", icon: Calculator },
+    { name: "SGPA / CGPA Calculator", shortName: "CGPA Calc", href: "/calculator", icon: Calculator },
     { name: "Analytics", href: "/analytics", icon: BarChart2 },
     { name: "About", href: "/about", icon: Info },
     { name: "Contact", href: "/contact", icon: MessageSquare },
@@ -93,17 +93,18 @@ export default function Navbar() {
   return (
     <>
       {/* Top Header/Navbar for Desktop */}
-      <nav className="bg-surface-container-lowest dark:bg-bg-dark w-full sticky top-0 border-b border-border-light dark:border-border-dark shadow-sm z-50 transition-colors">
+      <nav className="bg-white/90 dark:bg-bg-dark/90 backdrop-blur-md w-full sticky top-0 border-b border-border-light/80 dark:border-border-dark/80 shadow-xs z-50 transition-colors">
         <div className="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-primary-container flex items-center justify-center text-white font-sora font-bold text-lg shadow-sm">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-sora font-bold text-base shadow-xs">
               SB
             </div>
-            <span className="font-sora text-headline-sm font-bold text-primary dark:text-primary-fixed-dim hidden sm:block">
+            <span className="font-sora text-headline-sm font-bold text-primary dark:text-primary-fixed-dim hidden sm:block tracking-tight">
               Study Buddy KKW
             </span>
           </Link>
+
 
           {/* Navigation Links - Desktop Only */}
           <ul className="hidden md:flex items-center gap-6">
