@@ -101,7 +101,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-bg-light text-on-surface dark:bg-bg-dark dark:text-text-primary-dark`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem themes={["light", "dark", "high-contrast", "system"]}>
           <ToastProvider>
             {children}
             <BackToTop />
