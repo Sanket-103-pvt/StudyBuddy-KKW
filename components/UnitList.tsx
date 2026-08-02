@@ -11,11 +11,14 @@ import {
   ChevronUp, 
   ExternalLink,
   Copy,
-  Check
+  Check,
+  CheckCircle2
 } from "lucide-react";
 import { YoutubeIcon } from "@/components/icons";
 import { isStale, isNew } from "@/lib/date-utils";
 import { useToast } from "@/components/ToastProvider";
+import { useSyllabusProgress } from "@/hooks/useSyllabusProgress";
+
 
 interface Resource {
   label: string;
@@ -112,6 +115,13 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
   const [activePreviewUrl, setActivePreviewUrl] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
+  const {
+    isUnitCompleted,
+    isResourceCompleted,
+    toggleUnitCompletion,
+    toggleResourceCompletion,
+  } = useSyllabusProgress(subjectId, units.length, subjectName, year);
+
   useEffect(() => {
     setMounted(true);
     // Load bookmarks from localStorage
@@ -180,33 +190,75 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
         {units.map((unit) => {
           const isOpen = openUnits[unit.unitNumber];
           const hasResources = unit.resources && unit.resources.length > 0;
+          const unitDone = isUnitCompleted(unit.unitNumber);
 
           return (
             <div 
               key={unit.unitNumber}
-              className="bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-xl overflow-hidden transition-colors"
+              className={`bg-surface-container-lowest dark:bg-bg-dark border rounded-xl overflow-hidden transition-colors ${
+                unitDone ? "border-emerald-300 dark:border-emerald-800/60" : "border-border-light dark:border-border-dark"
+              }`}
             >
               {/* Accordion Header */}
-              <button
-                onClick={() => toggleUnit(unit.unitNumber)}
-                className="w-full px-6 py-4 flex justify-between items-center text-left hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-label-mono text-primary dark:text-primary-fixed-dim bg-primary-fixed dark:bg-inverse-surface px-2.5 py-1 rounded-md">
-                    Unit {unit.unitNumber}
-                  </span>
-                  <h4 className="font-sora font-semibold text-body-md text-on-surface dark:text-text-primary-dark">
-                    {unit.title}
-                  </h4>
+              <div className="w-full px-6 py-4 flex justify-between items-center text-left hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors">
+                <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                  {/* Unit completion checkmark button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const isNowDone = toggleUnitCompletion(unit.unitNumber, unit.resources || []);
+                      if (isNowDone) {
+                        toast.success(`Unit ${unit.unitNumber} marked as completed! 🎉`);
+                      } else {
+                        toast.info(`Unit ${unit.unitNumber} marked incomplete`);
+                      }
+                    }}
+                    className={`p-1 rounded-lg transition-all ${
+                      unitDone
+                        ? "text-emerald-500 hover:text-emerald-600 dark:text-emerald-400"
+                        : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
+                    }`}
+                    title={unitDone ? "Mark Unit Incomplete" : "Mark Unit Completed"}
+                    aria-label={`Toggle Unit ${unit.unitNumber} completion`}
+                  >
+                    <CheckCircle2
+                      size={22}
+                      className={unitDone ? "fill-emerald-500/20 text-emerald-500" : ""}
+                    />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleUnit(unit.unitNumber)}
+                    className="flex items-center gap-3 text-left flex-1 min-w-0"
+                  >
+                    <span className={`font-mono text-label-mono px-2.5 py-1 rounded-md shrink-0 ${
+                      unitDone
+                        ? "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300"
+                        : "text-primary dark:text-primary-fixed-dim bg-primary-fixed dark:bg-inverse-surface"
+                    }`}>
+                      Unit {unit.unitNumber}
+                    </span>
+                    <h4 className={`font-sora font-semibold text-body-md truncate ${
+                      unitDone ? "line-through text-text-secondary-light dark:text-text-secondary-dark" : "text-on-surface dark:text-text-primary-dark"
+                    }`}>
+                      {unit.title}
+                    </h4>
+                  </button>
                 </div>
                 
-                <div className="flex items-center gap-3 text-text-secondary-light dark:text-text-secondary-dark">
+                <button
+                  type="button"
+                  onClick={() => toggleUnit(unit.unitNumber)}
+                  className="flex items-center gap-3 text-text-secondary-light dark:text-text-secondary-dark ml-2 shrink-0"
+                >
                   <span className="text-body-sm hidden sm:inline">
                     {hasResources ? `${unit.resources.length} resources` : "No resources"}
                   </span>
                   {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                </div>
-              </button>
+                </button>
+              </div>
 
               {/* Accordion Content */}
               {isOpen && (
@@ -215,31 +267,62 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                     unit.resources.map((res, idx) => {
                       const isPreviewOpen = activePreviewUrl === res.url;
                       const isFile = res.type === "file";
+                      const resDone = isResourceCompleted(res.url);
+
                       return (
                         <div key={idx} className="py-3.5 border-b border-border-light dark:border-border-dark last:border-0">
                           <div className="flex justify-between items-center hover:bg-surface-container-lowest dark:hover:bg-bg-dark transition-all py-1">
-                            <a
-                              href={res.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-3 text-body-md text-on-surface dark:text-text-primary-dark hover:text-primary dark:hover:text-primary-fixed-dim font-medium transition-colors"
-                            >
-                              {getResourceIcon(res.type)}
-                              <span>{res.label}</span>
-                              {isNew(res.lastUpdated) && (
-                                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50">
-                                  New
-                                </span>
-                              )}
-                              {isStale(res.lastUpdated) && (
-                                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50">
-                                  May be outdated
-                                </span>
-                              )}
-                              <ExternalLink size={14} className="opacity-40" />
-                            </a>
+                            <div className="flex items-center gap-3 min-w-0">
+                              {/* Resource Checkmark Button */}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const isNowDone = toggleResourceCompletion(res.url, unit.unitNumber, unit.resources || []);
+                                  if (isNowDone) {
+                                    toast.success(`Marked "${res.label}" completed! ✅`);
+                                  } else {
+                                    toast.info(`Marked "${res.label}" incomplete`);
+                                  }
+                                }}
+                                className={`p-1 rounded-md transition-all shrink-0 ${
+                                  resDone
+                                    ? "text-emerald-500 dark:text-emerald-400"
+                                    : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
+                                }`}
+                                title={resDone ? "Mark Incomplete" : "Mark Completed"}
+                                aria-label={`Toggle resource ${res.label} completion`}
+                              >
+                                <CheckCircle2
+                                  size={18}
+                                  className={resDone ? "fill-emerald-500/20 text-emerald-500" : ""}
+                                />
+                              </button>
 
-                            <div className="flex items-center gap-2 sm:gap-3">
+                              <a
+                                href={res.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`flex items-center gap-2.5 text-body-md hover:text-primary dark:hover:text-primary-fixed-dim font-medium transition-colors truncate ${
+                                  resDone ? "line-through text-text-secondary-light dark:text-text-secondary-dark" : "text-on-surface dark:text-text-primary-dark"
+                                }`}
+                              >
+                                {getResourceIcon(res.type)}
+                                <span className="truncate">{res.label}</span>
+                                {isNew(res.lastUpdated) && (
+                                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 shrink-0">
+                                    New
+                                  </span>
+                                )}
+                                {isStale(res.lastUpdated) && (
+                                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50 shrink-0">
+                                    May be outdated
+                                  </span>
+                                )}
+                                <ExternalLink size={14} className="opacity-40 shrink-0" />
+                              </a>
+                            </div>
+
+                            <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2">
                               {isFile && (
                                 <button
                                   onClick={() => setActivePreviewUrl(isPreviewOpen ? null : res.url)}
@@ -315,19 +398,50 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
             {bonus.map((res, idx) => {
               const isPreviewOpen = activePreviewUrl === res.url;
               const isFile = res.type === "file";
+              const resDone = isResourceCompleted(res.url);
+
               return (
                 <div key={idx} className="py-3.5 border-b border-border-light dark:border-border-dark last:border-0">
                   <div className="flex justify-between items-center py-1">
-                    <a
-                      href={res.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-body-md text-on-surface dark:text-text-primary-dark hover:text-primary dark:hover:text-primary-fixed-dim font-medium transition-colors"
-                    >
-                      {getResourceIcon(res.type)}
-                      <span>{res.label}</span>
-                      <ExternalLink size={14} className="opacity-40" />
-                    </a>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const isNowDone = toggleResourceCompletion(res.url);
+                          if (isNowDone) {
+                            toast.success(`Marked "${res.label}" completed! ✅`);
+                          } else {
+                            toast.info(`Marked "${res.label}" incomplete`);
+                          }
+                        }}
+                        className={`p-1 rounded-md transition-all shrink-0 ${
+                          resDone
+                            ? "text-emerald-500 dark:text-emerald-400"
+                            : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
+                        }`}
+                        title={resDone ? "Mark Incomplete" : "Mark Completed"}
+                        aria-label={`Toggle resource ${res.label} completion`}
+                      >
+                        <CheckCircle2
+                          size={18}
+                          className={resDone ? "fill-emerald-500/20 text-emerald-500" : ""}
+                        />
+                      </button>
+
+                      <a
+                        href={res.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2.5 text-body-md hover:text-primary dark:hover:text-primary-fixed-dim font-medium transition-colors truncate ${
+                          resDone ? "line-through text-text-secondary-light dark:text-text-secondary-dark" : "text-on-surface dark:text-text-primary-dark"
+                        }`}
+                      >
+                        {getResourceIcon(res.type)}
+                        <span className="truncate">{res.label}</span>
+                        <ExternalLink size={14} className="opacity-40 shrink-0" />
+                      </a>
+                    </div>
+
 
                     <div className="flex items-center gap-2 sm:gap-3">
                       {isFile && (
