@@ -102,5 +102,47 @@
       ]
     }
   ],
-  "bonus": []
+  "bonus": [],
+  "quizzes": [
+    {
+      "id": "dsa-q1",
+      "unitNumber": 1,
+      "question": "What is the worst-case time complexity for accessing an element in a Singly Linked List?",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+      "correctIndex": 2,
+      "explanation": "In a singly linked list, accessing an element requires traversing from the head pointer up to the target index, resulting in O(n) worst-case time complexity."
+    },
+    {
+      "id": "dsa-q2",
+      "unitNumber": 2,
+      "question": "Which data structure operates on a LIFO (Last In First Out) principle?",
+      "options": ["Queue", "Stack", "Heap", "Tree"],
+      "correctIndex": 1,
+      "explanation": "A Stack works on LIFO principle where the last element inserted is the first one to be popped out."
+    },
+    {
+      "id": "dsa-q3",
+      "unitNumber": 3,
+      "question": "What is the maximum number of nodes at level 'L' of a binary tree (assuming root is at level 0)?",
+      "options": ["2^L", "2^(L+1)", "2L", "L^2"],
+      "correctIndex": 0,
+      "explanation": "At level L (0-indexed), a binary tree can have up to 2^L nodes."
+    },
+    {
+      "id": "dsa-q4",
+      "unitNumber": 4,
+      "question": "Which algorithm is used to find the shortest path in a weighted graph with non-negative edge weights?",
+      "options": ["Prim's Algorithm", "Kruskal's Algorithm", "Dijkstra's Algorithm", "Bellman-Ford Algorithm"],
+      "correctIndex": 2,
+      "explanation": "Dijkstra's algorithm efficiently computes single-source shortest paths in graphs with non-negative edge weights."
+    },
+    {
+      "id": "dsa-q5",
+      "unitNumber": 5,
+      "question": "What is the average-case time complexity of Quick Sort?",
+      "options": ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+      "correctIndex": 1,
+      "explanation": "Quick Sort has an average-case performance of O(n log n) when the pivot divides the array into reasonably balanced partitions."
+    }
+  ]
 }

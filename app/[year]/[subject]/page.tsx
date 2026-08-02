@@ -4,8 +4,9 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, HelpCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
 import SubjectViewTracker from "@/components/SubjectViewTracker";
@@ -180,13 +181,23 @@ export default async function SubjectPage({ params }: PageProps) {
               subjectName={subjectData.name}
               year={year}
             />
-            <div className="flex flex-col items-start sm:items-end gap-2">
-              <StudyAssistantButton
-                subjectId={subjectData.id}
-                subjectName={subjectData.name}
-                year={year}
-              />
+            <div className="flex flex-col items-start sm:items-end gap-2.5">
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/${year}/${subject}/quiz`}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sora font-semibold text-body-sm shadow-sm transition-all active:scale-95"
+                >
+                  <HelpCircle size={16} />
+                  Practice Quiz 📝
+                </Link>
+                <StudyAssistantButton
+                  subjectId={subjectData.id}
+                  subjectName={subjectData.name}
+                  year={year}
+                />
+              </div>
               <div className="font-inter text-[12px] text-text-secondary-light dark:text-text-secondary-dark">
+
                 Last updated:{" "}
                 <span className="font-medium text-on-surface dark:text-text-primary-dark">
                   {new Date(subjectData.lastUpdated).toLocaleDateString("en-US", {
