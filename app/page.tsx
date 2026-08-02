@@ -9,6 +9,7 @@ import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import indexData from "@/content/index.json";
 import { formatYearTitle } from "@/lib/year-utils";
+import { useToast } from "@/components/ToastProvider";
 
 interface BookmarkedResource {
   label: string;
@@ -20,6 +21,7 @@ interface BookmarkedResource {
 }
 
 export default function Home() {
+  const toast = useToast();
   const [bookmarks, setBookmarks] = useState<BookmarkedResource[]>([]);
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function Home() {
     }
   }, []);
 
-  const removeBookmark = (url: string) => {
+  const removeBookmark = (url: string, label?: string) => {
     const savedUrls = localStorage.getItem("sb_bookmarks");
     if (savedUrls) {
       const urls: string[] = JSON.parse(savedUrls);
@@ -48,6 +50,7 @@ export default function Home() {
       localStorage.setItem("sb_bookmarks", JSON.stringify(updated));
       localStorage.removeItem(`sb_bm_meta_${url}`);
       setBookmarks(bookmarks.filter(b => b.url !== url));
+      toast.info(`Unpinned "${label || "Resource"}" ⭐`);
     }
   };
 
@@ -116,9 +119,10 @@ export default function Home() {
                     </Link>
                     
                     <button 
-                      onClick={() => removeBookmark(bm.url)}
-                      className="text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 transition-colors"
+                      onClick={() => removeBookmark(bm.url, bm.label)}
+                      className="p-1 rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 transition-all duration-200 active:scale-90 hover:scale-110"
                       aria-label="Remove pin"
+                      title="Unpin resource"
                     >
                       <Star size={16} fill="currentColor" className="text-amber-500 hover:text-red-500" />
                     </button>

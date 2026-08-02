@@ -9,10 +9,13 @@ import {
   Star, 
   ChevronDown, 
   ChevronUp, 
-  ExternalLink 
+  ExternalLink,
+  Copy,
+  Check
 } from "lucide-react";
 import { YoutubeIcon } from "@/components/icons";
 import { isStale, isNew } from "@/lib/date-utils";
+import { useToast } from "@/components/ToastProvider";
 
 interface Resource {
   label: string;
@@ -102,9 +105,11 @@ function PdfPreviewBox({ url, label }: { url: string; label: string }) {
 }
 
 export default function UnitList({ subjectId, subjectName, year, units, bonus }: UnitListProps) {
+  const toast = useToast();
   const [openUnits, setOpenUnits] = useState<Record<number, boolean>>({ 1: true });
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activePreviewUrl, setActivePreviewUrl] = useState<string | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
   useEffect(() => {
     // Load bookmarks from localStorage
@@ -124,11 +129,10 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
     let updated;
     if (isBookmarked(resource.url)) {
       updated = bookmarks.filter(b => b !== resource.url);
-      // Remove metadata as well
       localStorage.removeItem(`sb_bm_meta_${resource.url}`);
+      toast.info(`Unpinned "${resource.label}" ⭐`);
     } else {
       updated = [...bookmarks, resource.url];
-      // Save metadata for easy retrieval on the home page
       localStorage.setItem(`sb_bm_meta_${resource.url}`, JSON.stringify({
         label: resource.label,
         url: resource.url,
@@ -137,9 +141,21 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
         subjectName,
         year,
       }));
+      toast.success(`Pinned "${resource.label}" to Pinned Resources ⭐`);
     }
     setBookmarks(updated);
     localStorage.setItem("sb_bookmarks", JSON.stringify(updated));
+  };
+
+  const copyLink = (url: string, label: string) => {
+    try {
+      navigator.clipboard.writeText(url);
+      setCopiedUrl(url);
+      toast.success(`Link for "${label}" copied to clipboard! 📋`);
+      setTimeout(() => setCopiedUrl(null), 2000);
+    } catch {
+      toast.error("Failed to copy link to clipboard.");
+    }
   };
 
   const getResourceIcon = (type: string) => {
@@ -221,11 +237,11 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                               <ExternalLink size={14} className="opacity-40" />
                             </a>
 
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 sm:gap-3">
                               {isFile && (
                                 <button
                                   onClick={() => setActivePreviewUrl(isPreviewOpen ? null : res.url)}
-                                  className="text-[12px] font-semibold text-primary dark:text-primary-fixed-dim hover:underline px-2.5 py-1 rounded bg-primary/10 dark:bg-inverse-surface transition-colors"
+                                  className="text-[12px] font-semibold text-primary dark:text-primary-fixed-dim hover:underline px-2.5 py-1 rounded bg-primary/10 dark:bg-inverse-surface transition-all active:scale-95 hover:scale-105"
                                 >
                                   {isPreviewOpen ? "Hide Preview" : "Preview"}
                                 </button>
@@ -238,15 +254,29 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                               )}
                               
                               <button
+                                onClick={() => copyLink(res.url, res.label)}
+                                className="p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
+                                title="Copy resource link"
+                                aria-label="Copy link"
+                              >
+                                {copiedUrl === res.url ? (
+                                  <Check size={16} className="text-emerald-500 animate-bounce" />
+                                ) : (
+                                  <Copy size={16} />
+                                )}
+                              </button>
+
+                              <button
                                 onClick={() => toggleBookmark(res)}
-                                className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors ${
+                                className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
                                   isBookmarked(res.url) 
                                     ? "text-amber-500" 
                                     : "text-text-secondary-light dark:text-text-secondary-dark hover:text-amber-500"
                                 }`}
                                 aria-label="Bookmark resource"
+                                title={isBookmarked(res.url) ? "Unpin resource" : "Pin resource"}
                               >
-                                <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} />
+                                <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} className={isBookmarked(res.url) ? "scale-105" : ""} />
                               </button>
                             </div>
                           </div>
@@ -297,26 +327,40 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                       <ExternalLink size={14} className="opacity-40" />
                     </a>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {isFile && (
                         <button
                           onClick={() => setActivePreviewUrl(isPreviewOpen ? null : res.url)}
-                          className="text-[12px] font-semibold text-primary dark:text-primary-fixed-dim hover:underline px-2.5 py-1 rounded bg-primary/10 dark:bg-inverse-surface transition-colors"
+                          className="text-[12px] font-semibold text-primary dark:text-primary-fixed-dim hover:underline px-2.5 py-1 rounded bg-primary/10 dark:bg-inverse-surface transition-all active:scale-95 hover:scale-105"
                         >
                           {isPreviewOpen ? "Hide Preview" : "Preview"}
                         </button>
                       )}
 
                       <button
+                        onClick={() => copyLink(res.url, res.label)}
+                        className="p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
+                        title="Copy resource link"
+                        aria-label="Copy link"
+                      >
+                        {copiedUrl === res.url ? (
+                          <Check size={16} className="text-emerald-500 animate-bounce" />
+                        ) : (
+                          <Copy size={16} />
+                        )}
+                      </button>
+
+                      <button
                         onClick={() => toggleBookmark(res)}
-                        className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors ${
+                        className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
                           isBookmarked(res.url) 
                             ? "text-amber-500" 
                             : "text-text-secondary-light dark:text-text-secondary-dark hover:text-amber-500"
                         }`}
                         aria-label="Bookmark resource"
+                        title={isBookmarked(res.url) ? "Unpin resource" : "Pin resource"}
                       >
-                        <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} />
+                        <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} className={isBookmarked(res.url) ? "scale-105" : ""} />
                       </button>
                     </div>
                   </div>

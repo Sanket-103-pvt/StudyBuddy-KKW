@@ -6,13 +6,20 @@ import { Clock, Trash2, ArrowRight } from "lucide-react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { getRelativeTime } from "@/lib/date-utils";
 import { formatYearTitle } from "@/lib/year-utils";
+import { useToast } from "@/components/ToastProvider";
 
 export default function RecentlyViewed() {
+  const toast = useToast();
   const { history, clearHistory } = useRecentlyViewed();
 
   if (!history || history.length === 0) {
     return null;
   }
+
+  const handleClear = () => {
+    clearHistory();
+    toast.info("Recently viewed history cleared 🗑️");
+  };
 
   return (
     <section className="w-full max-w-5xl mb-12">
@@ -22,8 +29,8 @@ export default function RecentlyViewed() {
           Recently Viewed
         </h2>
         <button
-          onClick={clearHistory}
-          className="text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 transition-colors flex items-center gap-1 font-medium"
+          onClick={handleClear}
+          className="text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 transition-all duration-150 active:scale-95 hover:scale-105 flex items-center gap-1 font-medium px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20"
         >
           <Trash2 size={14} /> Clear
         </button>
