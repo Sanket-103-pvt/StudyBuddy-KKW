@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { 
   Mail, 
@@ -7,13 +9,29 @@ import {
   Globe, 
   Sparkles,
   Code2,
-  ExternalLink
+  ExternalLink,
+  Copy,
+  Check
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useToast } from "@/components/ToastProvider";
 
 export default function ContactPage() {
+  const toast = useToast();
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const copyEmail = () => {
+    try {
+      navigator.clipboard.writeText("Studybuddykkw@gmail.com");
+      setCopiedEmail(true);
+      toast.success("Email address copied to clipboard! 📧");
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } catch {
+      toast.error("Failed to copy email address.");
+    }
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -168,12 +186,22 @@ export default function ContactPage() {
                 <p className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark mb-3">
                   Send notes, drive folders, PYQ papers, or platform inquiries directly.
                 </p>
-                <a 
-                  href="mailto:Studybuddykkw@gmail.com" 
-                  className="font-mono font-medium text-body-sm text-primary dark:text-primary-fixed-dim hover:underline"
-                >
-                  Studybuddykkw@gmail.com
-                </a>
+                <div className="flex items-center gap-2">
+                  <a 
+                    href="mailto:Studybuddykkw@gmail.com" 
+                    className="font-mono font-medium text-body-sm text-primary dark:text-primary-fixed-dim hover:underline"
+                  >
+                    Studybuddykkw@gmail.com
+                  </a>
+                  <button
+                    onClick={copyEmail}
+                    className="p-1.5 rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
+                    title="Copy email address"
+                    aria-label="Copy email"
+                  >
+                    {copiedEmail ? <Check size={14} className="text-emerald-500 animate-bounce" /> : <Copy size={14} />}
+                  </button>
+                </div>
               </div>
             </div>
 

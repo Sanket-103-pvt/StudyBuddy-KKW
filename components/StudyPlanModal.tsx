@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { X, Sparkles, Calendar, CheckSquare, Loader2, AlertCircle, RefreshCw, Lightbulb, Target } from "lucide-react";
+import { useToast } from "@/components/ToastProvider";
 
 interface DailyItem {
   day: number;
@@ -34,6 +35,7 @@ export default function StudyPlanModal({
   isOpen,
   onClose,
 }: StudyPlanModalProps) {
+  const toast = useToast();
   const todayStr = new Date().toISOString().split("T")[0];
   const [examDate, setExamDate] = useState("");
   const [completedUnits, setCompletedUnits] = useState<number[]>([]);
@@ -53,6 +55,7 @@ export default function StudyPlanModal({
     e.preventDefault();
     if (!examDate) {
       setError("Please select your target exam date.");
+      toast.warning("Please select your target exam date.");
       return;
     }
 
@@ -79,9 +82,11 @@ export default function StudyPlanModal({
       }
 
       setPlan(data);
+      toast.success("AI Study Plan generated successfully! 🤖✨");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
       setError(msg);
+      toast.error(msg || "Failed to generate AI study plan.");
     } finally {
       setLoading(false);
     }

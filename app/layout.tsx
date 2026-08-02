@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ToastProvider } from "@/components/ToastProvider";
 import BackToTop from "@/components/BackToTop";
 
 const inter = Inter({
@@ -79,8 +80,10 @@ export default function RootLayout({
         className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-bg-light text-on-surface dark:bg-bg-dark dark:text-text-primary-dark`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <BackToTop />
+          <ToastProvider>
+            {children}
+            <BackToTop />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
