@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, BookOpen, FileText, ExternalLink } from "lucide-react";
-import { buildSearchIndex, type SearchResult } from "@/lib/search-index";
+import { buildSearchIndex, filterSearchIndex, type SearchResult } from "@/lib/search-index";
 import { formatShortYear } from "@/lib/year-utils";
 
 // Max results to show per section to keep dropdown scannable
@@ -20,12 +20,43 @@ export default function SearchBar() {
   const [subjectResults, setSubjectResults] = useState<SearchResult[]>([]);
   const [resourceResults, setResourceResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const workerRef = useRef<Worker | null>(null);
 
-  // Build index once (cached internally in lib/search-index.ts)
-  const searchIndex = React.useMemo(() => buildSearchIndex(), []);
+  // Initialize Web Worker for off-main-thread search indexing and querying
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof Worker !== "undefined") {
+      try {
+        const worker = new Worker("/workers/search.worker.js");
+        workerRef.current = worker;
+
+        // Post initialization message with statically built search index
+        const index = buildSearchIndex();
+        worker.postMessage({ type: "INIT", payload: index });
+
+        worker.onmessage = (e: MessageEvent) => {
+          const { type, payload } = e.data || {};
+          if (type === "SEARCH_RESULTS") {
+            const { subjects = [], resources = [] } = payload || {};
+            setSubjectResults(subjects);
+            setResourceResults(resources);
+            setIsLoading(false);
+            setSelectedIndex(-1);
+          }
+        };
+
+        return () => {
+          worker.terminate();
+          workerRef.current = null;
+        };
+      } catch (err) {
+        console.warn("Web Worker initialization failed, using main thread fallback:", err);
+      }
+    }
+  }, []);
 
   // Flat list of all results for keyboard navigation
   const allResults = [...subjectResults, ...resourceResults];
@@ -41,40 +72,49 @@ export default function SearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Run search when query changes
+  // Run search when query changes (via Web Worker or 200ms debounced fallback)
   useEffect(() => {
     if (query.trim() === "") {
       setSubjectResults([]);
       setResourceResults([]);
       setIsOpen(false);
+      setIsLoading(false);
       return;
     }
 
-    const q = query.toLowerCase();
-
-    const subjects: SearchResult[] = [];
-    const resources: SearchResult[] = [];
-
-    for (const item of searchIndex) {
-      if (item.type === "subject") {
-        if (item.subjectName.toLowerCase().includes(q)) {
-          subjects.push(item);
-        }
-      } else {
-        // Resource: match against label or subject name
-        const labelMatch = item.resourceLabel?.toLowerCase().includes(q);
-        const subjectMatch = item.subjectName.toLowerCase().includes(q);
-        if (labelMatch || subjectMatch) {
-          resources.push(item);
-        }
-      }
-    }
-
-    setSubjectResults(subjects.slice(0, MAX_SUBJECT_RESULTS));
-    setResourceResults(resources.slice(0, MAX_RESOURCE_RESULTS));
     setIsOpen(true);
-    setSelectedIndex(-1);
-  }, [query, searchIndex]);
+    setIsLoading(true);
+
+    if (workerRef.current) {
+      // Worker thread performs search with 200ms debounce
+      workerRef.current.postMessage({
+        type: "SEARCH",
+        payload: {
+          query,
+          maxSubjects: MAX_SUBJECT_RESULTS,
+          maxResources: MAX_RESOURCE_RESULTS,
+        },
+      });
+    } else {
+      // Main thread fallback with 200ms debounce
+      const timeout = setTimeout(() => {
+        const index = buildSearchIndex();
+        const { subjects, resources } = filterSearchIndex(
+          index,
+          query,
+          MAX_SUBJECT_RESULTS,
+          MAX_RESOURCE_RESULTS
+        );
+        setSubjectResults(subjects);
+        setResourceResults(resources);
+        setIsLoading(false);
+        setSelectedIndex(-1);
+      }, 200);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [query]);
+
 
   const handleSelect = (item: SearchResult) => {
     setQuery("");
@@ -146,8 +186,29 @@ export default function SearchBar() {
       {/* Floating Results Dropdown */}
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-xl shadow-lg max-h-96 overflow-y-auto">
-          {hasResults ? (
+          {isLoading ? (
+            /* ── Skeleton Loader State ── */
+            <div className="p-4 space-y-3" role="status" aria-label="Searching...">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-surface-container dark:bg-inverse-surface animate-pulse shrink-0" />
+                <div className="h-4 w-40 bg-surface-container dark:bg-inverse-surface rounded animate-pulse" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-surface-container dark:bg-inverse-surface animate-pulse shrink-0" />
+                <div className="h-4 w-56 bg-surface-container dark:bg-inverse-surface rounded animate-pulse" />
+              </div>
+              <div className="flex items-center gap-3 pt-2 border-t border-border-light dark:border-border-dark">
+                <div className="w-4 h-4 rounded bg-surface-container dark:bg-inverse-surface animate-pulse shrink-0" />
+                <div className="h-4 w-48 bg-surface-container dark:bg-inverse-surface rounded animate-pulse" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-surface-container dark:bg-inverse-surface animate-pulse shrink-0" />
+                <div className="h-4 w-32 bg-surface-container dark:bg-inverse-surface rounded animate-pulse" />
+              </div>
+            </div>
+          ) : hasResults ? (
             <>
+
               {/* ── Subjects Section ── */}
               {subjectResults.length > 0 && (
                 <div>

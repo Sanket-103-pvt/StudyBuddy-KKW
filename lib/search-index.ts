@@ -154,3 +154,38 @@ export function buildSearchIndex(): SearchResult[] {
   _cachedIndex = index;
   return index;
 }
+
+export function filterSearchIndex(
+  index: SearchResult[],
+  query: string,
+  maxSubjects = 4,
+  maxResources = 6
+): { subjects: SearchResult[]; resources: SearchResult[] } {
+  if (!query || query.trim() === "") {
+    return { subjects: [], resources: [] };
+  }
+  const q = query.toLowerCase().trim();
+  const subjects: SearchResult[] = [];
+  const resources: SearchResult[] = [];
+
+  for (const item of index) {
+    if (item.type === "subject") {
+      if (item.subjectName.toLowerCase().includes(q)) {
+        subjects.push(item);
+      }
+    } else {
+      const labelMatch = item.resourceLabel?.toLowerCase().includes(q);
+      const subjectMatch = item.subjectName.toLowerCase().includes(q);
+      const unitMatch = item.unitTitle?.toLowerCase().includes(q);
+      if (labelMatch || subjectMatch || unitMatch) {
+        resources.push(item);
+      }
+    }
+  }
+
+  return {
+    subjects: subjects.slice(0, maxSubjects),
+    resources: resources.slice(0, maxResources),
+  };
+}
+
