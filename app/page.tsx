@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -59,11 +58,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen w-full bg-bg-light dark:bg-bg-dark">
-      <Navbar />
+    <>
+      <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-8 md:py-12 max-w-container-max mx-auto w-full">
 
-      <div className="flex-1 flex flex-col min-w-0">
-        <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-8 md:py-12 max-w-container-max mx-auto w-full">
 
         {/* Hero Section */}
         <section className="text-center max-w-3xl mb-12 md:mb-16">
@@ -217,8 +214,7 @@ export default function Home() {
         </section>
       </main>
 
-        <Footer />
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }

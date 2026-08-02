@@ -3,13 +3,11 @@
 // while the async YearPage component is loading.
 
 import React from "react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function YearPageLoading() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
 

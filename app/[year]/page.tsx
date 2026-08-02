@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SubjectCard from "@/components/SubjectCard";
 import indexData from "@/content/index.json";
@@ -93,7 +92,6 @@ export default async function YearPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
       
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         {/* Page Header */}
