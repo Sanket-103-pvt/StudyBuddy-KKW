@@ -10,8 +10,10 @@ import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
 import SubjectViewTracker from "@/components/SubjectViewTracker";
 import StudyAssistantButton from "@/components/StudyAssistantButton";
+import SubjectHeaderProgress from "@/components/SubjectHeaderProgress";
 import indexData from "@/content/index.json";
 import { formatYearTitle } from "@/lib/year-utils";
+
 
 interface Resource {
   label: string;
@@ -158,7 +160,7 @@ export default async function SubjectPage({ params }: PageProps) {
         </Link>
 
         {/* Subject Header */}
-        <div className="mb-10 pb-6 border-b border-border-light dark:border-border-dark flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <div className="mb-10 pb-6 border-b border-border-light dark:border-border-dark flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
             <span className="font-mono text-label-mono text-primary dark:text-primary-fixed-dim bg-primary-fixed dark:bg-inverse-surface px-2.5 py-1 rounded-md uppercase">
               {formatYearTitle(year)} Course
@@ -172,23 +174,32 @@ export default async function SubjectPage({ params }: PageProps) {
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <StudyAssistantButton
+            <SubjectHeaderProgress
               subjectId={subjectData.id}
+              totalUnitsCount={subjectData.units.length}
               subjectName={subjectData.name}
               year={year}
             />
-            <div className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark text-left sm:text-right">
-              Last updated:{" "}
-              <span className="font-medium text-on-surface dark:text-text-primary-dark">
-                {new Date(subjectData.lastUpdated).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric"
-                })}
-              </span>
+            <div className="flex flex-col items-start sm:items-end gap-2">
+              <StudyAssistantButton
+                subjectId={subjectData.id}
+                subjectName={subjectData.name}
+                year={year}
+              />
+              <div className="font-inter text-[12px] text-text-secondary-light dark:text-text-secondary-dark">
+                Last updated:{" "}
+                <span className="font-medium text-on-surface dark:text-text-primary-dark">
+                  {new Date(subjectData.lastUpdated).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                  })}
+                </span>
+              </div>
             </div>
           </div>
         </div>
+
 
         {/* Units / Resources List */}
         <UnitList 

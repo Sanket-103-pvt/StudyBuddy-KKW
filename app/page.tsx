@@ -7,7 +7,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
+import SyllabusSummaryCard from "@/components/SyllabusSummaryCard";
 import indexData from "@/content/index.json";
+
 import { formatYearTitle } from "@/lib/year-utils";
 import { useToast } from "@/components/ToastProvider";
 
@@ -80,6 +82,9 @@ export default function Home() {
         </section>
 
         <RecentlyViewed />
+
+        <SyllabusSummaryCard />
+
 
         {/* Bookmarks Section (Only shows if there are saved items) */}
         {mounted && bookmarks.length > 0 && (
