@@ -11,6 +11,7 @@ import UnitList from "@/components/UnitList";
 import SubjectViewTracker from "@/components/SubjectViewTracker";
 import StudyAssistantButton from "@/components/StudyAssistantButton";
 import indexData from "@/content/index.json";
+import { formatYearTitle } from "@/lib/year-utils";
 
 interface Resource {
   label: string;
@@ -88,7 +89,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
-  const yearLabel = year.replace("-", " ");
+  const yearLabel = formatYearTitle(year);
   const title = `${subjectData.name} (${yearLabel}) | Study Buddy KKW`;
   const description = `Access notes, PYQs, question banks, and study resources for ${subjectData.name} at K.K. Wagh.`;
 
@@ -153,14 +154,14 @@ export default async function SubjectPage({ params }: PageProps) {
           className="inline-flex items-center gap-1 text-body-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim mb-6 transition-colors group"
         >
           <ChevronLeft size={16} className="group-hover:-translate-x-[2px] transition-transform" />
-          Back to {year.replace("-", " ")}
+          Back to {formatYearTitle(year)}
         </Link>
 
         {/* Subject Header */}
         <div className="mb-10 pb-6 border-b border-border-light dark:border-border-dark flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div>
             <span className="font-mono text-label-mono text-primary dark:text-primary-fixed-dim bg-primary-fixed dark:bg-inverse-surface px-2.5 py-1 rounded-md uppercase">
-              {year.replace("-", " ")} Course
+              {formatYearTitle(year)} Course
             </span>
             <h1 className="font-sora font-bold text-headline-lg md:text-headline-xl text-on-surface dark:text-text-primary-dark mt-3 mb-2">
               {subjectData.name}

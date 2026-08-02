@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import indexData from "@/content/index.json";
+import { formatYearTitle } from "@/lib/year-utils";
 import { useToast } from "@/components/ToastProvider";
 
 interface BookmarkedResource {
@@ -140,7 +141,7 @@ export default function Home() {
             const yearDetails: Record<string, { title: string; desc: string; tags: string[] }> = {
               "first-year": {
                 title: "First Year",
-                desc: "Common engineering foundation courses for Semester I & II.",
+                desc: "Common engineering foundation courses for Semesters I & II.",
                 tags: ["M-I", "M-II", "Physics", "Chemistry", "C Programming", "Mechanics"],
               },
               "second-year": {
@@ -161,8 +162,8 @@ export default function Home() {
             };
 
             const details = yearDetails[yearKey] || {
-              title: yearKey.replace("-", " "),
-              desc: `Curriculum materials for ${yearKey.replace("-", " ")}.`,
+              title: formatYearTitle(yearKey),
+              desc: `Curriculum materials for ${formatYearTitle(yearKey)}.`,
               tags: ["Notes", "PYQs", "Syllabus"],
             };
 

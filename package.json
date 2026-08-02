@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "validate": "tsx scripts/validate-content.ts",
+    "prebuild": "npm run validate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "precommit": "npm run validate"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -23,12 +26,16 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "jest": "^30.4.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.4.11",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.4",
     "typescript": "^5"
   }
 }

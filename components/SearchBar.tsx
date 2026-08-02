@@ -8,6 +8,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, BookOpen, FileText, ExternalLink } from "lucide-react";
 import { buildSearchIndex, type SearchResult } from "@/lib/search-index";
+import { formatShortYear } from "@/lib/year-utils";
 
 // Max results to show per section to keep dropdown scannable
 const MAX_SUBJECT_RESULTS = 4;
@@ -177,7 +178,7 @@ export default function SearchBar() {
                           </span>
                         </div>
                         <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-surface-container-low dark:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark border border-border-light dark:border-border-dark flex-shrink-0">
-                          {item.year === "first-year" ? "1st Year" : "2nd Year"}
+                          {formatShortYear(item.year)}
                         </span>
                       </button>
                     ))}
