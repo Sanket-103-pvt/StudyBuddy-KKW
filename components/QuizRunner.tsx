@@ -16,8 +16,8 @@ import {
   Check,
   Trophy,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 import { useToast } from "@/components/ToastProvider";
 import { formatYearTitle } from "@/lib/year-utils";
 import {
@@ -158,7 +158,6 @@ export default function QuizRunner({
   if (!mounted) {
     return (
       <div className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12 animate-pulse">
           <div className="h-10 w-48 bg-surface-container dark:bg-inverse-surface rounded-xl mb-6" />
           <div className="h-64 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-2xl" />
@@ -177,7 +176,6 @@ export default function QuizRunner({
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
         {/* Back Link */}
         <Link
