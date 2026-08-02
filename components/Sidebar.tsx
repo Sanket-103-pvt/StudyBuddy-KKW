@@ -136,7 +136,7 @@ export default function Sidebar() {
 
       {/* Vertical Sidebar Navigation Container */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 z-50 lg:z-30 h-screen w-72 bg-surface-container-lowest dark:bg-bg-dark border-r border-border-light dark:border-border-dark flex flex-col justify-between p-4 transition-transform duration-300 ${
+        className={`fixed lg:sticky top-0 left-0 z-50 lg:z-auto shrink-0 h-screen w-72 bg-surface-container-lowest dark:bg-bg-dark border-r border-border-light dark:border-border-dark flex flex-col justify-between p-4 transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >

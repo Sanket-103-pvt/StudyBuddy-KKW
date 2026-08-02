@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -14,7 +14,6 @@ import {
   Check
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/components/ToastProvider";
 
@@ -34,7 +33,6 @@ export default function ContactPage() {
   };
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         <div className="max-w-4xl mx-auto space-y-12">

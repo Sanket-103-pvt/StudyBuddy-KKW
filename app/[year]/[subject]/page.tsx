@@ -5,7 +5,6 @@ import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, HelpCircle } from "lucide-react";
-import Navbar from "@/components/Navbar";
 
 import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
@@ -148,7 +147,6 @@ export default async function SubjectPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
         {/* Back Link */}

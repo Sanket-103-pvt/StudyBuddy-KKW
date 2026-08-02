@@ -1,13 +1,11 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { AlertCircle, Home } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function NotFound() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
       <main className="flex-grow flex flex-col items-center justify-center px-margin-mobile py-16 text-center max-w-xl mx-auto">
         <div className="w-16 h-16 rounded-full bg-red-50 dark:bg-red-950/20 text-red-500 flex items-center justify-center mb-6 border border-red-100 dark:border-red-900/50">

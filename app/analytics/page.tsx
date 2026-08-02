@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
@@ -14,7 +14,6 @@ import {
   TrendingUp,
   PieChart as PieChartIcon
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/components/ToastProvider";
 import { 
@@ -185,7 +184,6 @@ export default function AnalyticsPage() {
   if (!mounted) {
     return (
       <div className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 animate-pulse">
           <div className="h-10 w-64 bg-surface-container dark:bg-inverse-surface rounded-xl mb-4" />
           <div className="h-5 w-96 bg-surface-container dark:bg-inverse-surface rounded-xl mb-8" />
@@ -206,7 +204,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
 
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
         {/* Page Header */}

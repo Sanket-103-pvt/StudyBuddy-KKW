@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // Interactive Note Uploader and Contributor Leaderboard for Study Buddy KKW
 
@@ -24,7 +24,6 @@ import {
 } from "lucide-react";
 
 import { GithubIcon } from "@/components/icons";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/components/ToastProvider";
 import {
@@ -256,7 +255,6 @@ export default function ContributePage() {
   if (!mounted) {
     return (
       <div className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12 animate-pulse">
           <div className="h-10 w-64 bg-surface-container dark:bg-inverse-surface rounded-xl mb-8" />
           <div className="h-64 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark rounded-2xl" />
@@ -268,7 +266,6 @@ export default function ContributePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-10 md:py-14">
 
         {/* Page Header */}
