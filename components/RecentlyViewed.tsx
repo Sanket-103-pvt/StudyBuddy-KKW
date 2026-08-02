@@ -10,9 +10,14 @@ import { useToast } from "@/components/ToastProvider";
 
 export default function RecentlyViewed() {
   const toast = useToast();
+  const [mounted, setMounted] = React.useState(false);
   const { history, clearHistory } = useRecentlyViewed();
 
-  if (!history || history.length === 0) {
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !history || history.length === 0) {
     return null;
   }
 

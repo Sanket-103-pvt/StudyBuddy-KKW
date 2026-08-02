@@ -69,6 +69,7 @@ function getLast7Days(): { dateStr: string; dayLabel: string }[] {
 
 export default function AnalyticsPage() {
   const toast = useToast();
+  const [mounted, setMounted] = useState(false);
   const [records, setRecords] = useState<StudySessionRecord[]>([]);
 
   const refreshAnalytics = () => {
@@ -76,6 +77,7 @@ export default function AnalyticsPage() {
   };
 
   useEffect(() => {
+    setMounted(true);
     refreshAnalytics();
   }, []);
 
@@ -179,6 +181,28 @@ export default function AnalyticsPage() {
 
   // Max seconds in 7 days for bar heights
   const maxDaySeconds = Math.max(...weeklyDayTotals.map((d) => d.seconds), 1);
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 animate-pulse">
+          <div className="h-10 w-64 bg-surface-container dark:bg-inverse-surface rounded-xl mb-4" />
+          <div className="h-5 w-96 bg-surface-container dark:bg-inverse-surface rounded-xl mb-8" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-32 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark p-5 rounded-2xl" />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="h-72 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark p-6 rounded-2xl" />
+            <div className="h-72 bg-surface-container-lowest dark:bg-bg-dark border border-border-light dark:border-border-dark p-6 rounded-2xl" />
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
