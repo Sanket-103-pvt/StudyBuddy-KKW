@@ -1,102 +1,275 @@
+<div align="center">
+
 # Study Buddy KKW
 
-> One hub for every note, PYQ, and resource K.K. Wagh students actually need.
+**A modern, open-source academic resource platform built for K.K. Wagh Institute of Engineering Education & Research students.**
 
-Study Buddy KKW is a modern, open-source educational resource portal designed specifically for engineering students of the **K. K. Wagh Institute of Engineering Education & Research (KKWIEER)**. Used by 400+ students per year, this platform is built to make it easy for anyone to find unit-wise study materials, handwritten notes, and past year question papers (PYQs) in under 30 seconds.
+Find notes, previous year question papers, quizzes, GPA calculators, and academic resources in seconds.
 
----
+[Live Website](https://studybuddykkw.dev) • [Documentation](CONTRIBUTING.md) • [Report Issue](../../issues) • [Request Feature](../../issues)
 
-## 🚀 Key Features & Capabilities
+<br>
 
-### ⚡ Navigation & User Interface
-- **Webflow-Style Vertical Sidebar**: Clean, collapsible left navigation sidebar (`components/Sidebar.tsx`) with categorized links (Academic Courses, Student Utilities, Support) and active route highlighting.
-- **Glassmorphic Floating Header**: Sticky top header (`components/Navbar.tsx`) with backdrop-blur styling, upgraded brand mark gradient, and an interactive **"Academic Years ▾"** dropdown menu.
-- **Interactive Quick-Access Feature Grid**: Home page 4-card utility launcher featuring background tints, hover arrow animations, and quick access to major student tools.
-- **Dynamic Year Cards**: Accent top borders (1st Year Blue, 2nd Year Emerald, 3rd Year Amber, 4th Year Indigo), micro-interaction hover elevation, and high-contrast WCAG AA compliant subject tag pills.
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-success?style=for-the-badge)
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-orange?style=for-the-badge)
 
-### 🔍 Command-Palette Search (`Ctrl + K`)
-- **Web Worker Off-Main-Thread Search Index**: Background worker thread (`public/workers/search.worker.js`) executing search queries and index compilation to ensure zero input lag on mobile devices.
-- **Command-Palette Search Bar**: Pressing `Ctrl + K` or `Cmd + K` anywhere on the site focuses the search bar to search subjects, unit topics, notes, and reference links.
-
-### 📝 Interactive Practice Quiz Engine
-- **Unit-Wise Self-Assessment MCQs**: Custom practice quiz engine (`app/[year]/[subject]/quiz`) displaying progress bar, timer, score dashboard, and unit filters.
-- **Instant Visual Feedback**: Option buttons with color-coded correct/incorrect state feedback, detailed explanations, and high-score persistence in `localStorage`.
-
-### 🧮 SPPU SGPA & CGPA Transcript Calculator
-- **Official SPPU Credit Weightage**: Interactive GPA calculator (`app/calculator`) supporting semester-wise SGPA and cumulative CGPA calculation based on KKWIEER syllabus credit structure.
-
-### 📊 Study Time Tracker & Syllabus Analytics
-- **Privacy-Respecting Analytics**: Subject viewing duration tracking (`app/analytics`) with visual progress rings, study patterns breakdown, and local storage retention.
-
-### 📶 Service Worker Offline Caching
-- **Offline Capabilities**: Stale-while-revalidate service worker (`public/sw.js`) caching static pages, subject notes JSON configurations, and local PDF files for low-network environments inside college labs and deep classrooms.
-- **Offline Indicator Badge**: Navbar badge displaying live network connection state (`Offline Mode`).
-
-### ♿ Accessibility & High Contrast Themes (`Alt+Shift+H`)
-- **End-to-End High Contrast Theme**: Accessibility-compliant high-contrast theme (AA/AAA WCAG standard compliant) togglable via theme selector or `Alt+Shift+H` keyboard shortcut.
-
-### 🏆 Contributor Leaderboard & Note Uploader
-- **Gamified Student Contributions**: Interactive note submission portal (`app/contribute`) featuring community points leaderboard and contributor rankings.
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+# Overview
 
-- **Framework**: Next.js 14 (App Router, SSG & Dynamic Routing)
-- **Styling**: Tailwind CSS & Vanilla CSS Design System (Strict Blue/Emerald/Amber/Slate palette — Zero purple/violet hues)
-- **Language**: TypeScript (Strict typing & AJV JSON Schema Validation)
-- **State/Themes**: `next-themes` (Light, Dark, High Contrast) & Lucide React Icons
-- **Performance**: Web Workers (`search.worker.js`) & Service Worker (`sw.js`) PWA
-- **Deployment**: Vercel (Automated CI/CD from GitHub)
+Study Buddy KKW is an open-source educational platform developed to simplify academic resource discovery for engineering students at **K.K. Wagh Institute of Engineering Education & Research (KKWIEER).**
 
----
+The platform centralizes handwritten notes, previous year question papers, reference materials, quizzes, academic utilities, and student tools into a single searchable interface.
 
-## 💻 Getting Started
-
-### Prerequisites
-
-Ensure you have **Node.js 18.0.0+** installed on your system.
-
-### Installation
-
-1. Fork and clone the repository:
-   ```bash
-   git clone https://github.com/Sanket-103-pvt/StudyBuddy-KKW.git
-   cd study-buddy
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
-
-5. Validate JSON content files:
-   ```bash
-   npm run validate
-   ```
-
-6. Run test suite:
-   ```bash
-   npm test
-   ```
+Designed with performance, accessibility, and usability in mind, Study Buddy enables students to locate required study material in under **30 seconds**.
 
 ---
 
-## 🤝 Contributing
+# Features
 
-We welcome all contributions! To add notes, update syllabus, or fix links, you do **not** need to touch any Next.js code. The resource content is stored as simple JSON files inside the `content/` directory.
+## Academic Resource Management
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for step-by-step instructions on how to add/update resources and submit a pull request.
+- Structured notes organized by academic year and subject
+- Previous Year Question Paper (PYQ) repository
+- Unit-wise study materials
+- Reference books and external learning resources
+- Fast navigation across semesters
 
 ---
 
-## 📄 License
+## Smart Search
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+- Global Command Palette (`Ctrl + K`)
+- Instant subject and note search
+- Web Worker powered indexing
+- Zero input lag during searches
+
+---
+
+## Interactive Quiz System
+
+- Unit-wise MCQ practice
+- Timer based assessments
+- Instant answer explanations
+- Progress tracking
+- High score persistence
+
+---
+
+## Academic Utilities
+
+### SPPU SGPA & CGPA Calculator
+
+- Semester GPA calculation
+- Overall CGPA calculator
+- Official credit-weight support
+
+---
+
+### Study Analytics
+
+- Study time tracker
+- Subject-wise activity
+- Learning statistics
+- Local-first privacy
+
+---
+
+## Offline Support
+
+Progressive Web App (PWA)
+
+- Service Worker caching
+- Offline access to resources
+- Automatic updates
+- Network status indicator
+
+---
+
+## Accessibility
+
+- Light Theme
+- Dark Theme
+- High Contrast Mode
+- Keyboard Shortcut Support
+- WCAG AA/AAA Compliance
+
+---
+
+## Community Features
+
+- Note Upload Portal
+- Contributor Leaderboard
+- Open Contribution Workflow
+- Community Driven Content
+
+---
+
+# Technology Stack
+
+| Category | Technologies |
+|-----------|--------------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Icons | Lucide React |
+| Theme | next-themes |
+| Validation | AJV JSON Schema |
+| Search | Web Workers |
+| Offline | Service Workers (PWA) |
+| Deployment | Vercel |
+| Version Control | Git & GitHub |
+
+---
+
+# Project Structure
+
+```
+app/
+components/
+content/
+public/
+workers/
+lib/
+hooks/
+styles/
+```
+
+---
+
+# Performance Highlights
+
+- Static Site Generation (SSG)
+- Dynamic Routing
+- Web Worker Search Engine
+- Service Worker Offline Cache
+- Optimized Bundle Loading
+- Mobile First Design
+- Responsive Layout
+- Keyboard Navigation
+
+---
+
+# Installation
+
+## Prerequisites
+
+- Node.js 18+
+- npm
+
+Clone the repository
+
+```bash
+git clone https://github.com/Sanket-103-pvt/StudyBuddy-KKW.git
+```
+
+Move into the project
+
+```bash
+cd StudyBuddy-KKW
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start development server
+
+```bash
+npm run dev
+```
+
+Open
+
+```
+http://localhost:3000
+```
+
+Validate JSON resources
+
+```bash
+npm run validate
+```
+
+Run tests
+
+```bash
+npm test
+```
+
+---
+
+# Contributing
+
+Contributions are always welcome.
+
+Academic content such as notes, PYQs, and resource links is stored inside the `content/` directory, allowing contributors to add or update study material without modifying application code.
+
+Please read **CONTRIBUTING.md** before submitting a Pull Request.
+
+---
+
+# Roadmap
+
+- Authentication
+- Faculty Dashboard
+- AI-powered Semantic Search
+- Smart Recommendation Engine
+- Notes Version History
+- Mobile Application
+- Push Notifications
+- Cloud Sync
+- Multi-College Support
+
+---
+
+# Screenshots
+
+| Home | Search | Quiz |
+|------|--------|------|
+| Add Screenshot | Add Screenshot | Add Screenshot |
+
+---
+
+# License
+
+Distributed under the MIT License.
+
+See **LICENSE** for more information.
+
+---
+
+# Maintainer
+
+**Sanket Chaudhari**
+
+GitHub: https://github.com/Sanket-103-pvt
+
+---
+
+<div align="center">
+
+Made for the students of K.K. Wagh Institute of Engineering Education & Research.
+
+</div>
+
+---
+
+<div align="center">
+
+**Study Buddy KKW** © 2026 Sanket Chaudhari. All Rights Reserved.
+
+Unauthorized reproduction of the platform's branding, identity, design assets, and original content without prior written permission is prohibited.
+
+Built with ❤️ for the students of K.K. Wagh Institute of Engineering Education & Research.
+
+</div>
