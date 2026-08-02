@@ -7,7 +7,9 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import SyllabusSummaryCard from "@/components/SyllabusSummaryCard";
+import QuickToolsGrid from "@/components/QuickToolsGrid";
 import indexData from "@/content/index.json";
+
 
 import { formatYearTitle } from "@/lib/year-utils";
 import { useToast } from "@/components/ToastProvider";
@@ -80,6 +82,8 @@ export default function Home() {
           <SearchBar />
         </section>
 
+        <QuickToolsGrid />
+
         <RecentlyViewed />
 
         <SyllabusSummaryCard />
@@ -87,12 +91,14 @@ export default function Home() {
 
         {/* Bookmarks Section (Only shows if there are saved items) */}
         {mounted && bookmarks.length > 0 && (
-          <section className="w-full max-w-5xl mb-12">
+          <section className="w-full max-w-container-max mb-12">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="font-sora font-semibold text-headline-sm text-on-surface dark:text-text-primary-dark">
-                ⭐ Pinned Resources
+              <h2 className="font-sora font-semibold text-headline-sm text-on-surface dark:text-text-primary-dark flex items-center gap-2">
+                <Star size={20} className="text-amber-500 fill-amber-500" />
+                Pinned Resources
               </h2>
             </div>
+
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {bookmarks.map((bm, idx) => (
