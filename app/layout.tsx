@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ToastProvider } from "@/components/ToastProvider";
 import BackToTop from "@/components/BackToTop";
+import PWARegister from "@/components/PWARegister";
+import PWAInstallBanner from "@/components/PWAInstallBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,10 +49,19 @@ export const metadata: Metadata = {
   authors: [{ name: "Sanket Chaudhari", url: "https://sanketchaudhari.in" }],
   creator: "Sanket Chaudhari",
   publisher: "Study Buddy KKW",
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
     apple: "/icon.svg",
+    other: [
+      { rel: "apple-touch-icon", url: "/icon.svg" },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Study Buddy KKW",
   },
   openGraph: {
     title: "Study Buddy KKW - K.K. Wagh Engineering Notes & PYQs",
@@ -76,6 +87,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Windows tile color for OS shell integration */}
+        <meta name="msapplication-TileColor" content="#3b52d9" />
+        <meta name="msapplication-TileImage" content="/icon.svg" />
+        <meta name="msapplication-navbutton-color" content="#3b52d9" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Study Buddy" />
+        <link rel="apple-touch-startup-image" href="/icon.svg" />
+      </head>
       <body
         className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-bg-light text-on-surface dark:bg-bg-dark dark:text-text-primary-dark`}
       >
@@ -83,9 +105,12 @@ export default function RootLayout({
           <ToastProvider>
             {children}
             <BackToTop />
+            <PWAInstallBanner />
           </ToastProvider>
         </ThemeProvider>
+        <PWARegister />
       </body>
     </html>
   );
 }
+
