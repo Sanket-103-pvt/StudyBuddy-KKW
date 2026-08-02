@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
+import { formatYearTitle, formatShortYear } from "@/lib/year-utils";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,25 +25,11 @@ export default function Navbar() {
     setMounted(true);
   }, []);
 
-  const yearLabelMap: Record<string, string> = {
-    "first-year": "First Year",
-    "second-year": "Second Year",
-    "third-year": "Third Year",
-    "fourth-year": "Fourth Year",
-  };
-
-  const shortYearLabelMap: Record<string, string> = {
-    "first-year": "1st Year",
-    "second-year": "2nd Year",
-    "third-year": "3rd Year",
-    "fourth-year": "4th Year",
-  };
-
   const yearKeys = Object.keys(indexData);
 
   const dynamicYearNavLinks = yearKeys.map((yearKey) => ({
-    name: yearLabelMap[yearKey] || yearKey.replace("-", " "),
-    shortName: shortYearLabelMap[yearKey] || yearKey.replace("-", " "),
+    name: formatYearTitle(yearKey),
+    shortName: formatShortYear(yearKey),
     href: `/${yearKey}`,
     icon: GraduationCap,
   }));
@@ -128,7 +115,7 @@ export default function Navbar() {
 
       {/* Bottom Tab Bar for Mobile Only */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest dark:bg-bg-dark border-t border-border-light dark:border-border-dark shadow-lg z-50 transition-colors">
-        <div className="flex justify-around items-center h-16 max-w-md mx-auto overflow-x-auto">
+        <div className="flex items-center h-16 max-w-full px-2 gap-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden justify-start sm:justify-around">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -137,14 +124,14 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center justify-center min-w-[3.5rem] h-14 rounded-lg transition-colors px-1 ${
+                className={`flex flex-col items-center justify-center shrink-0 min-w-[3.25rem] px-2 h-14 rounded-lg transition-colors ${
                   isActive 
                     ? "text-primary dark:text-primary-fixed-dim" 
-                    : "text-text-secondary-light dark:text-text-secondary-dark"
+                    : "text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim"
                 }`}
               >
-                <Icon size={20} />
-                <span className="font-inter text-[10px] mt-1 whitespace-nowrap">{displayName}</span>
+                <Icon size={19} />
+                <span className="font-inter text-[10px] mt-0.5 whitespace-nowrap font-medium">{displayName}</span>
               </Link>
             );
           })}
