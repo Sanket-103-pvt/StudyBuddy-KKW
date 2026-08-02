@@ -59,10 +59,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen w-full bg-bg-light dark:bg-bg-dark">
       <Navbar />
 
-      <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-12 md:py-20 max-w-container-max mx-auto w-full">
+      <div className="flex-1 flex flex-col min-w-0">
+        <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-8 md:py-12 max-w-container-max mx-auto w-full">
+
         {/* Hero Section */}
         <section className="text-center max-w-3xl mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 bg-surface-container dark:bg-inverse-surface px-3.5 py-1 rounded-full text-label-mono font-mono text-text-secondary-light dark:text-text-secondary-dark mb-6 border border-border-light dark:border-border-dark transition-colors">
@@ -215,7 +217,8 @@ export default function Home() {
         </section>
       </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
