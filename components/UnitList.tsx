@@ -107,11 +107,13 @@ function PdfPreviewBox({ url, label }: { url: string; label: string }) {
 export default function UnitList({ subjectId, subjectName, year, units, bonus }: UnitListProps) {
   const toast = useToast();
   const [openUnits, setOpenUnits] = useState<Record<number, boolean>>({ 1: true });
+  const [mounted, setMounted] = useState(false);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activePreviewUrl, setActivePreviewUrl] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
   useEffect(() => {
+    setMounted(true);
     // Load bookmarks from localStorage
     const saved = localStorage.getItem("sb_bookmarks");
     if (saved) {
@@ -123,7 +125,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
     setOpenUnits(prev => ({ ...prev, [num]: !prev[num] }));
   };
 
-  const isBookmarked = (url: string) => bookmarks.includes(url);
+  const isBookmarked = (url: string) => mounted && bookmarks.includes(url);
 
   const toggleBookmark = (resource: Resource) => {
     let updated;

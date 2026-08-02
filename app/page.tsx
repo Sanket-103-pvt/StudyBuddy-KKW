@@ -22,9 +22,11 @@ interface BookmarkedResource {
 
 export default function Home() {
   const toast = useToast();
+  const [mounted, setMounted] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkedResource[]>([]);
 
   useEffect(() => {
+    setMounted(true);
     // Load bookmarked resources metadata from localStorage
     const savedUrls = localStorage.getItem("sb_bookmarks");
     if (savedUrls) {
@@ -80,7 +82,7 @@ export default function Home() {
         <RecentlyViewed />
 
         {/* Bookmarks Section (Only shows if there are saved items) */}
-        {bookmarks.length > 0 && (
+        {mounted && bookmarks.length > 0 && (
           <section className="w-full max-w-5xl mb-12">
             <div className="flex justify-between items-center mb-6">
               <h2 className="font-sora font-semibold text-headline-sm text-on-surface dark:text-text-primary-dark">

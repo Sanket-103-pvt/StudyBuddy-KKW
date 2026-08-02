@@ -91,15 +91,17 @@ export default function Navbar() {
           {/* Actions: Theme Switcher & GitHub Icon */}
           <div className="flex items-center gap-4">
             {/* Theme Toggle Button */}
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
-                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-            )}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
+              aria-label={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {mounted ? (
+                theme === "dark" ? <Sun size={20} /> : <Moon size={20} />
+              ) : (
+                <div className="w-5 h-5 rounded-full bg-surface-container dark:bg-inverse-surface animate-pulse" />
+              )}
+            </button>
 
             {/* Quick Github Link - Desktop Only */}
             <a
