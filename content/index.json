@@ -30,14 +30,14 @@
     },
     {
       "id": "fundamental-of-electronics",
-      "name": "Fundamental Of Electronics",
+      "name": "Fundamental of Electronics",
       "icon": "cpu",
       "unitCount": 5,
       "lastUpdated": "2026-06-30"
     },
     {
       "id": "fundamentals-of-electrical-engineering",
-      "name": "Fundamentals Of Electrical Engineering",
+      "name": "Fundamentals of Electrical Engineering",
       "icon": "zap",
       "unitCount": 5,
       "lastUpdated": "2026-06-30"
@@ -109,28 +109,28 @@
     },
     {
       "id": "operating-systems",
-      "name": "Operating system",
+      "name": "Operating System",
       "icon": "server",
       "unitCount": 0,
       "lastUpdated": "2026-06-30"
     },
     {
       "id": "dbms",
-      "name": "Database management system [DBMS]",
+      "name": "Database Management System [DBMS]",
       "icon": "database",
       "unitCount": 0,
       "lastUpdated": "2026-06-30"
     },
     {
       "id": "advanced-data-structure",
-      "name": "Advanced data structure",
+      "name": "Advanced Data Structure",
       "icon": "book-open",
       "unitCount": 0,
       "lastUpdated": "2026-06-30"
     },
     {
       "id": "software-engineering",
-      "name": "Software engineering",
+      "name": "Software Engineering",
       "icon": "settings",
       "unitCount": 0,
       "lastUpdated": "2026-06-30"

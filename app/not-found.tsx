@@ -18,7 +18,7 @@ export default function NotFound() {
           Page Not Found
         </h1>
         
-        <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-text-secondary-dark mb-8">
+        <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark mb-8">
           The page or subject resource you are looking for doesn&apos;t exist, or has been moved to a new year&apos;s curriculum.
         </p>
 

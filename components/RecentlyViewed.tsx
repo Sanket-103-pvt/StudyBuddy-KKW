@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Clock, Trash2, ArrowRight } from "lucide-react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { getRelativeTime } from "@/lib/date-utils";
+import { formatYearTitle } from "@/lib/year-utils";
 
 export default function RecentlyViewed() {
   const { history, clearHistory } = useRecentlyViewed();
@@ -40,7 +41,7 @@ export default function RecentlyViewed() {
                 {item.subjectName}
               </span>
               <span className="font-mono text-[10px] text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider">
-                {item.year.replace("-", " ")} • {getRelativeTime(item.viewedAt)}
+                {formatYearTitle(item.year)} • {getRelativeTime(item.viewedAt)}
               </span>
             </div>
             <ArrowRight size={14} className="text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary dark:group-hover:text-primary-fixed-dim group-hover:translate-x-0.5 transition-all opacity-60" />

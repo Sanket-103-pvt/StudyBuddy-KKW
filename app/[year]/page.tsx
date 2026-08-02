@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SubjectCard from "@/components/SubjectCard";
 import indexData from "@/content/index.json";
+import { formatYearTitle } from "@/lib/year-utils";
 
 interface SubjectIndexItem {
   id: string;
@@ -28,10 +29,10 @@ const yearTitles: Record<string, string> = {
 };
 
 const yearDescriptions: Record<string, string> = {
-  "first-year": "Common engineering foundation courses for Semester I & II",
-  "second-year": "Departmental core subjects for Semester III & IV (AI&DS / CS)",
-  "third-year": "Advanced specialization and elective courses for Semester V & VI",
-  "fourth-year": "Capstone projects, industrial training, and electives for Semester VII & VIII",
+  "first-year": "Common engineering foundation courses for Semesters I & II",
+  "second-year": "Departmental core subjects for Semesters III & IV (AI&DS / CS)",
+  "third-year": "Advanced specialization and elective courses for Semesters V & VI",
+  "fourth-year": "Capstone projects, industrial training, and electives for Semesters VII & VIII",
 };
 
 export async function generateStaticParams() {
@@ -46,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
-  const yearLabel = yearTitles[year] || `${year.replace("-", " ")} Subjects`;
+  const yearLabel = yearTitles[year] || `${formatYearTitle(year)} Subjects`;
   const subjects = (indexData as Record<string, SubjectIndexItem[]>)[year] || [];
   const first3 = subjects.slice(0, 3).map((s) => s.name).join(", ");
   const title = `${yearLabel} | Study Buddy KKW`;
@@ -87,8 +88,8 @@ export default async function YearPage({ params }: PageProps) {
   }
 
   const subjects = (indexData as Record<string, SubjectIndexItem[]>)[year] || [];
-  const title = yearTitles[year] || `${year.replace("-", " ")} Subjects`;
-  const desc = yearDescriptions[year] || `Curriculum materials for ${year.replace("-", " ")}`;
+  const title = yearTitles[year] || `${formatYearTitle(year)} Subjects`;
+  const desc = yearDescriptions[year] || `Curriculum materials for ${formatYearTitle(year)}`;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -98,7 +99,7 @@ export default async function YearPage({ params }: PageProps) {
         {/* Page Header */}
         <div className="mb-10 max-w-2xl">
           <div className="text-body-sm font-semibold tracking-wider uppercase text-primary dark:text-primary-fixed-dim mb-2">
-            {year.replace("-", " ")} Curriculum
+            {formatYearTitle(year)} Curriculum
           </div>
           <h1 className="font-sora font-bold text-headline-lg md:text-headline-xl text-on-surface dark:text-text-primary-dark mb-3">
             {title}
