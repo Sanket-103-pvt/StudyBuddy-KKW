@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useStudyTracker } from "@/hooks/useStudyTracker";
 
 interface SubjectViewTrackerProps {
   subjectId: string;
@@ -15,6 +16,9 @@ export default function SubjectViewTracker({
   year,
 }: SubjectViewTrackerProps) {
   const { addToHistory } = useRecentlyViewed();
+  
+  // Track active time spent studying this subject
+  useStudyTracker({ subjectId, subjectName, year });
 
   useEffect(() => {
     addToHistory({ subjectId, subjectName, year });

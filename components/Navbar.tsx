@@ -10,7 +10,8 @@ import {
   Info, 
   Sun, 
   Moon,
-  MessageSquare
+  MessageSquare,
+  BarChart2
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
@@ -45,6 +46,7 @@ export default function Navbar() {
   const navLinks: NavItem[] = [
     { name: "Home", href: "/", icon: Home },
     ...dynamicYearNavLinks,
+    { name: "Analytics", href: "/analytics", icon: BarChart2 },
     { name: "About", href: "/about", icon: Info },
     { name: "Contact", href: "/contact", icon: MessageSquare },
     { name: "Contribute", href: "/contribute", icon: GithubIcon },
