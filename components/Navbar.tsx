@@ -19,6 +19,8 @@ import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
 import { formatYearTitle, formatShortYear } from "@/lib/year-utils";
 import { useToast } from "@/components/ToastProvider";
+import OfflineBadge from "@/components/OfflineBadge";
+
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -124,9 +126,12 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* Actions: Theme Switcher & GitHub Icon */}
-          <div className="flex items-center gap-4">
+          {/* Actions: Offline Badge, Theme Switcher & GitHub Icon */}
+          <div className="flex items-center gap-3">
+            <OfflineBadge />
+
             {/* Theme Toggle Button (Light -> Dark -> High Contrast -> Light) */}
+
             <button
               onClick={cycleTheme}
               className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
