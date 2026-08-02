@@ -10,6 +10,10 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:run",
+    "test:e2e:dev": "start-server-and-test dev http://localhost:3000 cypress:run",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "precommit": "npm run validate"
   },
   "dependencies": {
@@ -28,10 +32,12 @@
     "@types/react-dom": "^18",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
+    "cypress": "^15.19.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "jest": "^30.4.2",
     "postcss": "^8",
+    "start-server-and-test": "^3.0.12",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
