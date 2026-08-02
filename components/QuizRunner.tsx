@@ -141,9 +141,9 @@ export default function QuizRunner({
     setHighScore(newHigh);
 
     if (scorePct >= 80) {
-      toast.success(`Outstanding score: ${scorePct}%! 🏆 High Score Saved!`);
+      toast.success(`Outstanding score: ${scorePct}%! High Score Saved!`);
     } else {
-      toast.info(`Quiz completed! Score: ${scorePct}%. Keep practicing! 💪`);
+      toast.info(`Quiz completed! Score: ${scorePct}%. Keep practicing!`);
     }
   };
 
@@ -254,7 +254,7 @@ export default function QuizRunner({
             </div>
 
             <h2 className="font-sora font-bold text-headline-md text-on-surface dark:text-text-primary-dark mb-2">
-              {scorePercentage >= 80 ? "Quiz Mastered! 🏆" : scorePercentage >= 50 ? "Good Effort! 👍" : "Keep Practicing! 💪"}
+              {scorePercentage >= 80 ? "Quiz Mastered!" : scorePercentage >= 50 ? "Good Effort!" : "Keep Practicing!"}
             </h2>
             <p className="font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark mb-6">
               You scored <strong className="text-primary dark:text-primary-fixed-dim">{scorePercentage}%</strong> on {subjectName} practice quiz.

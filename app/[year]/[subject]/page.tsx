@@ -186,8 +186,9 @@ export default async function SubjectPage({ params }: PageProps) {
                   className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sora font-semibold text-body-sm shadow-sm transition-all active:scale-95"
                 >
                   <HelpCircle size={16} />
-                  Practice Quiz 📝
+                  Practice Quiz
                 </Link>
+
                 <StudyAssistantButton
                   subjectId={subjectData.id}
                   subjectName={subjectData.name}
