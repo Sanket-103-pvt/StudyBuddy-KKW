@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink } from "lucide-react";
+import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink, BookOpen } from "lucide-react";
+
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -150,6 +151,36 @@ export default function Home() {
           {Object.keys(indexData).map((yearKey) => {
             const subjects = (indexData as Record<string, { id: string; name: string }[]>)[yearKey] || [];
             
+            const yearStyleMap: Record<
+              string,
+              { borderClass: string; iconBg: string; tagClass: string }
+            > = {
+              "first-year": {
+                borderClass: "border-t-4 border-t-blue-500 hover:border-t-blue-600",
+                iconBg: "bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400",
+                tagClass:
+                  "bg-blue-50/90 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/50 font-semibold",
+              },
+              "second-year": {
+                borderClass: "border-t-4 border-t-emerald-500 hover:border-t-emerald-600",
+                iconBg: "bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400",
+                tagClass:
+                  "bg-emerald-50/90 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/50 font-semibold",
+              },
+              "third-year": {
+                borderClass: "border-t-4 border-t-amber-500 hover:border-t-amber-600",
+                iconBg: "bg-amber-100 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400",
+                tagClass:
+                  "bg-amber-50/90 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800/50 font-semibold",
+              },
+              "fourth-year": {
+                borderClass: "border-t-4 border-t-indigo-600 hover:border-t-indigo-700",
+                iconBg: "bg-indigo-100 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400",
+                tagClass:
+                  "bg-indigo-50/90 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50 font-semibold",
+              },
+            };
+
             const yearDetails: Record<string, { title: string; desc: string; tags: string[] }> = {
               "first-year": {
                 title: "First Year",
@@ -179,36 +210,43 @@ export default function Home() {
               tags: ["Notes", "PYQs", "Syllabus"],
             };
 
+            const yearStyle = yearStyleMap[yearKey] || {
+              borderClass: "border-t-4 border-t-blue-500",
+              iconBg: "bg-blue-100 text-blue-600",
+              tagClass: "bg-blue-50 text-blue-700 border-blue-200",
+            };
+
             return (
               <Link
                 key={yearKey}
                 href={`/${yearKey}`}
-                className="group bg-surface-container-lowest dark:bg-bg-dark rounded-xl p-8 border border-border-light dark:border-border-dark shadow-sm hover:shadow-md hover:-translate-y-[2px] transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[220px]"
+                className={`group bg-surface-container-lowest dark:bg-bg-dark rounded-2xl p-7 border border-border-light/80 dark:border-border-dark/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[240px] ${yearStyle.borderClass}`}
               >
                 <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-surface-container dark:bg-inverse-surface flex items-center justify-center text-primary dark:text-primary-fixed-dim transition-colors">
+                  <div className="flex justify-between items-start mb-5">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold shadow-xs transition-transform group-hover:scale-105 ${yearStyle.iconBg}`}>
                       <GraduationCap size={24} />
                     </div>
-                    <span className="font-mono text-label-mono text-text-secondary-light dark:text-text-secondary-dark bg-surface-container dark:bg-inverse-surface px-2.5 py-1 rounded-full border border-border-light dark:border-border-dark">
+                    <span className="font-mono text-label-mono font-semibold text-on-surface dark:text-text-primary-dark bg-surface-container dark:bg-inverse-surface px-3 py-1 rounded-full border border-border-light dark:border-border-dark flex items-center gap-1.5 shadow-xs">
+                      <BookOpen size={13} className="text-primary dark:text-primary-fixed-dim" />
                       {subjects.length} Subjects
                     </span>
                   </div>
-                  
-                  <h2 className="font-sora font-semibold text-headline-md text-on-surface dark:text-text-primary-dark mb-2 group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">
+
+                  <h2 className="font-sora font-bold text-headline-md text-on-surface dark:text-text-primary-dark mb-2 group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors tracking-tight">
                     {details.title}
                   </h2>
-                  
-                  <p className="font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark mb-6">
+
+                  <p className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark mb-6 leading-relaxed">
                     {details.desc}
                   </p>
                 </div>
-                
-                <div className="flex flex-wrap gap-2 mt-auto">
+
+                <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-border-light/50 dark:border-border-dark/50">
                   {details.tags.map((tag) => (
-                    <span 
+                    <span
                       key={tag}
-                      className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-surface-container-low dark:bg-inverse-surface border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark group-hover:border-primary-fixed-dim transition-colors"
+                      className={`font-mono text-[11px] px-2.5 py-1 rounded-lg border transition-all ${yearStyle.tagClass}`}
                     >
                       {tag}
                     </span>
