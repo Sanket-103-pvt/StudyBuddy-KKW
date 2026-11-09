@@ -7,7 +7,8 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+// Project URL only, e.g. https://abcd1234.supabase.co (no /rest/v1/ at the end).
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const supabaseEnabled = Boolean(url && anonKey);
@@ -45,7 +46,8 @@ export async function publicSelect<T>(table: string, params: Record<string, stri
   try {
     const query = new URLSearchParams(params).toString();
     const res = await fetch(`${url}/rest/v1/${table}?${query}`, {
-      headers: { apikey: anonKey as string, Authorization: `Bearer ${anonKey}` },
+      // Only the apikey header: works for both legacy anon keys and the newer sb_publishable_ keys (which are not JWTs).
+      headers: { apikey: anonKey as string },
     });
     if (!res.ok) return [];
     return (await res.json()) as T[];
