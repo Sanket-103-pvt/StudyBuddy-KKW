@@ -9,6 +9,7 @@ import PWAInstallBanner from "@/components/PWAInstallBanner";
 import Sidebar from "@/components/Sidebar";
 import CommandPalette from "@/components/CommandPalette";
 import AuthProvider from "@/components/AuthProvider";
+import { VisitTracker } from "@/components/VisitCounter";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 {children}
               </div>
             </div>
+            <VisitTracker />
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />
