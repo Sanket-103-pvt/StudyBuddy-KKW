@@ -83,7 +83,8 @@ const config: Config = {
       fontFamily: {
         sora: ["var(--font-sora)", "sans-serif"],
         inter: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"]
+        mono: ["var(--font-mono)", "monospace"],
+        serif: ["var(--font-serif)", "Georgia", "serif"]
       }
     },
   },

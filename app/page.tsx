@@ -5,7 +5,8 @@ import Link from "next/link";
 import { GraduationCap, FolderOpen, Star, ArrowRight, ExternalLink, BookOpen } from "lucide-react";
 
 import Footer from "@/components/Footer";
-import SearchBar from "@/components/SearchBar";
+import LandingHero from "@/components/LandingHero";
+import LandingFeatures from "@/components/LandingFeatures";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import SyllabusSummaryCard from "@/components/SyllabusSummaryCard";
 import QuickToolsGrid from "@/components/QuickToolsGrid";
@@ -62,27 +63,12 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-8 md:py-12 max-w-container-max mx-auto w-full">
+      <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-4 md:py-8 max-w-container-max mx-auto w-full">
 
 
-        {/* Hero Section */}
-        <section className="text-center max-w-3xl mb-12 md:mb-16">
-          <div className="inline-flex items-center gap-2.5 bg-surface-container/80 dark:bg-inverse-surface/80 px-4 py-1.5 rounded-full text-label-mono font-mono text-text-secondary-light dark:text-text-secondary-dark mb-6 border border-border-light dark:border-border-dark backdrop-blur-xs shadow-xs">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-            <span>Free notes for K.K. Wagh students</span>
-          </div>
+        <LandingHero />
 
-          <h1 className="font-sora font-extrabold text-headline-lg md:text-headline-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-blue-300 dark:to-indigo-300 mb-4 tracking-tight leading-tight">
-            Find your engineering notes in seconds
-          </h1>
-
-          <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-xl mx-auto leading-relaxed">
-            Subject-wise notes, an SGPA/CGPA calculator and study progress tracking for K.K. Wagh students.
-          </p>
-
-          <SearchBar />
-        </section>
-
+        <LandingFeatures />
 
         <QuickToolsGrid />
 
