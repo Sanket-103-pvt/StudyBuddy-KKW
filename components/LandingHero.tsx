@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
+import { useAuth } from "@/components/AuthProvider";
 
 const progress = [
   { label: "Unit 1", done: 100 },
@@ -11,6 +14,7 @@ const progress = [
 ];
 
 export default function LandingHero() {
+  const { enabled, signIn } = useAuth();
   return (
     <section
       aria-labelledby="hero-title"
@@ -66,6 +70,15 @@ export default function LandingHero() {
             >
               Share your notes
             </Link>
+            {enabled && (
+              <button
+                type="button"
+                onClick={() => signIn()}
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 text-white text-sm font-medium px-5 py-2.5 hover:bg-white/10 transition-colors"
+              >
+                Sign in with Google
+              </button>
+            )}
           </div>
         </div>
 

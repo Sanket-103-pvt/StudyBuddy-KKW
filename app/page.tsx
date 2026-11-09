@@ -15,6 +15,7 @@ import indexData from "@/content/index.json";
 
 import { formatYearTitle } from "@/lib/year-utils";
 import { useToast } from "@/components/ToastProvider";
+import { useAuth } from "@/components/AuthProvider";
 
 interface BookmarkedResource {
   label: string;
@@ -27,6 +28,7 @@ interface BookmarkedResource {
 
 export default function Home() {
   const toast = useToast();
+  const { signedIn, displayName } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkedResource[]>([]);
 
@@ -66,9 +68,19 @@ export default function Home() {
       <main className="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-4 md:py-8 max-w-container-max mx-auto w-full">
 
 
-        <LandingHero />
-
-        <LandingFeatures />
+        {signedIn ? (
+          <section className="w-full mb-10">
+            <h1 className="font-serif font-medium tracking-tight text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark">
+              Welcome back{displayName ? `, ${displayName.split(" ")[0]}` : ""}
+            </h1>
+            <p className="text-text-secondary-light dark:text-text-secondary-dark mt-2">Pick up where you left off.</p>
+          </section>
+        ) : (
+          <>
+            <LandingHero />
+            <LandingFeatures />
+          </>
+        )}
 
         <QuickToolsGrid />
 
