@@ -156,7 +156,79 @@ function validateAllContent(): boolean {
   }
 }
 
+// Small hand-edited data files in /data (PYQ links, timetable links).
+const urlPattern = "^https?://.+";
+const dataSchemas: Record<string, object> = {
+  "pyq.json": {
+    type: "object",
+    required: ["items"],
+    additionalProperties: false,
+    properties: {
+      items: {
+        type: "array",
+        items: {
+          type: "object",
+          required: ["subject", "year", "session", "url"],
+          additionalProperties: false,
+          properties: {
+            subject: { type: "string", minLength: 1 },
+            year: { type: "string", pattern: "^[0-9]{4}$" },
+            session: { type: "string", minLength: 1 },
+            url: { type: "string", pattern: urlPattern },
+          },
+        },
+      },
+    },
+  },
+  "timetables.json": {
+    type: "object",
+    required: ["items"],
+    additionalProperties: false,
+    properties: {
+      items: {
+        type: "array",
+        items: {
+          type: "object",
+          required: ["title", "year", "url"],
+          additionalProperties: false,
+          properties: {
+            title: { type: "string", minLength: 1 },
+            year: { type: "string", enum: ["first-year", "second-year", "third-year", "fourth-year"] },
+            url: { type: "string", pattern: urlPattern },
+            contributor: { type: "string" },
+          },
+        },
+      },
+    },
+  },
+};
+
+function validateDataFiles(): number {
+  const dataDir = path.join(process.cwd(), "data");
+  let errors = 0;
+  for (const [file, schema] of Object.entries(dataSchemas)) {
+    const full = path.join(dataDir, file);
+    const rel = path.relative(process.cwd(), full);
+    try {
+      const parsed = JSON.parse(fs.readFileSync(full, "utf-8"));
+      const validate = ajv.compile(schema);
+      if (validate(parsed)) {
+        console.log(`✓ [VALID] ${rel}`);
+      } else {
+        errors++;
+        console.error(`❌ [SCHEMA VIOLATION] ${rel}`);
+        for (const err of validate.errors ?? []) console.error(`   • ${formatErrorMessage(err)}`);
+      }
+    } catch (err) {
+      errors++;
+      console.error(`❌ [ERROR] ${rel}: ${(err as Error).message}`);
+    }
+  }
+  return errors;
+}
+
 const success = validateAllContent();
-if (!success) {
+const dataErrors = validateDataFiles();
+if (!success || dataErrors > 0) {
   process.exit(1);
 }

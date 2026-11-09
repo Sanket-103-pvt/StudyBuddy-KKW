@@ -7,6 +7,7 @@ import BackToTop from "@/components/BackToTop";
 import PWARegister from "@/components/PWARegister";
 import PWAInstallBanner from "@/components/PWAInstallBanner";
 import Sidebar from "@/components/Sidebar";
+import CommandPalette from "@/components/CommandPalette";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
@@ -15,13 +16,13 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mon
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.studybuddykkw.dev"),
   title: "Study Buddy KKW - K.K. Wagh Engineering Notes, PYQs & Study Hub",
-  description: "Official study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students. Access syllabus notes, PYQs, placement resources & AI study planner.",
+  description: "Official study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students. Subject-wise notes, SGPA/CGPA calculator and study tracking.",
   keywords: ["KKW", "kkwagh", "kkwagh engineering", "kk wagh placements", "kk wagh notes", "kkwieer", "KKWIEER Nashik", "K.K. Wagh Institute of Engineering Education & Research", "Study Buddy KKW", "KKW notes", "KKW PYQs", "KKW syllabus", "KKW SPPU notes", "Sanket Chaudhari KKW", "KKW AI&DS notes"],
   authors: [{ name: "Sanket Chaudhari", url: "https://sanketchaudhari.in" }],
   creator: "Sanket Chaudhari",
   publisher: "Study Buddy KKW",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg", other: [{ rel: "apple-touch-icon", url: "/icon.svg" }] },
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/apple-touch-icon.png" },
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Study Buddy KKW" },
   openGraph: {
     title: "Study Buddy KKW - K.K. Wagh Engineering Notes & PYQs",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Study Buddy KKW - K.K. Wagh Engineering Study Hub",
-    description: "Access unit notes, PYQs & AI study planning for KKW students.",
+    description: "Subject-wise notes, SGPA/CGPA calculator and study tracking for KKW students.",
     images: ["/og-preview.png"],
   },
 };
@@ -51,7 +52,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Study Buddy" />
-        <link rel="apple-touch-startup-image" href="/icon.svg" />
       </head>
       <body className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased bg-bg-light dark:bg-bg-dark text-on-surface dark:text-text-primary-dark`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
@@ -62,12 +62,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
              * Content area scrolls independently.
              * Individual pages should NOT import <Navbar /> anymore.
              */}
-            <div className="flex h-screen overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
               <Sidebar />
-              <div id="main-scroll-area" className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+              <div id="main-scroll-area" className="flex-1 flex flex-col min-w-0 min-h-0 overflow-y-auto">
                 {children}
               </div>
             </div>
+            <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />
           </ToastProvider>

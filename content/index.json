@@ -142,23 +142,5 @@
       "unitCount": 1,
       "lastUpdated": "2026-06-30"
     }
-  ],
-  "third-year": [
-    {
-      "id": "tbd-3rd-year",
-      "name": "Third Year Curriculum (Coming Soon)",
-      "icon": "book-open",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
-    }
-  ],
-  "fourth-year": [
-    {
-      "id": "tbd-4th-year",
-      "name": "Fourth Year Curriculum (Coming Soon)",
-      "icon": "graduation-cap",
-      "unitCount": 0,
-      "lastUpdated": "2026-06-30"
-    }
   ]
 }
