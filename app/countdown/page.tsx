@@ -28,11 +28,7 @@ export default function CountdownPage() {
           <h2 id="timetables-heading" className="font-sora font-bold text-headline-sm text-on-surface dark:text-text-primary-dark mb-3">
             Timetables
           </h2>
-          {timetableItems.length === 0 ? (
-            <p className="font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark">
-              No timetable has been added yet. Coming soon.
-            </p>
-          ) : (
+          {timetableItems.length > 0 && (
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {timetableItems.map((t) => (
                 <li key={t.url}>
@@ -55,7 +51,7 @@ export default function CountdownPage() {
               ))}
             </ul>
           )}
-          <CommunityTimetables />
+          <CommunityTimetables showEmptyMessage={timetableItems.length === 0} />
         </section>
       </main>
       <Footer />

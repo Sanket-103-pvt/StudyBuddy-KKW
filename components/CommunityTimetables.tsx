@@ -6,19 +6,34 @@ import { listCommunityTimetables, type CommunityTimetable } from "@/lib/contrib"
 import { supabaseEnabled } from "@/lib/supabase";
 import { formatYearTitle } from "@/lib/year-utils";
 
-export default function CommunityTimetables() {
+export default function CommunityTimetables({ showEmptyMessage = false }: { showEmptyMessage?: boolean }) {
   const [items, setItems] = useState<CommunityTimetable[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (!supabaseEnabled) return;
+    if (!supabaseEnabled) {
+      setLoaded(true);
+      return;
+    }
     let active = true;
-    listCommunityTimetables().then((rows) => active && setItems(rows));
+    listCommunityTimetables().then((rows) => {
+      if (!active) return;
+      setItems(rows);
+      setLoaded(true);
+    });
     return () => {
       active = false;
     };
   }, []);
 
-  if (items.length === 0) return null;
+  if (items.length === 0) {
+    if (!showEmptyMessage || !loaded) return null;
+    return (
+      <p className="font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark">
+        No timetable has been added yet. Coming soon.
+      </p>
+    );
+  }
 
   return (
     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">

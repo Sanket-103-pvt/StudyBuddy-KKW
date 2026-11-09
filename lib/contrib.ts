@@ -235,6 +235,19 @@ export async function listPendingSubmissions(): Promise<Result<Submission[]>> {
   return { data: (data as unknown as Submission[]) ?? [], error: error ? "Could not load submissions." : null };
 }
 
+// Admin: approved submissions with the contributor name, newest first.
+export async function listApprovedSubmissions(): Promise<Result<Submission[]>> {
+  const sb = await getSupabase();
+  if (!sb) return fail([], NOT_CONFIGURED);
+  const { data, error } = await sb
+    .from("submissions")
+    .select("*, profiles(display_name)")
+    .eq("status", "approved")
+    .order("created_at", { ascending: false })
+    .limit(200);
+  return { data: (data as unknown as Submission[]) ?? [], error: error ? "Could not load approved submissions." : null };
+}
+
 export async function reviewSubmission(
   id: string,
   decision: { status: "approved" | "rejected"; points: number; note: string }

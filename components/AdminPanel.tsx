@@ -10,6 +10,8 @@ import {
   listDailyVisits,
   listOpenReports,
   listPendingSubmissions,
+  listApprovedSubmissions,
+  deleteSubmission,
   reviewReport,
   reviewSubmission,
   type DailyVisit,
@@ -142,17 +144,49 @@ function ReportCard({ r, onDone }: { r: LinkReport; onDone: () => void }) {
   );
 }
 
+function ApprovedCard({ s, onDone }: { s: Submission; onDone: () => void }) {
+  const toast = useToast();
+  const remove = async () => {
+    const who = s.profiles?.display_name ?? "the contributor";
+    if (!window.confirm(`Delete "${s.title}"? It disappears from the site and ${s.points} points are removed from ${who}. This cannot be undone.`)) return;
+    const { error } = await deleteSubmission(s.id);
+    if (error) toast.error(error);
+    else {
+      toast.success("Deleted. Points removed.");
+      onDone();
+    }
+  };
+  return (
+    <li className="p-4 border border-border-light dark:border-border-dark">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="font-sora font-semibold break-words">{s.title}</p>
+          <p className="font-mono text-[11px] text-text-secondary-light dark:text-text-secondary-dark">
+            {s.kind} · {s.year} · by {s.profiles?.display_name ?? "Unknown"} · {s.points} points
+          </p>
+          <a href={s.url} target="_blank" rel="noopener noreferrer" className="block mt-1 text-body-sm underline break-all">{s.url}</a>
+        </div>
+        <button type="button" onClick={remove} className="shrink-0 min-h-[44px] px-3 text-body-sm font-semibold border border-red-600 text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/40">
+          Delete
+        </button>
+      </div>
+    </li>
+  );
+}
+
 export default function AdminPanel() {
   const auth = useAuth();
   const [subs, setSubs] = useState<Submission[]>([]);
+  const [approved, setApproved] = useState<Submission[]>([]);
   const [reports, setReports] = useState<LinkReport[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    const [s, r] = await Promise.all([listPendingSubmissions(), listOpenReports()]);
+    const [s, r, a] = await Promise.all([listPendingSubmissions(), listOpenReports(), listApprovedSubmissions()]);
     setSubs(s.data);
+    setApproved(a.data);
     setReports(r.data);
-    setError(s.error ?? r.error);
+    setError(s.error ?? r.error ?? a.error);
   }, []);
 
   useEffect(() => {
@@ -178,6 +212,12 @@ export default function AdminPanel() {
         <h2 id="pending-heading" className="font-sora font-bold text-headline-sm mb-4">Submissions to review ({subs.length})</h2>
         {subs.length === 0 ? <p className="text-text-secondary-light dark:text-text-secondary-dark">Nothing waiting.</p> : (
           <ul className="space-y-4 max-w-3xl">{subs.map((s) => <SubmissionCard key={s.id} s={s} onDone={load} />)}</ul>
+        )}
+      </section>
+      <section aria-labelledby="approved-heading">
+        <h2 id="approved-heading" className="font-sora font-bold text-headline-sm mb-4">Approved submissions ({approved.length})</h2>
+        {approved.length === 0 ? <p className="text-text-secondary-light dark:text-text-secondary-dark">Nothing approved yet.</p> : (
+          <ul className="space-y-3 max-w-3xl">{approved.map((s) => <ApprovedCard key={s.id} s={s} onDone={load} />)}</ul>
         )}
       </section>
       <section aria-labelledby="reports-heading">
