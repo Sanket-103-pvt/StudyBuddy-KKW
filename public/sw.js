@@ -1,99 +1,97 @@
-// Service Worker for Study Buddy KKW PWA
-// Implements stale-while-revalidate caching for offline notes, PDFs, and pages with bounded cache storage.
+// Service worker for Study Buddy KKW.
+// - Pre-caches the app shell so previously visited pages open without a network.
+// - Navigations: network first, fall back to cache, then to the cached home page.
+// - Static assets (_next/static, icons): cache first.
+// Google Drive notes are external links and are NOT available offline.
 
-const CACHE_NAME = "studybuddy-kkw-v2";
-const MAX_CACHE_ITEMS = 60; // Bounded cache size to prevent storage bloating on mobile browsers
+const VERSION = "v3";
+const PRECACHE = `studybuddy-kkw-precache-${VERSION}`;
+const RUNTIME = `studybuddy-kkw-runtime-${VERSION}`;
+const MAX_RUNTIME_ITEMS = 80;
 
-const PRECACHE_ASSETS = [
+const PRECACHE_URLS = [
   "/",
   "/first-year",
   "/second-year",
-  "/third-year",
-  "/fourth-year",
   "/calculator",
   "/analytics",
-  "/contribute",
+  "/countdown",
+  "/pyq",
   "/about",
   "/manifest.webmanifest",
   "/icon.svg",
-  "/workers/search.worker.js",
-  "/content/index.json",
 ];
 
-// Helper to prune cache if item count exceeds MAX_CACHE_ITEMS
-async function limitCacheSize(cacheName, maxItems) {
-  try {
-    const cache = await caches.open(cacheName);
-    const keys = await cache.keys();
-    if (keys.length > maxItems) {
-      await cache.delete(keys[0]);
-      await limitCacheSize(cacheName, maxItems);
-    }
-  } catch (err) {
-    console.error("Failed to prune cache:", err);
+// Routes that must always hit the network (auth, admin, API).
+const NETWORK_ONLY = [/^\/api\//, /^\/auth/, /^\/admin/];
+
+async function trimCache(name, max) {
+  const cache = await caches.open(name);
+  const keys = await cache.keys();
+  for (let i = 0; i < keys.length - max; i++) {
+    await cache.delete(keys[i]);
   }
 }
 
-// Install: pre-cache static pages, search index worker, and key JSON configs
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_ASSETS).catch((err) => {
-        console.warn("Some precache assets failed to load:", err);
-      });
-    })
+    caches.open(PRECACHE).then((cache) =>
+      // One failing URL must not abort the others.
+      Promise.allSettled(PRECACHE_URLS.map((url) => cache.add(url)))
+    )
   );
   self.skipWaiting();
 });
 
-// Activate: clean up older cache versions
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
-    })
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(names.filter((n) => n !== PRECACHE && n !== RUNTIME).map((n) => caches.delete(n)))
+      )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch: Stale-while-revalidate strategy for pages, notes, JSON configs, and PDFs
 self.addEventListener("fetch", (event) => {
   const { request } = event;
-  const url = new URL(request.url);
+  if (request.method !== "GET") return;
 
-  // Ignore non-GET or cross-origin non-http(s) requests
-  if (request.method !== "GET" || !url.protocol.startsWith("http")) {
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return; // never touch Drive / third-party requests
+  if (NETWORK_ONLY.some((re) => re.test(url.pathname))) return;
+
+  // Page navigations: network first, then cache, then cached home page.
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(RUNTIME).then((c) => c.put(request, copy).then(() => trimCache(RUNTIME, MAX_RUNTIME_ITEMS)));
+          }
+          return response;
+        })
+        .catch(async () => (await caches.match(request)) || (await caches.match("/")) || Response.error())
+    );
     return;
   }
 
-  event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(request).then((cachedResponse) => {
-        // Fetch network update in background (Stale-while-revalidate)
-        const fetchPromise = fetch(request)
-          .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              const responseToCache = networkResponse.clone();
-              cache.put(request, responseToCache);
-              limitCacheSize(CACHE_NAME, MAX_CACHE_ITEMS);
+  // Static assets: cache first.
+  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/icons/") || url.pathname === "/icon.svg") {
+    event.respondWith(
+      caches.match(request).then(
+        (cached) =>
+          cached ||
+          fetch(request).then((response) => {
+            if (response.ok) {
+              const copy = response.clone();
+              caches.open(RUNTIME).then((c) => c.put(request, copy).then(() => trimCache(RUNTIME, MAX_RUNTIME_ITEMS)));
             }
-            return networkResponse;
+            return response;
           })
-          .catch(() => {
-            // Offline fallback
-            if (cachedResponse) return cachedResponse;
-            if (request.mode === "navigate") {
-              return cache.match("/");
-            }
-          });
-
-        // Return cached response immediately if available, or wait for network fetch
-        return cachedResponse || fetchPromise;
-      });
-    })
-  );
+      )
+    );
+  }
 });

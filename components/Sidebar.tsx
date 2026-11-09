@@ -18,6 +18,8 @@ import {
   X,
   Sparkles,
   Search,
+  FileText,
+  Timer,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
@@ -56,6 +58,8 @@ export default function Sidebar() {
   const toolNav = [
     { name: "SGPA / CGPA Calculator", href: "/calculator", icon: Calculator },
     { name: "Study Time Analytics", href: "/analytics", icon: BarChart2 },
+    { name: "Previous Year Papers", href: "/pyq", icon: FileText },
+    { name: "Exam Countdown", href: "/countdown", icon: Timer },
     { name: "Contribute & Leaderboard", href: "/contribute", icon: Trophy },
   ];
 
@@ -65,18 +69,14 @@ export default function Sidebar() {
   ];
 
   const triggerSearch = () => {
-    const searchInput = document.querySelector<HTMLInputElement>("input[type='search'], input[placeholder*='Search']");
-    if (searchInput) {
-      searchInput.focus();
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    // Opens the global command palette (same as pressing Ctrl+K).
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
   };
 
   return (
     <>
       {/* Top Mobile Bar (Visible on mobile/tablet screens < lg) */}
-      <header className="lg:hidden sticky top-0 z-40 bg-white/95 dark:bg-bg-dark/95 backdrop-blur-md border-b border-border-light dark:border-border-dark px-4 h-16 flex items-center justify-between shadow-xs">
+      <header className="lg:hidden shrink-0 sticky top-0 z-40 bg-white/95 dark:bg-bg-dark/95 backdrop-blur-md border-b border-border-light dark:border-border-dark px-4 h-16 flex items-center justify-between shadow-xs">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-sora font-bold text-sm shadow-xs">
             SB

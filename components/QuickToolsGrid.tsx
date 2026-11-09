@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Calculator, BarChart2, Trophy, ArrowRight } from "lucide-react";
+import { Calculator, BarChart2, Trophy, Timer, ArrowRight } from "lucide-react";
 
 const tools = [
   {
@@ -26,6 +26,16 @@ const tools = [
     badge: "Privacy First",
   },
   {
+    title: "Exam Countdown",
+    description: "Add your exam dates, see the days left and open exam timetables.",
+    href: "/countdown",
+    icon: Timer,
+    colorClass:
+      "bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-200/80 dark:border-emerald-800/40 text-emerald-900 dark:text-emerald-100 hover:border-emerald-400 dark:hover:border-emerald-600",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    badge: "On this device",
+  },
+  {
     title: "Contributor Leaderboard",
     description: "Submit notes, earn points, and view top student contributors across engineering departments.",
     href: "/contribute",
@@ -33,7 +43,7 @@ const tools = [
     colorClass:
       "bg-slate-100/70 dark:bg-slate-900/40 border-slate-200/80 dark:border-slate-800/40 text-slate-900 dark:text-slate-100 hover:border-slate-400 dark:hover:border-slate-600",
     iconColor: "text-slate-700 dark:text-slate-300",
-    badge: "Gamified",
+    badge: "Contribute",
   },
 ];
 

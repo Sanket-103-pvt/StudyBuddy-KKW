@@ -25,72 +25,11 @@ export interface ContributionSubmission {
 }
 
 const SUBMISSIONS_KEY = "sb_contribution_submissions";
-const CONTRIBUTORS_KEY = "sb_contributors";
+// v2 key: older browsers still hold the removed demo leaderboard under "sb_contributors".
+const CONTRIBUTORS_KEY = "sb_contributors_v2";
 
-// Seed leaderboard with realistic KKWIEER contributor data
-const SEED_CONTRIBUTORS: Contributor[] = [
-  {
-    id: "c_sanket",
-    name: "Sanket Chaudhari",
-    avatar: "SC",
-    github: "Sanket-103-pvt",
-    uploads: 42,
-    points: 420,
-    badge: "gold",
-    subjects: ["Operating Systems", "DBMS", "DSA", "Software Engineering"],
-    joinedAt: "2024-01-15",
-  },
-  {
-    id: "c_priya",
-    name: "Priya Sharma",
-    avatar: "PS",
-    uploads: 28,
-    points: 280,
-    badge: "silver",
-    subjects: ["Engineering Mathematics II", "Applied Chemistry", "OOP"],
-    joinedAt: "2024-02-10",
-  },
-  {
-    id: "c_rohan",
-    name: "Rohan Patil",
-    avatar: "RP",
-    uploads: 19,
-    points: 190,
-    badge: "bronze",
-    subjects: ["Digital Electronics", "Computer Networks", "C Programming"],
-    joinedAt: "2024-03-22",
-  },
-  {
-    id: "c_aisha",
-    name: "Aisha Khan",
-    avatar: "AK",
-    uploads: 11,
-    points: 110,
-    badge: "contributor",
-    subjects: ["AI Fundamentals", "Data Science", "Statistics"],
-    joinedAt: "2024-05-05",
-  },
-  {
-    id: "c_nikhil",
-    name: "Nikhil Jadhav",
-    avatar: "NJ",
-    uploads: 7,
-    points: 70,
-    badge: "contributor",
-    subjects: ["Advanced Data Structures", "Engineering Maths III"],
-    joinedAt: "2024-07-18",
-  },
-  {
-    id: "c_shruti",
-    name: "Shruti Desai",
-    avatar: "SD",
-    uploads: 3,
-    points: 30,
-    badge: "newcomer",
-    subjects: ["Applied Physics", "Engineering Drawing"],
-    joinedAt: "2024-11-01",
-  },
-];
+// No fake seed data: the leaderboard only shows real contributors.
+const SEED_CONTRIBUTORS: Contributor[] = [];
 
 export function getContributors(): Contributor[] {
   if (typeof window === "undefined") return SEED_CONTRIBUTORS;
