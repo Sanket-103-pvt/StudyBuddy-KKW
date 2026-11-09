@@ -55,7 +55,7 @@ export default function SupportPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/upi-qr.png" alt={`UPI QR code for ${UPI_ID}`} width={180} height={180} className="rounded-none border border-border-light dark:border-border-dark bg-white p-2" />
               <div className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-3">
-                <p>Scan with any UPI app (GPay, PhonePe, Paytm), or on your phone tap the button. Any amount, even ₹20 is appreciated.</p>
+                <p>Scan with any UPI app (GPay, PhonePe, Paytm), or on your phone tap the button. Any amount, even ₹40, the price of one coffee, is appreciated.</p>
                 <p className="font-mono text-sm break-all">UPI ID: <span className="text-on-surface dark:text-text-primary-dark">{UPI_ID}</span></p>
                 <a href={UPI_LINK} className={`${btn} bg-on-surface text-white dark:bg-white dark:text-black hover:opacity-90 sm:hidden`}>Pay with UPI app</a>
               </div>
