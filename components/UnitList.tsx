@@ -215,7 +215,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                         toast.info(`Unit ${unit.unitNumber} marked incomplete`);
                       }
                     }}
-                    className={`p-1 rounded-lg transition-all ${
+                    className={`touch-target p-1 rounded-lg transition-all ${
                       unitDone
                         ? "text-emerald-500 hover:text-emerald-600 dark:text-emerald-400"
                         : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
@@ -285,7 +285,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                                     toast.info(`Marked "${res.label}" incomplete`);
                                   }
                                 }}
-                                className={`p-1 rounded-md transition-all shrink-0 ${
+                                className={`touch-target p-1 rounded-md transition-all shrink-0 ${
                                   resDone
                                     ? "text-emerald-500 dark:text-emerald-400"
                                     : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
@@ -341,7 +341,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                               
                               <button
                                 onClick={() => copyLink(res.url, res.label)}
-                                className="p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
+                                className="touch-target max-sm:hidden p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
                                 title="Copy resource link"
                                 aria-label="Copy link"
                               >
@@ -354,7 +354,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
 
                               <button
                                 onClick={() => toggleBookmark(res)}
-                                className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
+                                className={`touch-target p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
                                   isBookmarked(res.url) 
                                     ? "text-amber-500" 
                                     : "text-text-secondary-light dark:text-text-secondary-dark hover:text-amber-500"
@@ -416,7 +416,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                             toast.info(`Marked "${res.label}" incomplete`);
                           }
                         }}
-                        className={`p-1 rounded-md transition-all shrink-0 ${
+                        className={`touch-target p-1 rounded-md transition-all shrink-0 ${
                           resDone
                             ? "text-emerald-500 dark:text-emerald-400"
                             : "text-text-secondary-light/40 dark:text-text-secondary-dark/40 hover:text-emerald-500"
@@ -457,7 +457,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
 
                       <button
                         onClick={() => copyLink(res.url, res.label)}
-                        className="p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
+                        className="touch-target max-sm:hidden p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 active:scale-90 hover:scale-110"
                         title="Copy resource link"
                         aria-label="Copy link"
                       >
@@ -470,7 +470,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
 
                       <button
                         onClick={() => toggleBookmark(res)}
-                        className={`p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
+                        className={`touch-target p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface transition-all duration-200 active:scale-90 hover:scale-110 ${
                           isBookmarked(res.url) 
                             ? "text-amber-500" 
                             : "text-text-secondary-light dark:text-text-secondary-dark hover:text-amber-500"

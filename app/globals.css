@@ -18,3 +18,10 @@
   line-height: 1;
 }
 
+
+/* Tap targets of at least 44x44 px on phones; compact on larger screens. */
+@layer components {
+  .touch-target {
+    @apply inline-flex items-center justify-center min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0;
+  }
+}

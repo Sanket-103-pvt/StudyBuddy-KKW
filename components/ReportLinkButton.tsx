@@ -38,7 +38,7 @@ export default function ReportLinkButton({ subjectId, label, url }: Props) {
     <button
       onClick={report}
       disabled={busy}
-      className="p-3 -m-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 disabled:opacity-50"
+      className="touch-target p-1.5 rounded-md hover:bg-surface-container dark:hover:bg-inverse-surface text-text-secondary-light dark:text-text-secondary-dark hover:text-red-500 disabled:opacity-50"
       title="Report broken link"
       aria-label={`Report broken link: ${label}`}
     >
