@@ -42,3 +42,11 @@
   --lp-muted: #a2a29a;
   --lp-line: #2a2a27;
 }
+
+/* Dropdown open animation */
+@keyframes lp-drop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lp-drop { animation: lp-drop 160ms ease-out; }
+@media (prefers-reduced-motion: reduce) { .lp-drop { animation: none; } }

@@ -6,7 +6,7 @@ import { ToastProvider } from "@/components/ToastProvider";
 import BackToTop from "@/components/BackToTop";
 import PWARegister from "@/components/PWARegister";
 import PWAInstallBanner from "@/components/PWAInstallBanner";
-import Sidebar from "@/components/Sidebar";
+import SiteNav from "@/components/SiteNav";
 import CommandPalette from "@/components/CommandPalette";
 import AuthProvider from "@/components/AuthProvider";
 import { VisitTracker } from "@/components/VisitCounter";
@@ -60,14 +60,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
           <ToastProvider>
             <AuthProvider>
-            {/*
-             * Global App Shell:
-             * Sidebar is rendered ONCE globally here.
-             * Content area scrolls independently.
-             * Individual pages should NOT import <Navbar /> anymore.
-             */}
-            <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
-              <Sidebar />
+            {/* Global shell: top navigation, then the page content scrolls on its own. */}
+            <div className="flex flex-col h-screen overflow-hidden">
+              <SiteNav />
               <div id="main-scroll-area" className="flex-1 flex flex-col min-w-0 min-h-0 overflow-y-auto">
                 {children}
               </div>

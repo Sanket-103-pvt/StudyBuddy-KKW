@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Flag } from "lucide-react";
-import LandingNav from "@/components/landing/LandingNav";
 import CountUp from "@/components/landing/CountUp";
 import LandingSearch from "@/components/landing/LandingSearch";
 import PinnedResources from "@/components/PinnedResources";
@@ -119,8 +118,6 @@ export default function LandingPage() {
 
   return (
     <div className="bg-[var(--lp-bg)] text-[var(--lp-ink)] font-inter min-h-full">
-      <LandingNav />
-
       {/* Hero */}
       <section className={`${wrap} pt-14 md:pt-20 pb-16`}>
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-start">
