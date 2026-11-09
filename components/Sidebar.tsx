@@ -99,7 +99,7 @@ export default function Sidebar() {
           <OfflineBadge />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-surface-container dark:hover:bg-inverse-surface transition-colors"
             aria-label="Toggle Navigation Sidebar"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
