@@ -3,7 +3,7 @@ import React from "react";
 import { Coffee } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons";
 import Footer from "@/components/Footer";
-import { BUY_ME_A_COFFEE_URL, SUPPORT_LINKS } from "@/lib/support-config";
+import { BUY_ME_A_COFFEE_URL, SUPPORT_LINKS, UPI_ID, UPI_LINK } from "@/lib/support-config";
 
 export const metadata: Metadata = {
   title: "Support & Career Tips | Study Buddy KKW",
@@ -51,8 +51,17 @@ export default function SupportPage() {
 
           <section className={card} aria-labelledby="coffee-heading">
             <h2 id="coffee-heading" className="font-serif text-2xl text-on-surface dark:text-text-primary-dark mb-3">Buy me a coffee</h2>
+            <div className="flex flex-col sm:flex-row gap-6 items-start mb-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/upi-qr.png" alt={`UPI QR code for ${UPI_ID}`} width={180} height={180} className="rounded-xl border border-border-light dark:border-border-dark bg-white p-2" />
+              <div className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-3">
+                <p>Scan with any UPI app (GPay, PhonePe, Paytm), or on your phone tap the button. Any amount, even ₹20 is appreciated.</p>
+                <p className="font-mono text-sm break-all">UPI ID: <span className="text-on-surface dark:text-text-primary-dark">{UPI_ID}</span></p>
+                <a href={UPI_LINK} className={`${btn} bg-on-surface text-white dark:bg-white dark:text-black hover:opacity-90 sm:hidden`}>Pay with UPI app</a>
+              </div>
+            </div>
             <ol className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-1 list-decimal pl-5 mb-5">
-              <li>Support through Buy Me a Coffee (the payment happens on their site, not here).</li>
+              <li>Pay by UPI above, or through Buy Me a Coffee. Payments happen in your payment app, not on this site.</li>
               <li>Then message me on LinkedIn or Instagram and tell me what you need help with.</li>
             </ol>
             <div className="flex flex-wrap gap-3">
