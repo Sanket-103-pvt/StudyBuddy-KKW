@@ -9,6 +9,7 @@ import PWAInstallBanner from "@/components/PWAInstallBanner";
 import SiteNav from "@/components/SiteNav";
 import CommandPalette from "@/components/CommandPalette";
 import AuthProvider from "@/components/AuthProvider";
+import { Analytics } from "@vercel/analytics/next";
 import { VisitTracker } from "@/components/VisitCounter";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
             </div>
             <VisitTracker />
+            <Analytics />
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />

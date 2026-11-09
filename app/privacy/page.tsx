@@ -31,6 +31,9 @@ export default function Page() {
           <h2 className={H2}>Who can see it</h2>
           <p>Only the site admin can see pending submissions and who sent them. Other students see only approved items and public display names. Our hosting and database providers (Vercel and Supabase) process data on our behalf and keep standard server logs such as IP addresses.</p>
 
+          <h2 className={H2}>Page view statistics</h2>
+          <p>We use Vercel Web Analytics to count page views and see which pages are used. It does not use cookies and does not follow you across other websites. We also keep a simple daily visit count (one number per day, no personal data).</p>
+
           <h2 className={H2}>Cookies</h2>
           <p>We do not set advertising or tracking cookies, so there is no cookie banner. Sign-in and preferences (such as light or dark theme) use browser storage.</p>
 
