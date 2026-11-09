@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import ExamCountdown from "@/components/ExamCountdown";
 import { timetableItems } from "@/lib/site-data";
 import { ExternalLink } from "lucide-react";
+import CommunityTimetables from "@/components/CommunityTimetables";
 import { formatYearTitle } from "@/lib/year-utils";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default function CountdownPage() {
               ))}
             </ul>
           )}
+          <CommunityTimetables />
         </section>
       </main>
       <Footer />

@@ -8,6 +8,7 @@ import PWARegister from "@/components/PWARegister";
 import PWAInstallBanner from "@/components/PWAInstallBanner";
 import Sidebar from "@/components/Sidebar";
 import CommandPalette from "@/components/CommandPalette";
+import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased bg-bg-light dark:bg-bg-dark text-on-surface dark:text-text-primary-dark`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
           <ToastProvider>
+            <AuthProvider>
             {/*
              * Global App Shell:
              * Sidebar is rendered ONCE globally here.
@@ -71,6 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />
+          </AuthProvider>
           </ToastProvider>
         </ThemeProvider>
         <PWARegister />

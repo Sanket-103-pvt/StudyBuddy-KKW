@@ -2,7 +2,8 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:3000",
+    // 127.0.0.1, not localhost: Node 18+ resolves localhost to ::1 and the readiness check never connects.
+    baseUrl: "http://127.0.0.1:3000",
     specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
     supportFile: false,
     video: false,
