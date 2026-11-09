@@ -10,8 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:run",
-    "test:e2e:dev": "start-server-and-test dev http://localhost:3000 cypress:run",
+    "test:e2e": "start-server-and-test start http-get://127.0.0.1:3000 cypress:run",
+    "test:e2e:dev": "start-server-and-test dev http-get://127.0.0.1:3000 cypress:run",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "precommit": "npm run validate"

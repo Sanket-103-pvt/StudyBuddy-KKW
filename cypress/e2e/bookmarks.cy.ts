@@ -6,7 +6,7 @@ describe("Bookmarks E2E Test Suite", () => {
 
   it("should pin a resource, persist across reloads, and unpin successfully", () => {
     // 1. Visit a subject page
-    cy.visit("/second-year/operating-systems");
+    cy.visit("/second-year/deld");
 
     // 2. Click the star/bookmark button on the first resource
     cy.get('button[aria-label="Bookmark resource"]').first().click();
@@ -17,20 +17,20 @@ describe("Bookmarks E2E Test Suite", () => {
     // 4. Navigate to Home Page
     cy.visit("/");
 
-    // 5. Confirm "⭐ Pinned Resources" section is visible
-    cy.contains("⭐ Pinned Resources").should("be.visible");
+    // 5. Confirm "Pinned Resources" section is visible
+    cy.contains("Pinned Resources").should("be.visible");
 
     // 6. Reload page to verify persistence in localStorage
     cy.reload();
 
     // 7. Verify Pinned Resources section persists after reload
-    cy.contains("⭐ Pinned Resources").should("be.visible");
+    cy.contains("Pinned Resources").should("be.visible");
 
     // 8. Click unpin button on the pinned card
     cy.get('button[aria-label="Remove pin"]').first().click();
 
     // 9. Confirm toast notification and removal of Pinned Resources section
     cy.contains("Unpinned").should("be.visible");
-    cy.contains("⭐ Pinned Resources").should("not.exist");
+    cy.contains("Pinned Resources").should("not.exist");
   });
 });

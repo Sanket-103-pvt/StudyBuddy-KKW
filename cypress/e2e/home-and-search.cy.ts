@@ -4,7 +4,7 @@ describe("Home Page & Search E2E Test Suite", () => {
   });
 
   it("should load the home page and render hero heading and year selection cards", () => {
-    cy.contains("h1", "Find your notes in seconds").should("be.visible");
+    cy.contains("h1", "Find your engineering notes in seconds").should("be.visible");
     cy.contains("First Year").should("be.visible");
     cy.contains("Second Year").should("be.visible");
   });
@@ -15,24 +15,40 @@ describe("Home Page & Search E2E Test Suite", () => {
     cy.contains("h1", "First Year").should("be.visible");
   });
 
-  it("should display search results overlay when typing a search query", () => {
-    // Type search query into SearchBar input
-    cy.get('input[placeholder*="Search"]').type("DBMS");
-
-    // Dropdown overlay should appear with search results
-    cy.contains("Database Management System [DBMS]").should("be.visible");
+  it("should list matching subjects when typing a search query", () => {
+    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    cy.get('[role="option"]').contains("Database Management System [DBMS]").should("be.visible");
   });
 
-  it("should clear the search input and close dropdown when clear button is clicked", () => {
-    cy.get('input[placeholder*="Search"]').type("DBMS");
-    cy.contains("Database Management System [DBMS]").should("be.visible");
+  it("should open the subject page when a search result is selected", () => {
+    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    cy.get('[role="option"]').first().click();
+    cy.url().should("include", "/second-year/dbms");
+  });
 
-    // Click clear button inside SearchBar
+  it("should restrict results with the year filter", () => {
+    cy.get('input[aria-label="Search subjects"]').type("math");
+    cy.get('button[aria-pressed]').contains("2nd Year").click();
+    cy.get('[role="option"]').each(($el) => {
+      cy.wrap($el).should("contain.text", "2nd Year");
+    });
+  });
+
+  it("should clear the search input and close the results when the clear button is clicked", () => {
+    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    cy.get('[role="option"]').should("exist");
+
     cy.get('button[aria-label="Clear search"]').click();
 
-    // Search input should be empty
-    cy.get('input[placeholder*="Search"]').should("have.value", "");
-    // Search dropdown result should no longer exist
-    cy.contains("Database Management System [DBMS]").should("not.exist");
+    cy.get('input[aria-label="Search subjects"]').should("have.value", "");
+    cy.get('[role="option"]').should("not.exist");
+  });
+
+  it("should open the global search palette with Ctrl+K on any page", () => {
+    cy.visit("/calculator");
+    cy.get("body").type("{ctrl}k");
+    cy.get('[role="dialog"] input[aria-label="Search subjects"]').should("be.visible").type("DBMS");
+    cy.get('[role="dialog"] [role="option"]').first().click();
+    cy.url().should("include", "/second-year/dbms");
   });
 });
