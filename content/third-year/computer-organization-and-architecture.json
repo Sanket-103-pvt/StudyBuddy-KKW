@@ -1,0 +1,35 @@
+{
+  "id": "computer-organization-and-architecture",
+  "name": "Computer Organization and Architecture",
+  "year": "third-year",
+  "icon": "server",
+  "lastUpdated": "2026-11-09",
+  "units": [
+    {
+      "unitNumber": 1,
+      "title": "Unit 1",
+      "resources": []
+    },
+    {
+      "unitNumber": 2,
+      "title": "Unit 2",
+      "resources": []
+    },
+    {
+      "unitNumber": 3,
+      "title": "Unit 3",
+      "resources": []
+    },
+    {
+      "unitNumber": 4,
+      "title": "Unit 4",
+      "resources": []
+    },
+    {
+      "unitNumber": 5,
+      "title": "Unit 5",
+      "resources": []
+    }
+  ],
+  "bonus": []
+}

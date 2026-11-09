@@ -58,13 +58,13 @@ export default function HomeClient({ landing }: { landing: React.ReactNode }) {
               },
               "third-year": {
                 title: "Third Year",
-                desc: "Advanced specialization and elective courses for Semesters V & VI.",
-                tags: ["Computer Networks", "TOC", "Web Tech", "AI & ML", "Cloud Computing"],
+                desc: "AI&DS core and elective courses for Semesters V & VI.",
+                tags: ["DSA", "AI", "Data Science", "TOC", "Cloud Computing", "NLP"],
               },
               "fourth-year": {
                 title: "Fourth Year",
-                desc: "Capstone projects, industrial training, and electives for Semesters VII & VIII.",
-                tags: ["Major Project", "Cyber Security", "DevOps", "Deep Learning", "Seminar"],
+                desc: "AI&DS courses for Semesters VII & VIII.",
+                tags: ["Research Methodology", "Generative AI", "Deep Learning", "Computational Intelligence"],
               },
             };
 

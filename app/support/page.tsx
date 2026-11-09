@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import React from "react";
-import { Coffee } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/icons";
 import Footer from "@/components/Footer";
 import { BUY_ME_A_COFFEE_URL, SUPPORT_LINKS, UPI_ID, UPI_LINK } from "@/lib/support-config";
@@ -61,19 +60,10 @@ export default function SupportPage() {
               </div>
             </div>
             <ol className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-1 list-decimal pl-5 mb-5">
-              <li>Pay by UPI above, or through Buy Me a Coffee. Payments happen in your payment app, not on this site.</li>
+              <li>Pay by UPI above. Payments happen in your payment app, not on this site.</li>
               <li>Then message me on LinkedIn or Instagram and tell me what you need help with.</li>
             </ol>
             <div className="flex flex-wrap gap-3">
-              {BUY_ME_A_COFFEE_URL ? (
-                <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer" className={`${btn} bg-on-surface text-white dark:bg-white dark:text-black hover:opacity-90`}>
-                  <Coffee size={16} aria-hidden /> Buy me a coffee
-                </a>
-              ) : (
-                <span className={`${btn} border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark`}>
-                  <Coffee size={16} aria-hidden /> Coffee link coming soon
-                </span>
-              )}
               <a href={SUPPORT_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className={`${btn} border border-border-light dark:border-border-dark hover:bg-surface-container dark:hover:bg-inverse-surface`}>
                 <LinkedinIcon className="w-4 h-4" /> LinkedIn
               </a>
@@ -84,6 +74,15 @@ export default function SupportPage() {
                 <GithubIcon className="w-4 h-4" /> GitHub
               </a>
             </div>
+            {BUY_ME_A_COFFEE_URL && (
+              <p className="mt-5 font-inter text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                No UPI? Backup option:{" "}
+                <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-on-surface dark:hover:text-text-primary-dark">
+                  Buy Me a Coffee
+                </a>{" "}
+                (card payment, minimum about $1).
+              </p>
+            )}
           </section>
         </div>
       </main>

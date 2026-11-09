@@ -30,8 +30,8 @@ const yearTitles: Record<string, string> = {
 const yearDescriptions: Record<string, string> = {
   "first-year": "Common engineering foundation courses for Semesters I & II",
   "second-year": "Departmental core subjects for Semesters III & IV (AI&DS / CS)",
-  "third-year": "Advanced specialization and elective courses for Semesters V & VI",
-  "fourth-year": "Capstone projects, industrial training, and electives for Semesters VII & VIII",
+  "third-year": "AI&DS core and elective courses for Semesters V & VI",
+  "fourth-year": "AI&DS courses for Semesters VII & VIII",
 };
 
 export async function generateStaticParams() {

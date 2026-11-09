@@ -1,6 +1,6 @@
 // Set this to your Buy Me a Coffee page, e.g. "https://buymeacoffee.com/yourname".
-// While it is empty, the /support page shows "Coming soon" instead of a button.
-export const BUY_ME_A_COFFEE_URL = "";
+// Only a small backup link on /support (minimum payment there is about $1); the UPI QR is the main way to pay.
+export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/sanketchaudhari.in";
 
 export const SUPPORT_LINKS = {
   linkedin: "https://www.linkedin.com/in/sanketchaudhari1035/",

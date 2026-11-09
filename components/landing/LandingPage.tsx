@@ -19,7 +19,7 @@ interface SubjectFile {
   units?: { title: string; resources?: { label: string; url: string }[] }[];
 }
 
-const YEAR_TITLES: Record<string, string> = { "first-year": "First Year", "second-year": "Second Year" };
+const YEAR_TITLES: Record<string, string> = { "first-year": "First Year", "second-year": "Second Year", "third-year": "Third Year", "fourth-year": "Fourth Year" };
 const years = Object.keys(indexData).filter((y) => y in YEAR_TITLES);
 
 function readSubject(year: string, id: string): SubjectFile | null {
@@ -110,7 +110,7 @@ export default function LandingPage() {
   ];
 
   const steps = [
-    ["Choose your year", "Open First Year or Second Year and pick the subject you are studying."],
+    ["Choose your year", "Open your year and pick the subject you are studying."],
     ["Open the unit", "Each unit lists its notes and resources as direct links."],
     ["Track your syllabus", "Mark units done and see progress. It stays on your device, no login."],
     ["Share what you have", "Login with your KKWagh email to submit notes. Approved ones carry your name."],
@@ -298,7 +298,7 @@ export default function LandingPage() {
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">Free notes and student tools for K.K. Wagh engineering students. Built by a student.</p>
           </div>
           {[
-            ["Notes", [["First Year", "/first-year"], ["Second Year", "/second-year"], ["Previous Year Papers", "/pyq"]]],
+            ["Notes", [["First Year", "/first-year"], ["Second Year", "/second-year"], ["Third Year", "/third-year"], ["Fourth Year", "/fourth-year"], ["Previous Year Papers", "/pyq"]]],
             ["Tools", [["SGPA / CGPA Calculator", "/calculator"], ["Study Analytics", "/analytics"], ["Exam Countdown", "/countdown"]]],
             ["Project", [["Contribute", "/contribute"], ["Support", "/support"], ["About", "/about"], ["Contact", "/contact"], ["Privacy", "/privacy"], ["Terms", "/terms"]]],
           ].map(([h, links]) => (
