@@ -55,3 +55,19 @@ export async function publicSelect<T>(table: string, params: Record<string, stri
     return [];
   }
 }
+
+/** Calls a database function via the REST API (no library needed). Returns true on success. */
+export async function publicRpc(fn: string): Promise<boolean> {
+  if (!supabaseEnabled) return false;
+  try {
+    const res = await fetch(`${url}/rest/v1/rpc/${fn}`, {
+      method: "POST",
+      headers: { apikey: anonKey as string, "Content-Type": "application/json" },
+      body: "{}",
+      keepalive: true,
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}

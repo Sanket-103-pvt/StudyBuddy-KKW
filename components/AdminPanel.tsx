@@ -7,16 +7,51 @@ import { useToast } from "@/components/ToastProvider";
 import {
   NOTE_TYPE_LABELS,
   clampPoints,
+  listDailyVisits,
   listOpenReports,
   listPendingSubmissions,
   reviewReport,
   reviewSubmission,
+  type DailyVisit,
   type LinkReport,
   type Submission,
 } from "@/lib/contrib";
 import { formatYearTitle } from "@/lib/year-utils";
 
 const field = "min-h-[44px] px-3 rounded-lg border border-border-light dark:border-border-dark bg-surface-container-lowest dark:bg-bg-dark text-on-surface dark:text-text-primary-dark";
+
+function VisitsCard() {
+  const [days, setDays] = useState<DailyVisit[] | null>(null);
+  useEffect(() => {
+    listDailyVisits(14).then((r) => setDays(r.data));
+  }, []);
+  if (!days) return null;
+  const total = days.reduce((n, d) => n + d.visits, 0);
+  const today = days[days.length - 1]?.visits ?? 0;
+  const week = days.slice(-7).reduce((n, d) => n + d.visits, 0);
+  const max = Math.max(1, ...days.map((d) => d.visits));
+  return (
+    <section aria-labelledby="visits-heading">
+      <h2 id="visits-heading" className="font-sora font-bold text-headline-sm mb-4">Visits</h2>
+      <div className="grid grid-cols-3 gap-3 max-w-xl mb-4">
+        {[["Today", today], ["Last 7 days", week], ["Last 14 days", total]].map(([label, n]) => (
+          <div key={label as string} className="p-4 rounded-xl border border-border-light dark:border-border-dark bg-surface-container-lowest dark:bg-bg-dark">
+            <div className="font-sora font-bold text-2xl">{Number(n).toLocaleString("en-IN")}</div>
+            <div className="text-body-sm text-text-secondary-light dark:text-text-secondary-dark">{label as string}</div>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-end gap-1.5 h-28 max-w-xl" role="img" aria-label="Visits per day for the last 14 days">
+        {days.map((d) => (
+          <div key={d.day} className="flex-1 flex flex-col justify-end h-full" title={`${d.day}: ${d.visits}`}>
+            <div className="w-full rounded-t bg-primary" style={{ height: `${Math.max(2, (d.visits / max) * 100)}%` }} />
+          </div>
+        ))}
+      </div>
+      <p className="text-[12px] text-text-secondary-light dark:text-text-secondary-dark mt-2">One count per browser per day. Not bot-filtered.</p>
+    </section>
+  );
+}
 
 function SubmissionCard({ s, onDone }: { s: Submission; onDone: () => void }) {
   const toast = useToast();
@@ -138,6 +173,7 @@ export default function AdminPanel() {
   return (
     <div className="space-y-12">
       {error && <p className="text-red-600">{error}</p>}
+      <VisitsCard />
       <section aria-labelledby="pending-heading">
         <h2 id="pending-heading" className="font-sora font-bold text-headline-sm mb-4">Submissions to review ({subs.length})</h2>
         {subs.length === 0 ? <p className="text-text-secondary-light dark:text-text-secondary-dark">Nothing waiting.</p> : (

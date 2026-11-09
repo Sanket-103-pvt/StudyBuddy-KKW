@@ -268,3 +268,16 @@ export async function reviewReport(
     .eq("id", id);
   return { error: error ? "Could not save the review." : null };
 }
+
+export interface DailyVisit {
+  day: string;
+  visits: number;
+}
+
+export async function listDailyVisits(days = 14): Promise<Result<DailyVisit[]>> {
+  const sb = await getSupabase();
+  if (!sb) return fail([], NOT_CONFIGURED);
+  const { data, error } = await sb.rpc("admin_daily_visits", { days });
+  if (error) return fail([], error.message);
+  return { data: (data ?? []) as DailyVisit[], error: null };
+}

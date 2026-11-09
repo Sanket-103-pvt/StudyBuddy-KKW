@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { VisitCount } from "@/components/VisitCounter";
 
 export default function Footer() {
   return (
@@ -15,6 +16,7 @@ export default function Footer() {
           <p className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark">
             © {new Date().getFullYear()} Study Buddy KKW. Open Source Project under MIT License.
           </p>
+          <VisitCount />
         </div>
         
         <div>
