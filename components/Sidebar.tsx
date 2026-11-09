@@ -23,6 +23,7 @@ import {
   Shield,
   LogIn,
   LogOut,
+  Coffee,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
@@ -73,6 +74,7 @@ export default function Sidebar() {
   const infoNav = [
     { name: "About Platform", href: "/about", icon: Info },
     { name: "Contact & Support", href: "/contact", icon: MessageSquare },
+    { name: "Support & Career Tips", href: "/support", icon: Coffee },
   ];
 
   const triggerSearch = () => {
