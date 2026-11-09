@@ -14,8 +14,17 @@ export function VisitTracker() {
     try {
       const today = new Date().toISOString().slice(0, 10);
       if (window.localStorage.getItem(KEY) === today) return;
+      // Mark the day first so reloads, extra tabs and quick page changes cannot count twice
+      // while the request is still in flight; undo the mark only if the request failed.
+      window.localStorage.setItem(KEY, today);
       publicRpc("track_visit").then((ok) => {
-        if (ok) window.localStorage.setItem(KEY, today);
+        if (!ok) {
+          try {
+            window.localStorage.removeItem(KEY);
+          } catch {
+            /* ignore */
+          }
+        }
       });
     } catch {
       /* storage blocked: skip counting */
