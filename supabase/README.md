@@ -31,4 +31,4 @@ Points can only be set by the admin. The leaderboard counts approved submissions
 
 ## Free-plan note
 
-Free projects pause after 1 week without activity. A scheduled keep-alive request prevents that (added separately).
+Free projects pause after 1 week without activity. `vercel.json` runs a daily cron job that calls `/api/keepalive`, which makes one tiny read against Supabase so the project never goes a full week without activity. If the project ever does get paused, press "Restore project" in the Supabase dashboard; no data is lost.
