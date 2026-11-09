@@ -125,10 +125,10 @@ export default function LandingPage() {
             <p className={`${eyebrow} inline-flex items-center gap-2 border border-[var(--lp-line)] px-3 py-1.5 mb-8`}>
               <span className="w-2 h-2 bg-[var(--lp-accent)]" aria-hidden /> Free for K.K. Wagh students
             </p>
-            <h1 className="font-tight font-semibold tracking-[-0.035em] leading-[0.98] text-[44px] sm:text-6xl lg:text-[76px]">
+            <h1 className="font-tight font-semibold tracking-[-0.035em] leading-[1.08] text-[44px] sm:text-6xl lg:text-[76px]">
               Every problem.
               <br />
-              One solution:
+              <span className="bg-[var(--lp-accent)] text-black px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">One solution:</span>
               <br />
               StudyBuddy.
             </h1>

@@ -37,7 +37,7 @@ export default function ContactPage() {
       <main className="flex-grow w-full max-w-[1100px] mx-auto px-5 md:px-8 py-14 md:py-20">
         <header className="max-w-2xl">
           <p className={eyebrow}>Contact</p>
-          <h1 className="font-tight font-semibold tracking-[-0.03em] text-4xl md:text-5xl mt-3">Contact StudyBuddy</h1>
+          <h1 className="font-tight font-semibold tracking-[-0.03em] text-4xl md:text-5xl leading-[1.15] mt-3">Contact <span className="bg-[var(--lp-accent)] text-black px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">StudyBuddy</span></h1>
           <p className="mt-5 text-lg text-[var(--lp-muted)] leading-relaxed">
             For questions, corrections, or to contribute study material, write to us using the details below. Every message is read by the person who maintains the platform.
           </p>

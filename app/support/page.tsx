@@ -20,8 +20,8 @@ export default function SupportPage() {
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         <div className="max-w-3xl mx-auto space-y-10">
           <header>
-            <h1 className="font-tight font-semibold tracking-tight text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark mb-4">
-              Everything here stays free
+            <h1 className="font-tight font-semibold tracking-tight leading-[1.15] text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark mb-4">
+              Everything here stays <span className="bg-[var(--lp-accent)] text-black px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">free</span>
             </h1>
             <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
               Notes, the calculator and every tool on Study Buddy are free for every KKW student, and nothing is locked behind a payment.
