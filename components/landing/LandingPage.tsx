@@ -114,7 +114,7 @@ export default function LandingPage() {
     ["Choose your year", "Open First Year or Second Year and pick the subject you are studying."],
     ["Open the unit", "Each unit lists its notes and resources as direct links."],
     ["Track your syllabus", "Mark units done and see progress. It stays on your device, no login."],
-    ["Share what you have", "Sign in with Google to submit notes. Approved ones carry your name."],
+    ["Share what you have", "Login with your KKWagh email to submit notes. Approved ones carry your name."],
   ];
 
   return (
@@ -294,7 +294,8 @@ export default function LandingPage() {
         <div className={`${wrap} py-14 grid sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10`}>
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="inline-flex items-center justify-center w-8 h-8 bg-white text-black font-tight font-bold text-sm">SB</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icon.svg" alt="" width={32} height={32} className="w-8 h-8" />
               <span className="font-tight font-semibold text-lg">StudyBuddy</span>
             </div>
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">Free notes and student tools for K.K. Wagh engineering students. Built by a student.</p>

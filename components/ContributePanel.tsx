@@ -127,7 +127,7 @@ export default function ContributePanel() {
       <section className="mb-10 max-w-2xl">
         <h2 className="font-sora font-bold text-headline-sm mb-3 text-on-surface dark:text-text-primary-dark">How it works</h2>
         <ol className="list-decimal pl-5 space-y-1.5 font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark">
-          <li>Sign in with Google and send a link to your notes (Google Drive or any public link).</li>
+          <li>Login / Sign up with your KKWagh email and send a link to your notes (Google Drive or any public link).</li>
           <li>Your submission goes to a review queue. Handwritten or AI-generated notes are both welcome.</li>
           <li>If it is approved it appears on the subject page with your name, and you get points based on how useful it is.</li>
           <li>Points are given by the admin only. You can also report broken links for 1 to 2 points each when the report is verified.</li>
@@ -150,7 +150,7 @@ export default function ContributePanel() {
             onClick={auth.signIn}
             className="inline-flex items-center gap-2 min-h-[48px] px-6 rounded-xl bg-primary text-white font-semibold"
           >
-            <LogIn size={18} aria-hidden="true" /> Sign in with Google to contribute
+            <LogIn size={18} aria-hidden="true" /> Login / Sign up to contribute
           </button>
         ) : (
           <form onSubmit={submit} noValidate className="space-y-4">

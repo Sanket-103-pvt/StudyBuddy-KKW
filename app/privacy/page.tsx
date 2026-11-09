@@ -23,7 +23,7 @@ export default function Page() {
           <p>You do not need an account. Your bookmarks, recently viewed subjects, study progress, study time and exam dates are saved in your own browser (localStorage) and never sent to us. Clearing your browser data deletes them.</p>
 
           <h2 className={H2}>If you sign in with Google</h2>
-          <p>Signing in is only needed to contribute notes, report broken links or appear on the leaderboard. We use Supabase Authentication with Google. We receive your Google account name and email address from Google. We store your display name (taken from your Google name) in our database. Your sign-in session is kept in your browser&apos;s localStorage. We do not receive your Google password.</p>
+          <p>Signing in is only needed to contribute notes, report broken links or appear on the leaderboard. Sign-up is limited to KKWagh college email accounts (@kkwagh.edu.in). We use Supabase Authentication with Google. We receive your Google account name and email address from Google. We store your display name (taken from your Google name) in our database. Your sign-in session is kept in your browser&apos;s localStorage. We do not receive your Google password.</p>
 
           <h2 className={H2}>What you submit</h2>
           <p>When you submit a resource link, a timetable link or a broken-link report, we store the link, the title and description you wrote, the subject, the review status and any points the admin gave, together with your account. If your submission is approved, your display name is shown publicly next to it and on the leaderboard.</p>

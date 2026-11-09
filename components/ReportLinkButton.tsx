@@ -22,7 +22,7 @@ export default function ReportLinkButton({ subjectId, label, url }: Props) {
 
   const report = async () => {
     if (!auth.signedIn) {
-      toast.info("Sign in with Google to report a broken link.");
+      toast.info("Login / Sign up to report a broken link.");
       await auth.signIn();
       return;
     }

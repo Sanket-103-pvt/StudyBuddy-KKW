@@ -45,36 +45,6 @@ export default function HomeClient({ landing }: { landing: React.ReactNode }) {
           {Object.keys(indexData).map((yearKey) => {
             const subjects = (indexData as Record<string, { id: string; name: string }[]>)[yearKey] || [];
             
-            const yearStyleMap: Record<
-              string,
-              { borderClass: string; iconBg: string; tagClass: string }
-            > = {
-              "first-year": {
-                borderClass: "border-t-4 border-t-blue-500 hover:border-t-blue-600",
-                iconBg: "bg-blue-100 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400",
-                tagClass:
-                  "bg-blue-50/90 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/50 font-semibold",
-              },
-              "second-year": {
-                borderClass: "border-t-4 border-t-emerald-500 hover:border-t-emerald-600",
-                iconBg: "bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400",
-                tagClass:
-                  "bg-emerald-50/90 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/50 font-semibold",
-              },
-              "third-year": {
-                borderClass: "border-t-4 border-t-amber-500 hover:border-t-amber-600",
-                iconBg: "bg-amber-100 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400",
-                tagClass:
-                  "bg-amber-50/90 text-amber-900 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800/50 font-semibold",
-              },
-              "fourth-year": {
-                borderClass: "border-t-4 border-t-indigo-600 hover:border-t-indigo-700",
-                iconBg: "bg-indigo-100 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400",
-                tagClass:
-                  "bg-indigo-50/90 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/50 font-semibold",
-              },
-            };
-
             const yearDetails: Record<string, { title: string; desc: string; tags: string[] }> = {
               "first-year": {
                 title: "First Year",
@@ -104,17 +74,17 @@ export default function HomeClient({ landing }: { landing: React.ReactNode }) {
               tags: ["Notes", "PYQs", "Syllabus"],
             };
 
-            const yearStyle = yearStyleMap[yearKey] || {
-              borderClass: "border-t-4 border-t-blue-500",
-              iconBg: "bg-blue-100 text-blue-600",
-              tagClass: "bg-blue-50 text-blue-700 border-blue-200",
+            const yearStyle = {
+              borderClass: "border-t-4 border-t-[var(--lp-ink)] hover:border-t-[var(--lp-accent)]",
+              iconBg: "bg-[var(--lp-panel)] text-[var(--lp-ink)]",
+              tagClass: "border-[var(--lp-line)] text-[var(--lp-muted)]",
             };
 
             return (
               <Link
                 key={yearKey}
                 href={`/${yearKey}`}
-                className={`group bg-surface-container-lowest dark:bg-bg-dark rounded-2xl p-7 border border-border-light/80 dark:border-border-dark/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[240px] ${yearStyle.borderClass}`}
+                className={`group bg-[var(--lp-bg)] p-7 border border-[var(--lp-line)] hover:border-[var(--lp-ink)] transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[240px] ${yearStyle.borderClass}`}
               >
                 <div>
                   <div className="flex justify-between items-start mb-5">

@@ -4,6 +4,8 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 import type { Session } from "@supabase/supabase-js";
 import { getSupabase, mayHaveSession, supabaseEnabled } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/contrib";
+import { ALLOWED_EMAIL_DOMAIN } from "@/lib/auth-config";
+import { useToast } from "@/components/ToastProvider";
 
 interface AuthState {
   enabled: boolean;
@@ -30,6 +32,7 @@ export function useAuth(): AuthState {
 }
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
+  const toast = useToast();
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(supabaseEnabled);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -59,6 +62,19 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     };
   }, []);
 
+  // A sign-up from a non-college email is rejected by the database; Supabase then redirects back with an error.
+  useEffect(() => {
+    const raw = `${window.location.search}${window.location.hash}`;
+    if (!/error_description=/.test(raw)) return;
+    const text = decodeURIComponent(raw.replace(/\+/g, " "));
+    if (/Database error saving new user/i.test(text)) {
+      toast.error(`Only KKWagh college email accounts (@${ALLOWED_EMAIL_DOMAIN}) can sign up. Please use your college email.`);
+    } else {
+      toast.error("Login failed. Please try again.");
+    }
+    window.history.replaceState(null, "", window.location.pathname);
+  }, [toast]);
+
   const userId = session?.user.id ?? null;
   useEffect(() => {
     let active = true;
@@ -77,7 +93,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     if (!sb) return;
     await sb.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}${window.location.pathname}` },
+      options: {
+        redirectTo: `${window.location.origin}${window.location.pathname}`,
+        queryParams: { prompt: "select_account" },
+      },
     });
   }, []);
 

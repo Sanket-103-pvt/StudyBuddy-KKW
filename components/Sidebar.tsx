@@ -90,9 +90,8 @@ export default function Sidebar() {
       {/* Top Mobile Bar (Visible on mobile/tablet screens < lg) */}
       <header className="lg:hidden shrink-0 sticky top-0 z-40 bg-white/95 dark:bg-bg-dark/95 backdrop-blur-md border-b border-border-light dark:border-border-dark px-4 h-16 flex items-center justify-between shadow-xs">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-sora font-bold text-sm shadow-xs">
-            SB
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt="" width={32} height={32} className="w-8 h-8" />
           <span className="font-sora font-bold text-body-md text-on-surface dark:text-text-primary-dark">
             Study Buddy KKW
           </span>
@@ -128,9 +127,8 @@ export default function Sidebar() {
           {/* Sidebar Brand Header */}
           <div className="flex items-center justify-between pt-1 pb-3 border-b border-border-light/70 dark:border-border-dark/70">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-sora font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                SB
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icon.svg" alt="" width={40} height={40} className="w-10 h-10" />
               <div className="flex flex-col">
                 <span className="font-sora font-bold text-body-md text-on-surface dark:text-text-primary-dark tracking-tight leading-tight">
                   Study Buddy
@@ -293,7 +291,7 @@ export default function Sidebar() {
                   onClick={auth.signIn}
                   className="w-full p-2 min-h-[44px] rounded-xl bg-primary text-white flex items-center justify-center gap-2 text-body-xs font-semibold"
                 >
-                  <LogIn size={16} /> Sign in with Google
+                  <LogIn size={16} /> Login / Sign up
                 </button>
               )}
             </div>

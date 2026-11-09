@@ -164,7 +164,7 @@ export default function AdminPanel() {
   if (!auth.signedIn) {
     return (
       <button onClick={auth.signIn} className="min-h-[48px] px-6 rounded-xl bg-primary text-white font-semibold">
-        Sign in with Google
+        Login / Sign up
       </button>
     );
   }

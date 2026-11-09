@@ -31,8 +31,6 @@ const MENUS: { label: string; items: Item[] }[] = [
   },
 ];
 
-const mark = "inline-flex items-center justify-center w-8 h-8 bg-[var(--lp-ink)] text-[var(--lp-bg)] font-tight font-bold text-sm";
-
 export default function LandingNav() {
   const auth = useAuth();
   const [open, setOpen] = useState<string | null>(null);
@@ -58,7 +56,8 @@ export default function LandingNav() {
     <header ref={ref} className="sticky top-0 z-40 bg-[var(--lp-bg)] border-b border-[var(--lp-line)]">
       <div className="max-w-[1240px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-2.5 text-[var(--lp-ink)]" aria-label="StudyBuddy home">
-          <span className={mark}>SB</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt="" width={32} height={32} className="w-8 h-8" />
           <span className="font-tight font-semibold text-lg tracking-tight">StudyBuddy</span>
         </Link>
 
@@ -94,7 +93,7 @@ export default function LandingNav() {
               onClick={() => auth.signIn()}
               className="hidden sm:inline-flex h-11 px-5 items-center bg-[var(--lp-accent)] text-black text-sm font-semibold hover:brightness-95"
             >
-              Sign in
+              Login / Sign up
             </button>
           ) : (
             <Link href="/first-year" className="hidden sm:inline-flex h-11 px-5 items-center bg-[var(--lp-accent)] text-black text-sm font-semibold hover:brightness-95">
@@ -154,7 +153,7 @@ export default function LandingNav() {
           <Link href="/support" onClick={() => setMobile(false)} className="flex items-center min-h-[44px] text-[var(--lp-ink)] border-b border-[var(--lp-line)]">Support</Link>
           {auth.enabled && (
             <button type="button" onClick={() => auth.signIn()} className="mt-4 w-full h-12 bg-[var(--lp-accent)] text-black font-semibold">
-              Sign in with Google
+              Login / Sign up
             </button>
           )}
         </div>
