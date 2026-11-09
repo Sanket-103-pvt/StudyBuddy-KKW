@@ -18,13 +18,15 @@ describe("Bookmarks E2E Test Suite", () => {
     cy.visit("/");
 
     // 5. Confirm "Pinned Resources" section is visible
-    cy.contains("Pinned Resources").should("be.visible");
+    // The section is below the fold inside a scrolling container; Cypress treats clipped elements as hidden.
+    cy.contains("Pinned Resources").scrollIntoView().should("be.visible");
 
     // 6. Reload page to verify persistence in localStorage
     cy.reload();
 
     // 7. Verify Pinned Resources section persists after reload
-    cy.contains("Pinned Resources").should("be.visible");
+    // The section is below the fold inside a scrolling container; Cypress treats clipped elements as hidden.
+    cy.contains("Pinned Resources").scrollIntoView().should("be.visible");
 
     // 8. Click unpin button on the pinned card
     cy.get('button[aria-label="Remove pin"]').first().click();
