@@ -4,6 +4,7 @@ import path from "node:path";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Flag } from "lucide-react";
 import LandingNav from "@/components/landing/LandingNav";
+import CountUp from "@/components/landing/CountUp";
 import LandingSearch from "@/components/landing/LandingSearch";
 import PinnedResources from "@/components/PinnedResources";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -47,11 +48,12 @@ export default function LandingPage() {
   const linkCount = all.reduce((n, s) => n + resourceCount(s.year, s.id), 0);
   const featured = all.filter((s) => s.year === "second-year" && s.unitCount > 0).slice(0, 6);
 
-  const stats = [
-    [String(subjectCount), "Subjects"],
-    [String(unitCount), "Units"],
-    [String(linkCount), "Notes and resource links"],
-    ["Free", "Always, for every KKW student"],
+  // Shown rounded down with a "+", so the page never claims more than the content files hold.
+  const floorTo = (n: number, step: number) => Math.floor(n / step) * step;
+  const stats: [number, string, string][] = [
+    [floorTo(subjectCount, 5), "Subjects", "+"],
+    [floorTo(unitCount, 5), "Units", "+"],
+    [floorTo(linkCount, 5), "Notes and resource links", "+"],
   ];
 
   const features = [
@@ -143,6 +145,12 @@ export default function LandingPage() {
               <Link href="/first-year" className={btnPrimary}>Browse notes <ArrowUpRight size={17} aria-hidden /></Link>
               <Link href="/contribute" className={btnGhost}>Share your notes</Link>
             </div>
+            <p className="mt-6 text-sm text-[var(--lp-muted)]">
+              Built by Sanket Chaudhari ·{" "}
+              <a href="https://sanketchaudhari.in" target="_blank" rel="noopener noreferrer" className="text-[var(--lp-ink)] underline underline-offset-4">
+                sanketchaudhari.in
+              </a>
+            </p>
           </div>
 
           {/* Real library panel */}
@@ -180,9 +188,9 @@ export default function LandingPage() {
       {/* Stats (real numbers from the content files) */}
       <section className={wrap} aria-label="StudyBuddy in numbers">
         <dl className="grid grid-cols-2 lg:grid-cols-4 bg-[var(--lp-panel)] border border-[var(--lp-line)]">
-          {stats.map(([n, l]) => (
+          {[...stats, ["Free", "Always, for every KKW student", ""] as [string, string, string]].map(([n, l, suf]) => (
             <div key={l} className="px-6 py-8 border-[var(--lp-line)] [&:nth-child(odd)]:border-r lg:border-r lg:last:border-r-0 [&:nth-child(-n+2)]:border-b lg:[&:nth-child(-n+2)]:border-b-0">
-              <dd className="font-tight font-semibold tracking-tight text-4xl md:text-5xl">{n}</dd>
+              <dd className="font-tight font-semibold tracking-tight text-4xl md:text-5xl">{typeof n === "number" ? <CountUp value={n} suffix={suf} /> : n}</dd>
               <dt className="mt-2 text-sm text-[var(--lp-muted)]">{l}</dt>
             </div>
           ))}
@@ -307,7 +315,10 @@ export default function LandingPage() {
           ))}
         </div>
         <div className={`${wrap} py-6 border-t border-white/10 text-xs text-white/50`}>
-          © {new Date().getFullYear()} Study Buddy KKW. Open source under the MIT License. Not an official page of KKWIEER.
+          © {new Date().getFullYear()} Study Buddy KKW. Open source under the MIT License. Not an official page of KKWIEER. Built by{" "}
+          <a href="https://sanketchaudhari.in" target="_blank" rel="noopener noreferrer" className="text-white/80 underline underline-offset-4 hover:text-white">
+            Sanket Chaudhari (sanketchaudhari.in)
+          </a>
         </div>
       </footer>
     </div>
