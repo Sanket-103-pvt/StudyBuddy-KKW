@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/support" },
 };
 
-const card = "rounded-2xl border border-border-light dark:border-border-dark bg-surface-container-lowest dark:bg-bg-dark p-6";
-const btn = "inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-full text-sm font-medium transition-colors";
+const card = "rounded-none border border-border-light dark:border-border-dark bg-surface-container-lowest dark:bg-bg-dark p-6";
+const btn = "inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-none text-sm font-medium transition-colors";
 
 export default function SupportPage() {
   return (
@@ -20,7 +20,7 @@ export default function SupportPage() {
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         <div className="max-w-3xl mx-auto space-y-10">
           <header>
-            <h1 className="font-serif font-medium tracking-tight text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark mb-4">
+            <h1 className="font-tight font-semibold tracking-tight text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark mb-4">
               Everything here stays free
             </h1>
             <p className="font-inter text-body-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
@@ -30,7 +30,7 @@ export default function SupportPage() {
           </header>
 
           <section className={card} aria-labelledby="about-heading">
-            <h2 id="about-heading" className="font-serif text-2xl text-on-surface dark:text-text-primary-dark mb-3">About me</h2>
+            <h2 id="about-heading" className="font-tight text-2xl text-on-surface dark:text-text-primary-dark mb-3">About me</h2>
             <p className="font-inter text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
               I am Sanket Chaudhari, a final-year B.Tech student in Artificial Intelligence and Data Science at KKWIEER, and the creator of Study Buddy KKW.
               I built it because finding notes through WhatsApp groups and dead Drive links wasted everyone&apos;s time. I also contribute to open source on GitHub.
@@ -38,7 +38,7 @@ export default function SupportPage() {
           </section>
 
           <section className={card} aria-labelledby="tips-heading">
-            <h2 id="tips-heading" className="font-serif text-2xl text-on-surface dark:text-text-primary-dark mb-3">What you can ask me</h2>
+            <h2 id="tips-heading" className="font-tight text-2xl text-on-surface dark:text-text-primary-dark mb-3">What you can ask me</h2>
             <ul className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-2 list-disc pl-5">
               <li>How to start and structure your <strong>GitHub</strong> profile and projects.</li>
               <li>How to improve your <strong>LinkedIn</strong> profile and reach out to people.</li>
@@ -50,10 +50,10 @@ export default function SupportPage() {
           </section>
 
           <section className={card} aria-labelledby="coffee-heading">
-            <h2 id="coffee-heading" className="font-serif text-2xl text-on-surface dark:text-text-primary-dark mb-3">Buy me a coffee</h2>
+            <h2 id="coffee-heading" className="font-tight text-2xl text-on-surface dark:text-text-primary-dark mb-3">Buy me a coffee</h2>
             <div className="flex flex-col sm:flex-row gap-6 items-start mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/upi-qr.png" alt={`UPI QR code for ${UPI_ID}`} width={180} height={180} className="rounded-xl border border-border-light dark:border-border-dark bg-white p-2" />
+              <img src="/upi-qr.png" alt={`UPI QR code for ${UPI_ID}`} width={180} height={180} className="rounded-none border border-border-light dark:border-border-dark bg-white p-2" />
               <div className="font-inter text-text-secondary-light dark:text-text-secondary-dark space-y-3">
                 <p>Scan with any UPI app (GPay, PhonePe, Paytm), or on your phone tap the button. Any amount, even ₹20 is appreciated.</p>
                 <p className="font-mono text-sm break-all">UPI ID: <span className="text-on-surface dark:text-text-primary-dark">{UPI_ID}</span></p>

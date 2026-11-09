@@ -25,3 +25,20 @@
     @apply inline-flex items-center justify-center min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0;
   }
 }
+
+/* Landing page palette (light and dark). Sharp edges, one accent colour. */
+:root {
+  --lp-bg: #ffffff;
+  --lp-panel: #f1f1ee;
+  --lp-ink: #0e0e0e;
+  --lp-muted: #5c5c57;
+  --lp-line: #dcdcd7;
+  --lp-accent: #e8832a;
+}
+.dark {
+  --lp-bg: #0c0c0c;
+  --lp-panel: #161615;
+  --lp-ink: #f2f2ee;
+  --lp-muted: #a2a29a;
+  --lp-line: #2a2a27;
+}

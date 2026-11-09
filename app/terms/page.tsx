@@ -15,7 +15,7 @@ export default function Page() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         <div className="max-w-3xl mx-auto font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark space-y-4 leading-relaxed">
-          <h1 className="font-serif font-medium text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark">Terms of Service</h1>
+          <h1 className="font-tight font-semibold text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark">Terms of Service</h1>
           <p className="text-sm">Last updated: 9 November 2026</p>
           <p>By using Study Buddy KKW you agree to these terms. It is a free, student-run project and is not an official page of K.K. Wagh Institute of Engineering Education and Research.</p>
 

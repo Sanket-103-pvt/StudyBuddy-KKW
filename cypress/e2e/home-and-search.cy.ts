@@ -1,10 +1,16 @@
 describe("Home Page & Search E2E Test Suite", () => {
+  // The landing page search box opens the global search palette.
+  const openSearch = () => {
+    cy.get('main, body').find('button[aria-label="Search subjects"]').first().click();
+    return cy.get('[role="dialog"] input[aria-label="Search subjects"]').should("be.visible");
+  };
+
   beforeEach(() => {
     cy.visit("/");
   });
 
   it("should load the home page and render hero heading and year selection cards", () => {
-    cy.contains("h1", "Find your engineering notes in seconds").should("be.visible");
+    cy.contains("h1", "One solution").should("be.visible");
     cy.contains("First Year").should("be.visible");
     cy.contains("Second Year").should("be.visible");
   });
@@ -16,18 +22,18 @@ describe("Home Page & Search E2E Test Suite", () => {
   });
 
   it("should list matching subjects when typing a search query", () => {
-    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    openSearch().type("DBMS");
     cy.get('[role="option"]').contains("Database Management System [DBMS]").should("be.visible");
   });
 
   it("should open the subject page when a search result is selected", () => {
-    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    openSearch().type("DBMS");
     cy.get('[role="option"]').first().click();
     cy.url().should("include", "/second-year/dbms");
   });
 
   it("should restrict results with the year filter", () => {
-    cy.get('input[aria-label="Search subjects"]').type("math");
+    openSearch().type("math");
     cy.get('button[aria-pressed]').contains("2nd Year").click();
     cy.get('[role="option"]').each(($el) => {
       cy.wrap($el).should("contain.text", "2nd Year");
@@ -35,12 +41,12 @@ describe("Home Page & Search E2E Test Suite", () => {
   });
 
   it("should clear the search input and close the results when the clear button is clicked", () => {
-    cy.get('input[aria-label="Search subjects"]').type("DBMS");
+    openSearch().type("DBMS");
     cy.get('[role="option"]').should("exist");
 
     cy.get('button[aria-label="Clear search"]').click();
 
-    cy.get('input[aria-label="Search subjects"]').should("have.value", "");
+    cy.get('[role="dialog"] input[aria-label="Search subjects"]').should("have.value", "");
     cy.get('[role="option"]').should("not.exist");
   });
 

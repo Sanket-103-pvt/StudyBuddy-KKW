@@ -84,7 +84,7 @@ const config: Config = {
         sora: ["var(--font-sora)", "sans-serif"],
         inter: ["var(--font-inter)", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        serif: ["var(--font-serif)", "Georgia", "serif"]
+        tight: ["var(--font-tight)", "var(--font-inter)", "sans-serif"]
       }
     },
   },

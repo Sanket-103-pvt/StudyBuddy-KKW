@@ -82,6 +82,9 @@ export default function Sidebar() {
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
   };
 
+  // The public landing page has its own top navigation.
+  if (pathname === "/" && !auth.signedIn) return null;
+
   return (
     <>
       {/* Top Mobile Bar (Visible on mobile/tablet screens < lg) */}
