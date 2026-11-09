@@ -14,6 +14,7 @@ interface AuthState {
   displayName: string | null;
   isAdmin: boolean;
   signIn: () => Promise<void>;
+  signInWithGoogle: (next?: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -24,6 +25,7 @@ const AuthContext = createContext<AuthState>({
   displayName: null,
   isAdmin: false,
   signIn: async () => {},
+  signInWithGoogle: async () => {},
   signOut: async () => {},
 });
 
@@ -88,16 +90,25 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     };
   }, [userId]);
 
-  const signIn = useCallback(async () => {
+  // Starts the Google flow. `next` is the page to come back to (same-site paths only).
+  const signInWithGoogle = useCallback(async (next?: string) => {
     const sb = await getSupabase();
     if (!sb) return;
+    const target = next && next.startsWith("/") && !next.startsWith("//") ? next : "/";
     await sb.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}${window.location.pathname}`,
+        redirectTo: `${window.location.origin}${target}`,
         queryParams: { prompt: "select_account" },
       },
     });
+  }, []);
+
+  // "Login / Sign up" buttons send people to the login page and bring them back afterwards.
+  const signIn = useCallback(async () => {
+    if (window.location.pathname === "/login") return;
+    const here = window.location.pathname + window.location.search;
+    window.location.assign(`/login?next=${encodeURIComponent(here)}`);
   }, []);
 
   const signOut = useCallback(async () => {
@@ -115,9 +126,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       displayName: session ? meta?.full_name || meta?.name || "Student" : null,
       isAdmin,
       signIn,
+      signInWithGoogle,
       signOut,
     };
-  }, [session, loading, isAdmin, signIn, signOut]);
+  }, [session, loading, isAdmin, signIn, signInWithGoogle, signOut]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
