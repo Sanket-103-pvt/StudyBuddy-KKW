@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Calculator, HelpCircle, BarChart2, Trophy, ArrowRight } from "lucide-react";
+import { Calculator, BarChart2, Trophy, ArrowRight } from "lucide-react";
 
 const tools = [
   {
@@ -14,16 +14,6 @@ const tools = [
       "bg-blue-50/70 dark:bg-blue-950/30 border-blue-200/80 dark:border-blue-800/40 text-blue-900 dark:text-blue-100 hover:border-blue-400 dark:hover:border-blue-600",
     iconColor: "text-blue-600 dark:text-blue-400",
     badge: "Official SPPU Credit",
-  },
-  {
-    title: "Practice Quiz Engine",
-    description: "Test your conceptual understanding with unit-wise multiple-choice quizzes.",
-    href: "/second-year/dsa/quiz",
-    icon: HelpCircle,
-    colorClass:
-      "bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-200/80 dark:border-emerald-800/40 text-emerald-900 dark:text-emerald-100 hover:border-emerald-400 dark:hover:border-emerald-600",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    badge: "Self-Assessment",
   },
   {
     title: "Study Time Tracker",

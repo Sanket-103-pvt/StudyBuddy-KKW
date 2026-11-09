@@ -49,17 +49,6 @@ Ensure your system meets the following requirements before getting started:
    git fetch upstream
    ```
 
-### Environment Configuration
-
-1. Copy the example environment file:
-   ```bash
-   cp .env.local.example .env.local
-   ```
-2. Open `.env.local` and configure your API keys (optional for basic UI development, required for AI Study Planner features):
-   ```env
-   GEMINI_API_KEY=your_google_gemini_api_key_here
-   ```
-
 ### Installing Dependencies
 
 Install the project dependencies using `npm`:

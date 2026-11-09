@@ -14,7 +14,6 @@ import {
   MessageSquare,
   Sun,
   Moon,
-  Contrast,
   Menu,
   X,
   Sparkles,
@@ -23,37 +22,17 @@ import {
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
 import { formatYearTitle } from "@/lib/year-utils";
-import { useToast } from "@/components/ToastProvider";
 import OfflineBadge from "@/components/OfflineBadge";
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const toast = useToast();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.altKey && e.shiftKey && e.key.toLowerCase() === "h") {
-        e.preventDefault();
-        setTheme((prevTheme) => {
-          const next = prevTheme === "high-contrast" ? "dark" : "high-contrast";
-          if (next === "high-contrast") {
-            toast.success("High Contrast Accessibility Mode Enabled 👁️ (Alt+Shift+H)");
-          } else {
-            toast.info("High Contrast Mode Disabled");
-          }
-          return next;
-        });
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [setTheme, toast]);
+  }, []);
 
   // Close mobile drawer on route change
   useEffect(() => {
@@ -61,14 +40,7 @@ export default function Sidebar() {
   }, [pathname]);
 
   const cycleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else if (theme === "dark") {
-      setTheme("high-contrast");
-      toast.success("Switched to High Contrast Theme 👁️");
-    } else {
-      setTheme("light");
-    }
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const yearKeys = Object.keys(indexData);
@@ -297,14 +269,10 @@ export default function Sidebar() {
             <button
               onClick={cycleTheme}
               className="p-2 rounded-xl border border-border-light dark:border-border-dark hover:bg-surface-container dark:hover:bg-inverse-surface text-on-surface dark:text-text-primary-dark transition-colors flex items-center gap-2 text-body-xs font-medium"
-              title="Toggle Theme: Light / Dark / High Contrast (Alt+Shift+H)"
+              title="Toggle Light / Dark theme"
             >
               {mounted ? (
-                theme === "high-contrast" ? (
-                  <>
-                    <Contrast size={16} className="text-amber-500 font-bold" /> High Contrast
-                  </>
-                ) : theme === "dark" ? (
+                theme === "dark" ? (
                   <>
                     <Moon size={16} /> Dark Mode
                   </>

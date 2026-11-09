@@ -13,7 +13,7 @@ const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://study-buddy-kkw.vercel.app"),
+  metadataBase: new URL("https://www.studybuddykkw.dev"),
   title: "Study Buddy KKW - K.K. Wagh Engineering Notes, PYQs & Study Hub",
   description: "Official study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students. Access syllabus notes, PYQs, placement resources & AI study planner.",
   keywords: ["KKW", "kkwagh", "kkwagh engineering", "kk wagh placements", "kk wagh notes", "kkwieer", "KKWIEER Nashik", "K.K. Wagh Institute of Engineering Education & Research", "Study Buddy KKW", "KKW notes", "KKW PYQs", "KKW syllabus", "KKW SPPU notes", "Sanket Chaudhari KKW", "KKW AI&DS notes"],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Study Buddy KKW - K.K. Wagh Engineering Notes & PYQs",
     description: "One hub for every note, PYQ, placement resource & study material K.K. Wagh students need.",
-    url: "https://study-buddy-kkw.vercel.app",
+    url: "https://www.studybuddykkw.dev",
     siteName: "Study Buddy KKW",
     images: [{ url: "/og-preview.png", width: 1200, height: 630 }],
     locale: "en_US",
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="apple-touch-startup-image" href="/icon.svg" />
       </head>
       <body className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased bg-bg-light dark:bg-bg-dark text-on-surface dark:text-text-primary-dark`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem themes={["light", "dark", "high-contrast", "system"]}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} themes={["light", "dark"]}>
           <ToastProvider>
             {/*
              * Global App Shell:
