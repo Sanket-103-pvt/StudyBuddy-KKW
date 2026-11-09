@@ -273,3 +273,8 @@ Unauthorized reproduction of the platform's branding, identity, design assets, a
 Built with ❤️ for the students of K.K. Wagh Institute of Engineering Education & Research.
 
 </div>
+
+
+## Error monitoring (optional)
+
+Create a free project at sentry.io (platform: Browser JavaScript), copy its DSN and set it as the Vercel environment variable `NEXT_PUBLIC_SENTRY_DSN`, then redeploy. Without it, monitoring stays off and nothing is loaded.

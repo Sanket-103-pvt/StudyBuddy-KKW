@@ -17,6 +17,7 @@
     "precommit": "npm run validate"
   },
   "dependencies": {
+    "@sentry/browser": "^11.11.0",
     "@supabase/supabase-js": "^2.119.0",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.42.1",

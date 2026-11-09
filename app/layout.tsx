@@ -10,6 +10,7 @@ import SiteNav from "@/components/SiteNav";
 import CommandPalette from "@/components/CommandPalette";
 import AuthProvider from "@/components/AuthProvider";
 import { Analytics } from "@vercel/analytics/next";
+import ErrorMonitor from "@/components/ErrorMonitor";
 import { VisitTracker } from "@/components/VisitCounter";
 
 // Fonts are self-hosted (latin subset, variable weight) so builds never depend on Google Fonts being reachable.
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </div>
             <VisitTracker />
             <Analytics />
+            <ErrorMonitor />
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />

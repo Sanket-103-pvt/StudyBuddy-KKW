@@ -34,6 +34,9 @@ export default function Page() {
           <h2 className={H2}>Page view statistics</h2>
           <p>We use Vercel Web Analytics to count page views and see which pages are used. It does not use cookies and does not follow you across other websites. We also keep a simple daily visit count (one number per day, no personal data).</p>
 
+          <h2 className={H2}>Error reports</h2>
+          <p>When the site crashes in your browser, an error report (the error message, the page address and basic browser details) is sent to Sentry so we can fix it. We turn off sending IP addresses and personal details, and we do not record what you type.</p>
+
           <h2 className={H2}>Cookies</h2>
           <p>We do not set advertising or tracking cookies, so there is no cookie banner. Sign-in and preferences (such as light or dark theme) use browser storage.</p>
 
