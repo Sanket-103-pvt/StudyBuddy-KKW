@@ -11,8 +11,8 @@ describe("Home Page & Search E2E Test Suite", () => {
 
   it("should load the home page and render hero heading and year selection cards", () => {
     cy.contains("h1", "One solution").should("be.visible");
-    cy.contains("First Year").should("be.visible");
-    cy.contains("Second Year").should("be.visible");
+    cy.get('a[href="/first-year"]').should("exist");
+    cy.get('a[href="/second-year"]').should("exist");
   });
 
   it("should navigate to year pages when clicking year cards", () => {

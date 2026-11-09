@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Flag } from "lucide-react";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingSearch from "@/components/landing/LandingSearch";
+import PinnedResources from "@/components/PinnedResources";
+import RecentlyViewed from "@/components/RecentlyViewed";
 import indexData from "@/content/index.json";
 
 interface Subject {
@@ -168,6 +170,12 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Returning visitors: pinned and recently viewed (kept on this device; empty for new visitors) */}
+      <div className={wrap}>
+        <PinnedResources />
+        <RecentlyViewed />
+      </div>
 
       {/* Stats (real numbers from the content files) */}
       <section className={wrap} aria-label="StudyBuddy in numbers">
