@@ -45,7 +45,7 @@ export default function Footer() {
                 href="/third-year"
                 className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
               >
-                Third Year Materials
+                Third Year Materials (AI&DS only)
               </Link>
             </li>
             <li>
@@ -53,7 +53,7 @@ export default function Footer() {
                 href="/fourth-year"
                 className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
               >
-                Fourth Year Materials
+                Fourth Year Materials (AI&DS only)
               </Link>
             </li>
           </ul>

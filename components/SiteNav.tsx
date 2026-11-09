@@ -22,8 +22,8 @@ const MENUS: { label: string; items: Item[] }[] = [
     items: [
       { title: "First Year", text: "Common engineering subjects for semesters I and II.", href: "/first-year" },
       { title: "Second Year", text: "Core AI&DS and CS subjects for semesters III and IV.", href: "/second-year" },
-      { title: "Third Year", text: "AI&DS core and elective subjects for semesters V and VI.", href: "/third-year" },
-      { title: "Fourth Year", text: "AI&DS subjects for semesters VII and VIII.", href: "/fourth-year" },
+      { title: "Third Year (AI&DS only)", text: "AI&DS core and elective subjects for semesters V and VI.", href: "/third-year" },
+      { title: "Fourth Year (AI&DS only)", text: "AI&DS subjects for semesters VII and VIII.", href: "/fourth-year" },
       { title: "Previous Year Papers", text: "Subject, year and session wise papers.", href: "/pyq", soon: true },
     ],
   },

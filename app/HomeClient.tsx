@@ -57,12 +57,12 @@ export default function HomeClient({ landing }: { landing: React.ReactNode }) {
                 tags: ["Data Structures", "DELD", "Operating Systems", "DBMS", "Discrete Math", "Maths 3"],
               },
               "third-year": {
-                title: "Third Year",
+                title: "Third Year (AI&DS only)",
                 desc: "AI&DS core and elective courses for Semesters V & VI.",
                 tags: ["DSA", "AI", "Data Science", "TOC", "Cloud Computing", "NLP"],
               },
               "fourth-year": {
-                title: "Fourth Year",
+                title: "Fourth Year (AI&DS only)",
                 desc: "AI&DS courses for Semesters VII & VIII.",
                 tags: ["Research Methodology", "Generative AI", "Deep Learning", "Computational Intelligence"],
               },
