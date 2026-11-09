@@ -20,15 +20,20 @@ import {
   Search,
   FileText,
   Timer,
+  Shield,
+  LogIn,
+  LogOut,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import indexData from "@/content/index.json";
 import { formatYearTitle } from "@/lib/year-utils";
 import OfflineBadge from "@/components/OfflineBadge";
+import { useAuth } from "@/components/AuthProvider";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const auth = useAuth();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -62,6 +67,8 @@ export default function Sidebar() {
     { name: "Exam Countdown", href: "/countdown", icon: Timer },
     { name: "Contribute & Leaderboard", href: "/contribute", icon: Trophy },
   ];
+
+  const adminNav = auth.isAdmin ? [{ name: "Admin", href: "/admin", icon: Shield }] : [];
 
   const infoNav = [
     { name: "About Platform", href: "/about", icon: Info },
@@ -211,7 +218,7 @@ export default function Sidebar() {
               Student Utilities
             </div>
             <nav className="space-y-1">
-              {toolNav.map((item) => {
+              {[...toolNav, ...adminNav].map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 return (
@@ -262,6 +269,31 @@ export default function Sidebar() {
 
         {/* Sidebar Footer Controls */}
         <div className="pt-4 border-t border-border-light/70 dark:border-border-dark/70 flex flex-col gap-3">
+          {auth.enabled && !auth.loading && (
+            <div className="flex items-center justify-between gap-2">
+              {auth.signedIn ? (
+                <>
+                  <span className="font-inter text-body-xs font-medium truncate text-on-surface dark:text-text-primary-dark" title={auth.displayName ?? ""}>
+                    {auth.displayName}
+                  </span>
+                  <button
+                    onClick={auth.signOut}
+                    className="p-2 min-h-[40px] rounded-xl border border-border-light dark:border-border-dark hover:bg-surface-container dark:hover:bg-inverse-surface flex items-center gap-2 text-body-xs font-medium"
+                  >
+                    <LogOut size={16} /> Sign out
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={auth.signIn}
+                  className="w-full p-2 min-h-[44px] rounded-xl bg-primary text-white flex items-center justify-center gap-2 text-body-xs font-semibold"
+                >
+                  <LogIn size={16} /> Sign in with Google
+                </button>
+              )}
+            </div>
+          )}
+
           <div className="flex items-center justify-between">
             <span className="font-inter text-body-xs text-text-secondary-light dark:text-text-secondary-dark font-medium">
               Theme

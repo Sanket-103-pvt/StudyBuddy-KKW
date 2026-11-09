@@ -24,3 +24,17 @@ describe("PYQ and Exam Countdown pages", () => {
     cy.url().should("not.include", "/quiz");
   });
 });
+
+describe("Contribute and admin pages without login configured", () => {
+  it("shows the contribute page with a clear message when login is not set up", () => {
+    cy.visit("/contribute");
+    cy.contains("h1", "Contribute notes").should("be.visible");
+    cy.contains("Contributions open soon").should("be.visible");
+  });
+
+  it("does not leak admin tools to visitors", () => {
+    cy.visit("/admin");
+    cy.contains("Approve").should("not.exist");
+    cy.contains("Login is not configured").should("be.visible");
+  });
+});

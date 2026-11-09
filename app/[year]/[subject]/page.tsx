@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
 import SubjectViewTracker from "@/components/SubjectViewTracker";
 import SubjectHeaderProgress from "@/components/SubjectHeaderProgress";
+import CommunityResources from "@/components/CommunityResources";
 import indexData from "@/content/index.json";
 import { formatYearTitle } from "@/lib/year-utils";
 
@@ -203,6 +204,7 @@ export default async function SubjectPage({ params }: PageProps) {
           units={subjectData.units} 
           bonus={subjectData.bonus} 
         />
+        <CommunityResources subjectId={subjectData.id} />
         <SubjectViewTracker 
           subjectId={subjectData.id} 
           subjectName={subjectData.name} 

@@ -18,6 +18,7 @@ import { YoutubeIcon } from "@/components/icons";
 import { isStale, isNew } from "@/lib/date-utils";
 import { useToast } from "@/components/ToastProvider";
 import { useSyllabusProgress } from "@/hooks/useSyllabusProgress";
+import ReportLinkButton from "@/components/ReportLinkButton";
 
 
 interface Resource {
@@ -363,6 +364,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                               >
                                 <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} className={isBookmarked(res.url) ? "scale-105" : ""} />
                               </button>
+                              <ReportLinkButton subjectId={subjectId} label={res.label} url={res.url} />
                             </div>
                           </div>
 
@@ -478,6 +480,7 @@ export default function UnitList({ subjectId, subjectName, year, units, bonus }:
                       >
                         <Star size={16} fill={isBookmarked(res.url) ? "currentColor" : "none"} className={isBookmarked(res.url) ? "scale-105" : ""} />
                       </button>
+                      <ReportLinkButton subjectId={subjectId} label={res.label} url={res.url} />
                     </div>
                   </div>
 
