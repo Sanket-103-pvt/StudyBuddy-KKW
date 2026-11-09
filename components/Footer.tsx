@@ -80,6 +80,22 @@ export default function Footer() {
                 Contact & Innovator
               </Link>
             </li>
+            <li>
+              <Link 
+                href="/privacy" 
+                className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
+              >
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/terms" 
+                className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
+              >
+                Terms of Service
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
