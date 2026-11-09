@@ -28,3 +28,19 @@ select coalesce(sum(visits), 0)::bigint as total_visits,
 from public.daily_visits;
 revoke all on public.visit_stats from anon, authenticated;
 grant select on public.visit_stats to anon, authenticated;
+
+-- Admin dashboard: visits per day (only the admin gets rows).
+create or replace function public.admin_daily_visits(days int default 14)
+returns table (day date, visits int)
+language sql
+security definer
+set search_path = public
+as $$
+  select d.day::date, coalesce(v.visits, 0)
+  from generate_series(current_date - (least(greatest(days, 1), 90) - 1), current_date, interval '1 day') as d(day)
+  left join public.daily_visits v on v.day = d.day::date
+  where public.is_admin()
+  order by d.day;
+$$;
+revoke all on function public.admin_daily_visits(int) from public;
+grant execute on function public.admin_daily_visits(int) to authenticated;
