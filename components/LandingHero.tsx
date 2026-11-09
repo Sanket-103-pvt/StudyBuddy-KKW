@@ -18,9 +18,12 @@ export default function LandingHero() {
     >
       {/* Soft colour fields, no stock photo needed */}
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute -top-24 -left-20 w-[28rem] h-[28rem] rounded-full bg-[#2f4a63] opacity-60 blur-3xl" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/campus.png" alt="" className="absolute inset-0 w-full h-full object-cover scale-110 blur-[6px] opacity-70" />
+        <div className="absolute inset-0 bg-[#0e1a24]/55" />
+        <div className="absolute -top-24 -left-20 w-[28rem] h-[28rem] rounded-full bg-[#2f4a63] opacity-40 blur-3xl" />
         <div className="absolute -bottom-32 left-1/3 w-[30rem] h-[30rem] rounded-full bg-[#c2692a] opacity-40 blur-3xl" />
-        <div className="absolute top-10 right-0 w-80 h-80 rounded-full bg-[#3b52d9] opacity-30 blur-3xl" />
+        <div className="absolute top-10 right-0 w-80 h-80 rounded-full bg-[#3b52d9] opacity-20 blur-3xl" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10" />
       </div>
 
