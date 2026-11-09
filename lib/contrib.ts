@@ -155,8 +155,21 @@ export async function createSubmission(form: SubmissionForm): Promise<{ error: s
 export async function listMySubmissions(): Promise<Result<Submission[]>> {
   const sb = await getSupabase();
   if (!sb) return fail([], NOT_CONFIGURED);
-  const { data, error } = await sb.from("submissions").select("*").order("created_at", { ascending: false }).limit(50);
+  // The admin can read every submission, so filter to the signed-in user explicitly.
+  const { data: sess } = await sb.auth.getSession();
+  const uid = sess.session?.user.id;
+  if (!uid) return { data: [], error: null };
+  const { data, error } = await sb.from("submissions").select("*").eq("user_id", uid).order("created_at", { ascending: false }).limit(50);
   return { data: (data as Submission[]) ?? [], error: error ? "Could not load your submissions." : null };
+}
+
+// Students can delete their own submission while it is pending; the admin can delete any (enforced by the database).
+export async function deleteSubmission(id: string): Promise<{ error: string | null }> {
+  const sb = await getSupabase();
+  if (!sb) return { error: NOT_CONFIGURED };
+  const { data, error } = await sb.from("submissions").delete().eq("id", id).select("id");
+  if (error || !data || data.length === 0) return { error: "Could not delete this submission." };
+  return { error: null };
 }
 
 export async function createLinkReport(input: {

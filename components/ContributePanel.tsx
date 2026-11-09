@@ -9,6 +9,7 @@ import {
   AVAILABLE_YEARS,
   NOTE_TYPE_LABELS,
   createSubmission,
+  deleteSubmission,
   getSubjectsForYear,
   listLeaderboard,
   listMySubmissions,
@@ -86,6 +87,16 @@ export default function ContributePanel() {
     const { data } = await listMySubmissions();
     setMine(data);
   }, []);
+
+  const removeMine = async (s: Submission) => {
+    if (!window.confirm(`Delete "${s.title}"? This cannot be undone.`)) return;
+    const { error } = await deleteSubmission(s.id);
+    if (error) toast.error(error);
+    else {
+      toast.success("Submission deleted.");
+      loadMine();
+    }
+  };
 
   useEffect(() => {
     if (!auth.enabled) {
@@ -252,7 +263,13 @@ export default function ContributePanel() {
                     <span className={`shrink-0 px-2.5 py-1 rounded-full text-[12px] font-semibold capitalize ${STATUS_STYLE[s.status]}`}>{s.status}</span>
                   </div>
                   {s.status === "approved" && <p className="mt-1 text-body-sm text-emerald-700 dark:text-emerald-300">+{s.points} points</p>}
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" className="mt-1 block text-body-sm underline break-all text-text-secondary-light dark:text-text-secondary-dark">{s.url}</a>
                   {s.admin_note && <p className="mt-1 text-body-sm text-text-secondary-light dark:text-text-secondary-dark">Admin note: {s.admin_note}</p>}
+                  {(s.status === "pending" || auth.isAdmin) && (
+                    <button type="button" onClick={() => removeMine(s)} className="mt-2 min-h-[44px] px-3 text-body-sm font-semibold border border-red-600 text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/40">
+                      Delete
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
