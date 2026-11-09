@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora, JetBrains_Mono, Inter_Tight } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ToastProvider } from "@/components/ToastProvider";
@@ -12,10 +12,11 @@ import AuthProvider from "@/components/AuthProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { VisitTracker } from "@/components/VisitCounter";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
-const interTight = Inter_Tight({ subsets: ["latin"], variable: "--font-tight", display: "swap", weight: ["500", "600", "700"] });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+// Fonts are self-hosted (latin subset, variable weight) so builds never depend on Google Fonts being reachable.
+const inter = localFont({ src: "./fonts/Inter.woff2", variable: "--font-inter", display: "swap", weight: "100 900" });
+const sora = localFont({ src: "./fonts/Sora.woff2", variable: "--font-sora", display: "swap", weight: "100 800" });
+const interTight = localFont({ src: "./fonts/InterTight.woff2", variable: "--font-tight", display: "swap", weight: "100 900" });
+const jetbrainsMono = localFont({ src: "./fonts/JetBrainsMono.woff2", variable: "--font-mono", display: "swap", weight: "100 800" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.studybuddykkw.dev"),
