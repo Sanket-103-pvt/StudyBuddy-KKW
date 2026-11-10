@@ -29,6 +29,42 @@ const input = "h-11 w-full px-3 border border-[var(--lp-line)] bg-[var(--lp-bg)]
 const btn = "inline-flex items-center justify-center gap-2 h-11 px-4 text-sm font-semibold";
 const mark = "bg-[var(--lp-accent)] text-black px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]";
 
+const GRADE_ROWS: string[][] = [
+  ["O", "90-100", "10", "09.00-10.00", "Outstanding"],
+  ["A", "80-89", "9", "08.00-08.99", "Excellent"],
+  ["B", "70-79", "8", "07.00-07.99", "Very Good"],
+  ["C", "60-69", "7", "06.00-06.99", "Good"],
+  ["D", "50-59", "6", "05.00-05.99", "Average"],
+  ["E", "40-49", "5", "04.00-04.99", "Below Average"],
+  ["F", "Below 40", "0", "Below 04.00", "Fail"],
+  ["FX", "-", "0", "-", "Detained, repeat the course"],
+  ["AB", "Nil", "0", "-", "Absent"],
+  ["IC", "-", "0", "-", "Incomplete course: absent for exam but continue for the course"],
+  ["AC", "-", "-", "-", "Audit course completed"],
+  ["ACN", "-", "-", "-", "Audit course not completed"],
+  ["PP", "-", "-", "-", "Passed (only for non-audit course)"],
+  ["NP", "-", "-", "-", "Not passed (only for non-audit course)"],
+];
+
+const CLASS_ROWS: string[][] = [
+  ["7.75 or more", "First Class with Distinction"],
+  ["6.75 or more but less than 7.75", "First Class"],
+  ["6.25 or more but less than 6.75", "Higher Second Class"],
+  ["5.5 or more but less than 6.25", "Second Class"],
+  ["4.0 or more but less than 5.5", "Pass Class"],
+];
+
+const ABBREVIATIONS: string[][] = [
+  ["AB", "Absent"], ["TW", "Term work"],
+  ["ATKT", "Allowed to keep term"], ["VV", "Viva"],
+  ["C", "Carried forward"], ["!", "Non countable credit course"],
+  ["OR", "Oral"], ["#", "Ordinance 4 of SPPU"],
+  ["PC", "Performance cancelled"], ["$", "Ordinance 1 of SPPU"],
+  ["PR", "Practical"], ["&", "Ordinance 163 of SPPU"],
+  ["TH", "Theory"], ["*", "Current appearance"],
+  ["TU", "Tutorial"], ["@", "Ordinance 1+163 of SPPU"],
+];
+
 type SaveState = "device" | "loading" | "saving" | "saved" | "error";
 
 export default function CalculatorPage() {
@@ -378,39 +414,87 @@ export default function CalculatorPage() {
           <p className="font-bold mt-4">CGPA: {cgpa.totalCredits > 0 ? cgpa.cgpa.toFixed(2) : "-"} &nbsp;|&nbsp; {cgpa.totalCredits > 0 ? klass.className : ""}</p>
         </section>
 
-        {/* Reference: Table 2 and Table 3 of the grade card */}
-        <section className="print:hidden mt-14 grid lg:grid-cols-2 gap-8" aria-label="Grade card reference">
-          <div className="border border-[var(--lp-line)]">
-            <h2 className="px-4 py-3 font-tight font-semibold text-xl border-b border-[var(--lp-line)] bg-[var(--lp-panel)]">Grades and points</h2>
-            <table className="w-full text-sm">
-              <thead><tr className="text-left font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--lp-muted)]"><th className="px-4 py-2">Grade</th><th>% marks</th><th>Points</th><th>Meaning</th></tr></thead>
-              <tbody className="font-mono">
-                {[
-                  ["O", "90-100", "10", "Outstanding"], ["A", "80-89", "9", "Excellent"], ["B", "70-79", "8", "Very Good"],
-                  ["C", "60-69", "7", "Good"], ["D", "50-59", "6", "Average"], ["E", "40-49", "5", "Below Average"], ["F", "Below 40", "0", "Fail"],
-                ].map((r) => (
-                  <tr key={r[0]} className="border-t border-[var(--lp-line)]"><td className="px-4 py-2 font-bold">{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td><td className="font-sans">{r[3]}</td></tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Grade card reference (Tables 1, 2 and 3 of the K.K. Wagh grade card) */}
+        <section className="print:hidden mt-14" aria-label="Grade card reference">
+          <p className={eyebrow}>Reference</p>
+          <h2 className="mt-3 mb-6 font-tight font-semibold tracking-[-0.03em] text-3xl md:text-4xl">
+            K.K. Wagh grade card, <span className={mark}>at a glance</span>
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-5 items-start">
+            <div className="border border-[var(--lp-ink)]">
+              <h3 className="px-4 py-2.5 bg-[var(--lp-ink)] text-[var(--lp-bg)] font-tight font-semibold text-lg flex justify-between items-baseline">
+                Grades and points <span className="font-mono text-[10px] tracking-[0.12em] opacity-70">TABLE 2</span>
+              </h3>
+              <table className="w-full text-[13px]">
+                <thead>
+                  <tr className="text-left font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--lp-muted)] bg-[var(--lp-panel)] border-b border-[var(--lp-ink)]">
+                    <th className="px-3 py-2 whitespace-nowrap">Grade<sup>+</sup></th>
+                    <th className="px-2 whitespace-nowrap">% marks<sup>++</sup></th>
+                    <th className="px-2">Pts</th>
+                    <th className="px-2 whitespace-nowrap hidden sm:table-cell">CGPA range</th>
+                    <th className="px-2">Performance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {GRADE_ROWS.map((r) => (
+                    <tr key={r[0]} className="border-t border-[var(--lp-line)] align-top">
+                      <td className="px-3 py-1.5 font-mono font-bold">{r[0]}</td>
+                      <td className="px-2 py-1.5 font-mono whitespace-nowrap">{r[1]}</td>
+                      <td className="px-2 py-1.5 font-mono">{r[2]}</td>
+                      <td className="px-2 py-1.5 font-mono whitespace-nowrap hidden sm:table-cell">{r[3]}</td>
+                      <td className="px-2 py-1.5">{r[4]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="px-3 py-2 border-t border-[var(--lp-line)] text-[11px] text-[var(--lp-muted)]">
+                <sup>+</sup> Applicable for each course and CGPA &nbsp; <sup>++</sup> Applicable for each course only
+              </p>
+            </div>
+
+            <div className="border border-[var(--lp-ink)]">
+              <h3 className="px-4 py-2.5 bg-[var(--lp-ink)] text-[var(--lp-bg)] font-tight font-semibold text-lg flex justify-between items-baseline">
+                CGPA, class and formulas <span className="font-mono text-[10px] tracking-[0.12em] opacity-70">TABLE 3</span>
+              </h3>
+              <table className="w-full text-[13px]">
+                <thead>
+                  <tr className="text-left font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--lp-muted)] bg-[var(--lp-panel)] border-b border-[var(--lp-ink)]">
+                    <th className="px-3 py-2">CGPA</th>
+                    <th className="px-2">Class awarded</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {CLASS_ROWS.map((r) => (
+                    <tr key={r[0]} className="border-t border-[var(--lp-line)]">
+                      <td className="px-3 py-1.5 font-mono">{r[0]}</td>
+                      <td className="px-2 py-1.5">{r[1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="px-3 pt-3 pb-1 border-t border-[var(--lp-line)]">
+                <h4 className="font-tight font-semibold text-base mb-1.5">How SGPA and CGPA are calculated</h4>
+                <p className="text-[13px] leading-snug mb-1.5"><b className="font-mono">SGPA</b> = Σ (grade points earned × credits for each course) ÷ total credits for the semester</p>
+                <p className="text-[13px] leading-snug mb-1.5"><b className="font-mono">CGPA</b> = Σ (C<sub>j</sub> × G<sub>j</sub>) ÷ Σ C<sub>j</sub>, over the courses of all semesters together</p>
+                <p className="text-[12px] text-[var(--lp-muted)]">C = credits of the course, G = grade point earned in the course.</p>
+              </div>
+              <div className="px-3 pt-3 pb-2">
+                <h4 className="font-tight font-semibold text-base mb-1.5">Abbreviations</h4>
+                <dl className="grid sm:grid-cols-2 gap-x-5 text-[12px]">
+                  {ABBREVIATIONS.map((x) => (
+                    <div key={x[0]} className="flex gap-3 border-b border-[var(--lp-line)] py-1">
+                      <dt className="font-mono font-bold w-10 shrink-0">{x[0]}</dt>
+                      <dd>{x[1]}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <p className="px-3 py-2.5 border-t border-[var(--lp-line)] text-[12px] leading-snug text-[var(--lp-muted)]">
+                The SGPA of a semester is printed on the grade card only if the candidate has passed in all heads of examination and earned all credits of that semester. A candidate is declared a pass on earning 50% of the total credits assigned in the respective year.
+              </p>
+            </div>
           </div>
-          <div className="border border-[var(--lp-line)]">
-            <h2 className="px-4 py-3 font-tight font-semibold text-xl border-b border-[var(--lp-line)] bg-[var(--lp-panel)]">CGPA and class awarded</h2>
-            <table className="w-full text-sm">
-              <thead><tr className="text-left font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--lp-muted)]"><th className="px-4 py-2">CGPA</th><th>Class</th></tr></thead>
-              <tbody>
-                {[
-                  ["7.75 or more", "First Class with Distinction"], ["6.75 to below 7.75", "First Class"], ["6.25 to below 6.75", "Higher Second Class"],
-                  ["5.5 to below 6.25", "Second Class"], ["4.0 to below 5.5", "Pass Class"],
-                ].map((r) => (
-                  <tr key={r[0]} className="border-t border-[var(--lp-line)]"><td className="px-4 py-2 font-mono">{r[0]}</td><td>{r[1]}</td></tr>
-                ))}
-              </tbody>
-            </table>
-            <p className="px-4 py-3 border-t border-[var(--lp-line)] text-sm text-[var(--lp-muted)]">
-              SGPA = sum of (credits x grade points) / total credits of the semester. CGPA uses the same formula over all semesters together, so it is not a plain average of your SGPAs. Check results against your official grade card.
-            </p>
-          </div>
+          <p className="mt-3 text-[12px] text-[var(--lp-muted)]">Retyped from the K.K. Wagh grade card. Check results against your official grade card.</p>
         </section>
       </main>
 
