@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Plus, Trash2, Printer, RotateCcw } from "lucide-react";
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/components/AuthProvider";
 import { useToast } from "@/components/ToastProvider";
@@ -253,6 +254,10 @@ export default function CalculatorPage() {
           </h1>
           <p className="mt-5 text-lg text-[var(--lp-muted)] leading-relaxed">
             Add your own subjects, credits and grades. The calculation follows the K.K. Wagh grade card. Nothing is pre-filled.
+          </p>
+          <p className="mt-3 text-sm text-[var(--lp-muted)]">
+            Still confused how to calculate?{" "}
+            <Link href="/contact" className="font-semibold text-[var(--lp-ink)] underline underline-offset-4 hover:text-[var(--lp-accent)]">Contact us</Link> and a senior will help you.
           </p>
         </header>
 
@@ -543,6 +548,10 @@ export default function CalculatorPage() {
             </div>
           </div>
           <p className="mt-3 text-[12px] text-[var(--lp-muted)]">Retyped from the K.K. Wagh grade card. Check results against your official grade card.</p>
+          <p className="mt-2 text-[13px] text-[var(--lp-muted)]">
+            Still confused how to calculate?{" "}
+            <Link href="/contact" className="font-semibold text-[var(--lp-ink)] underline underline-offset-4 hover:text-[var(--lp-accent)]">Contact us</Link>
+          </p>
         </section>
       </main>
 
