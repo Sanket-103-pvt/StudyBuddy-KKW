@@ -222,13 +222,28 @@ export default function CalculatorPage() {
   return (
     <div className="flex flex-col min-h-full bg-[var(--lp-bg)] text-[var(--lp-ink)]">
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-10 md:py-14">
-        {/* Print header */}
-        <div className="hidden print:block mb-6 pb-4 border-b border-black text-center">
-          <h1 className="text-xl font-bold">K. K. Wagh Institute of Engineering Education and Research, Nashik</h1>
-          <p className="text-sm mt-1">SGPA / CGPA calculation (self-calculated, not an official record)</p>
-          <p className="text-sm mt-3">
-            Name: {data.studentName || "-"} &nbsp;|&nbsp; PRN: {data.prn || "-"} &nbsp;|&nbsp; Date: {new Date().toLocaleDateString("en-IN")}
-          </p>
+        {/* Print header: letterhead style */}
+        <div className="hidden print:block mb-5 [print-color-adjust:exact] [-webkit-print-color-adjust:exact]">
+          <div className="flex items-center justify-between pb-3 border-b-[3px] border-[#e8832a]">
+            <div className="flex items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icon.svg" alt="" width={44} height={44} />
+              <div>
+                <p className="font-tight font-bold text-xl leading-none">StudyBuddy <span className="bg-[#e8832a] text-black px-1">KKW</span></p>
+                <p className="text-[11px] mt-1 tracking-wide">www.studybuddykkw.dev</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="font-tight font-bold text-lg leading-none tracking-wide uppercase">Statement of SGPA / CGPA</p>
+              <p className="text-[11px] mt-1">Self-calculated &middot; Not an official record</p>
+            </div>
+          </div>
+          <p className="text-[11px] mt-2 text-center tracking-wide">Grades as per K. K. Wagh Institute of Engineering Education and Research, Nashik (Autonomous)</p>
+          <div className="mt-3 grid grid-cols-[1fr_auto_auto] gap-x-8 gap-y-1 border border-black px-3 py-2 text-sm">
+            <p><span className="font-semibold">Name:</span> {data.studentName || "-"}</p>
+            <p><span className="font-semibold">PRN:</span> {data.prn || "-"}</p>
+            <p><span className="font-semibold">Date:</span> {new Date().toLocaleDateString("en-IN")}</p>
+          </div>
         </div>
 
         <header className="print:hidden max-w-2xl">
@@ -388,34 +403,63 @@ export default function CalculatorPage() {
         </section>
 
         {/* Printout: every semester */}
-        <section className="hidden print:block">
+        <section className="hidden print:block [print-color-adjust:exact] [-webkit-print-color-adjust:exact]">
           {data.semesters.map((s) => {
             const r = calculateSGPA(s.subjects);
             if (s.subjects.length === 0) return null;
             return (
               <div key={s.semNumber} className="mb-5 break-inside-avoid">
-                <h2 className="font-bold mb-1">Semester {s.semNumber} &nbsp;|&nbsp; SGPA {r.totalCredits > 0 ? r.sgpa.toFixed(2) : "-"} &nbsp;|&nbsp; Credits counted {r.totalCredits}</h2>
-                <table className="w-full text-sm border-collapse">
-                  <thead><tr className="border-b border-black text-left"><th className="py-1">Subject</th><th>Credits</th><th>Grade</th><th>Points</th></tr></thead>
+                <div className="flex items-center justify-between bg-black text-white px-3 py-1 text-sm font-semibold tracking-wide uppercase">
+                  <span>Semester {s.semNumber}</span>
+                  <span>SGPA: {r.totalCredits > 0 ? r.sgpa.toFixed(2) : "-"}</span>
+                </div>
+                <table className="w-full text-sm border-collapse border-x border-b border-black">
+                  <thead>
+                    <tr className="bg-[#fbe9d6] text-left text-[12px] uppercase tracking-wide">
+                      <th className="py-1 px-3 w-10">Sr.</th><th className="px-3">Course name</th><th className="px-3 text-center">Credits</th><th className="px-3 text-center">Grade</th><th className="px-3 text-center">Grade pt</th><th className="px-3 text-center">Credit pt</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {s.subjects.map((x, i) => {
                       const g = KKW_GRADE_SCALE.find((y) => y.grade === x.grade);
+                      const counted = g && !g.nonCountable;
                       return (
-                        <tr key={x.id} className="border-b border-gray-300">
-                          <td className="py-1">{x.name || `Subject ${i + 1}`}</td><td>{x.credits}</td><td>{x.grade || "-"}</td><td>{g && !g.nonCountable ? g.point : "-"}</td>
+                        <tr key={x.id} className="border-t border-gray-300">
+                          <td className="py-1 px-3">{i + 1}</td>
+                          <td className="px-3">{x.name || `Subject ${i + 1}`}</td>
+                          <td className="px-3 text-center">{x.credits}</td>
+                          <td className="px-3 text-center font-semibold">{x.grade || "-"}</td>
+                          <td className="px-3 text-center">{counted ? g.point : "-"}</td>
+                          <td className="px-3 text-center">{counted ? g.point * x.credits : "-"}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
+                <p className="text-[11px] mt-1 text-right">Credits counted: {r.totalCredits} &nbsp;|&nbsp; Credits earned: {r.earnedCredits}</p>
               </div>
             );
           })}
-          <div className="mt-4 pt-3 border-t-2 border-black break-inside-avoid">
-            <p className="font-bold text-lg">CGPA: {cgpa.totalCredits > 0 ? cgpa.cgpa.toFixed(2) : "-"} &nbsp;|&nbsp; Class: {cgpa.totalCredits > 0 ? klass.className : "-"}</p>
-            <p className="text-sm mt-1">Credits counted {cgpa.totalCredits}, credits earned {cgpa.earnedCredits}</p>
-            <p className="text-xs mt-6 text-gray-600">Calculated on www.studybuddykkw.dev using the K.K. Wagh grade card rules. Check against your official grade card.</p>
+          <div className="mt-4 border-2 border-black break-inside-avoid">
+            <div className="grid grid-cols-3 text-center">
+              <div className="py-3 border-r border-black">
+                <p className="text-[11px] uppercase tracking-wide">CGPA</p>
+                <p className="font-tight font-bold text-3xl">{cgpa.totalCredits > 0 ? cgpa.cgpa.toFixed(2) : "-"}</p>
+              </div>
+              <div className="py-3 border-r border-black">
+                <p className="text-[11px] uppercase tracking-wide">Total credits earned</p>
+                <p className="font-tight font-bold text-3xl">{cgpa.earnedCredits}<span className="text-base font-normal"> / {cgpa.totalCredits}</span></p>
+              </div>
+              <div className="py-3 px-2 bg-[#e8832a]">
+                <p className="text-[11px] uppercase tracking-wide">Class awarded</p>
+                <p className="font-tight font-bold text-lg leading-tight mt-1">{cgpa.totalCredits > 0 ? klass.className : "-"}</p>
+              </div>
+            </div>
           </div>
+          <p className="text-[10px] mt-4 text-gray-600 leading-snug">
+            SGPA and CGPA = sum of (credits x grade points) divided by sum of credits. Audit and non-countable courses are left out. Grade points: O 10, A 9, B 8, C 7, D 6, E 5, F 0.
+            This sheet was calculated by the student on www.studybuddykkw.dev and is not issued by the college. Check against your official grade card.
+          </p>
         </section>
 
         {/* Grade card reference (Tables 1, 2 and 3 of the K.K. Wagh grade card) */}
