@@ -1,26 +1,44 @@
+// SGPA / CGPA rules follow the K. K. Wagh grade card (Table 2: grades, Table 3: class awarded):
+//   SGPA = sum(credits x grade point) / sum(credits) for one semester
+//   CGPA = sum(credits x grade point) / sum(credits) over all semesters
+// Non-countable courses (audit and pass/not-passed courses) are left out of both.
+
 export interface GradeOption {
   grade: string;
   point: number;
   label: string;
-  isAudit?: boolean;
+  /** Non-countable credit course: not part of SGPA or CGPA. */
+  nonCountable?: boolean;
 }
 
 export const KKW_GRADE_SCALE: GradeOption[] = [
-  { grade: "O", point: 10, label: "O (90-100% - Outstanding)" },
-  { grade: "A", point: 9, label: "A (80-89% - Excellent)" },
-  { grade: "B", point: 8, label: "B (70-79% - Very Good)" },
-  { grade: "C", point: 7, label: "C (60-69% - Good)" },
-  { grade: "D", point: 6, label: "D (50-59% - Average)" },
-  { grade: "E", point: 5, label: "E (40-49% - Below Average)" },
-  { grade: "F", point: 0, label: "F (Below 40% - Fail)" },
+  { grade: "O", point: 10, label: "O (90-100%, Outstanding)" },
+  { grade: "A", point: 9, label: "A (80-89%, Excellent)" },
+  { grade: "B", point: 8, label: "B (70-79%, Very Good)" },
+  { grade: "C", point: 7, label: "C (60-69%, Good)" },
+  { grade: "D", point: 6, label: "D (50-59%, Average)" },
+  { grade: "E", point: 5, label: "E (40-49%, Below Average)" },
+  { grade: "F", point: 0, label: "F (below 40%, Fail)" },
+  { grade: "FX", point: 0, label: "FX (Detained, repeat the course)" },
   { grade: "AB", point: 0, label: "AB (Absent)" },
-  { grade: "AC", point: 0, label: "AC (Audit Course Completed)", isAudit: true },
+  { grade: "IC", point: 0, label: "IC (Incomplete course)" },
+  { grade: "AC", point: 0, label: "AC (Audit course completed, not counted)", nonCountable: true },
+  { grade: "ACN", point: 0, label: "ACN (Audit course not completed, not counted)", nonCountable: true },
+  { grade: "PP", point: 0, label: "PP (Passed, non-audit, not counted)", nonCountable: true },
+  { grade: "NP", point: 0, label: "NP (Not passed, non-audit, not counted)", nonCountable: true },
 ];
+
+/** Grades that mean the credits were not earned (so the college would not print an SGPA). */
+const NOT_PASSED = new Set(["F", "FX", "AB", "IC"]);
+
+export const MAX_SEMESTERS = 8;
+export const MAX_SUBJECTS_PER_SEMESTER = 20;
 
 export interface SubjectEntry {
   id: string;
   name: string;
   credits: number;
+  /** "" means no grade chosen yet; such a row is ignored. */
   grade: string;
 }
 
@@ -29,215 +47,123 @@ export interface SemesterEntry {
   subjects: SubjectEntry[];
 }
 
+export interface CalculatorData {
+  semesters: SemesterEntry[];
+  studentName: string;
+  prn: string;
+}
+
 export interface KKWClassResult {
   className: string;
-  badgeColor: string;
   description: string;
 }
 
-/**
- * Calculates SGPA for a single semester given subject entries.
- * SGPA = (Sum of Credits * GradePoint) / Total Credits
- * Ignores Audit courses (AC).
- */
-export function calculateSGPA(subjects: SubjectEntry[]): {
-  sgpa: number;
+interface Totals {
   totalCredits: number;
   earnedCredits: number;
-} {
-  let totalCredits = 0;
-  let earnedCredits = 0;
-  let totalGradePoints = 0;
+  gradePoints: number;
+}
 
+function sumSubjects(subjects: SubjectEntry[], into: Totals): void {
   subjects.forEach((subj) => {
     const gradeObj = KKW_GRADE_SCALE.find((g) => g.grade === subj.grade);
-    if (!gradeObj || gradeObj.isAudit) return;
-
-    totalCredits += subj.credits;
-    if (gradeObj.point > 0) {
-      earnedCredits += subj.credits;
-    }
-    totalGradePoints += subj.credits * gradeObj.point;
+    if (!gradeObj || gradeObj.nonCountable) return;
+    if (!(subj.credits > 0)) return;
+    into.totalCredits += subj.credits;
+    if (gradeObj.point > 0) into.earnedCredits += subj.credits;
+    into.gradePoints += subj.credits * gradeObj.point;
   });
-
-  const sgpa = totalCredits > 0 ? parseFloat((totalGradePoints / totalCredits).toFixed(2)) : 0;
-  return { sgpa, totalCredits, earnedCredits };
 }
 
-/**
- * Calculates overall CGPA across multiple semesters.
- * CGPA = (Sum of all Semester Credits * GradePoint) / Total Combined Credits
- */
-export function calculateCGPA(semesters: SemesterEntry[]): {
-  cgpa: number;
-  totalCredits: number;
-  earnedCredits: number;
-  percentage: number;
-} {
-  let combinedCredits = 0;
-  let combinedEarnedCredits = 0;
-  let combinedGradePoints = 0;
-
-  semesters.forEach((sem) => {
-    sem.subjects.forEach((subj) => {
-      const gradeObj = KKW_GRADE_SCALE.find((g) => g.grade === subj.grade);
-      if (!gradeObj || gradeObj.isAudit) return;
-
-      combinedCredits += subj.credits;
-      if (gradeObj.point > 0) {
-        combinedEarnedCredits += subj.credits;
-      }
-      combinedGradePoints += subj.credits * gradeObj.point;
-    });
-  });
-
-  const cgpa = combinedCredits > 0 ? parseFloat((combinedGradePoints / combinedCredits).toFixed(2)) : 0;
-  
-  // Percentage conversion formula: (CGPA - 0.75) * 10 if CGPA >= 6.75, else CGPA * 9.5
-  const percentage = cgpa >= 6.75 
-    ? parseFloat(((cgpa - 0.75) * 10).toFixed(2)) 
-    : parseFloat((cgpa * 9.5).toFixed(2));
-
-  return { cgpa, totalCredits: combinedCredits, earnedCredits: combinedEarnedCredits, percentage };
+function round2(n: number): number {
+  return Math.round((n + Number.EPSILON) * 100) / 100;
 }
 
-/**
- * Maps CGPA to official KKWIEER Class Awarded (Table 3)
- */
-export function getKKWClassAwarded(cgpa: number): KKWClassResult {
-  if (cgpa >= 7.75) {
-    return {
-      className: "First Class with Distinction",
-      badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-      description: "Outstanding performance (CGPA 7.75 or above)",
-    };
-  }
-  if (cgpa >= 6.75) {
-    return {
-      className: "First Class",
-      badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
-      description: "Excellent performance (CGPA 6.75 - 7.74)",
-    };
-  }
-  if (cgpa >= 6.25) {
-    return {
-      className: "Higher Second Class",
-      badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
-      description: "Very good performance (CGPA 6.25 - 6.74)",
-    };
-  }
-  if (cgpa >= 5.5) {
-    return {
-      className: "Second Class",
-      badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-      description: "Good performance (CGPA 5.50 - 6.24)",
-    };
-  }
-  if (cgpa >= 4.0) {
-    return {
-      className: "Pass Class",
-      badgeColor: "bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20",
-      description: "Average performance (CGPA 4.00 - 5.49)",
-    };
-  }
+/** SGPA of one semester. Rows without a grade or credits are ignored. */
+export function calculateSGPA(subjects: SubjectEntry[]): { sgpa: number; totalCredits: number; earnedCredits: number } {
+  const t: Totals = { totalCredits: 0, earnedCredits: 0, gradePoints: 0 };
+  sumSubjects(subjects, t);
   return {
-    className: "Unclassified / Fail",
-    badgeColor: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
-    description: "Below minimum passing grade (CGPA below 4.00)",
+    sgpa: t.totalCredits > 0 ? round2(t.gradePoints / t.totalCredits) : 0,
+    totalCredits: t.totalCredits,
+    earnedCredits: t.earnedCredits,
   };
 }
 
+/** CGPA over all semesters: total credit points divided by total credits (not an average of SGPAs). */
+export function calculateCGPA(semesters: SemesterEntry[]): { cgpa: number; totalCredits: number; earnedCredits: number } {
+  const t: Totals = { totalCredits: 0, earnedCredits: 0, gradePoints: 0 };
+  semesters.forEach((sem) => sumSubjects(sem.subjects, t));
+  return {
+    cgpa: t.totalCredits > 0 ? round2(t.gradePoints / t.totalCredits) : 0,
+    totalCredits: t.totalCredits,
+    earnedCredits: t.earnedCredits,
+  };
+}
+
+/** True when a counted subject has a failed, absent, detained or incomplete grade. */
+export function hasUnclearedCourse(semesters: SemesterEntry[]): boolean {
+  return semesters.some((sem) => sem.subjects.some((s) => s.credits > 0 && NOT_PASSED.has(s.grade)));
+}
+
+/** Class awarded from CGPA (Table 3 of the grade card). */
+export function getKKWClassAwarded(cgpa: number): KKWClassResult {
+  if (cgpa >= 7.75) return { className: "First Class with Distinction", description: "CGPA 7.75 or more" };
+  if (cgpa >= 6.75) return { className: "First Class", description: "CGPA 6.75 or more but less than 7.75" };
+  if (cgpa >= 6.25) return { className: "Higher Second Class", description: "CGPA 6.25 or more but less than 6.75" };
+  if (cgpa >= 5.5) return { className: "Second Class", description: "CGPA 5.5 or more but less than 6.25" };
+  if (cgpa >= 4.0) return { className: "Pass Class", description: "CGPA 4.0 or more but less than 5.5" };
+  return { className: "Below pass class", description: "CGPA below 4.0" };
+}
+
+export function emptyCalculator(): CalculatorData {
+  return { semesters: [{ semNumber: 1, subjects: [] }], studentName: "", prn: "" };
+}
+
+export function newSubject(): SubjectEntry {
+  const id = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `s_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  return { id, name: "", credits: 3, grade: "" };
+}
+
+const KNOWN_GRADES = new Set(KKW_GRADE_SCALE.map((g) => g.grade));
+
 /**
- * Pre-populated default KKWIEER Course Curriculums by Branch
+ * Turns saved data (from this device or from the account) into safe calculator data.
+ * Anything that does not look right is dropped or clamped, so bad saved data can never break the page.
  */
-export const KKW_BRANCH_PRESETS: Record<string, Record<number, SubjectEntry[]>> = {
-  computer: {
-    1: [
-      { id: "c1", name: "Engineering Mathematics I", credits: 4, grade: "A" },
-      { id: "c2", name: "Applied Physics", credits: 4, grade: "A" },
-      { id: "c3", name: "C Programming", credits: 3, grade: "O" },
-      { id: "c4", name: "Fundamentals of Electrical Eng.", credits: 3, grade: "B" },
-      { id: "c5", name: "Engineering Graphics", credits: 2, grade: "A" },
-      { id: "c6", name: "Environmental Studies (Audit)", credits: 0, grade: "AC" },
-    ],
-    2: [
-      { id: "c7", name: "Engineering Mathematics II", credits: 4, grade: "A" },
-      { id: "c8", name: "Applied Chemistry", credits: 4, grade: "A" },
-      { id: "c9", name: "Computational Thinking & Problem Solving", credits: 3, grade: "O" },
-      { id: "c10", name: "Fundamental of Electronics", credits: 3, grade: "B" },
-      { id: "c11", name: "Workshop Practice", credits: 2, grade: "O" },
-    ],
-    3: [
-      { id: "c12", name: "Discrete Mathematics", credits: 4, grade: "O" },
-      { id: "c13", name: "Data Structures & Algorithms", credits: 3, grade: "A" },
-      { id: "c14", name: "Digital Electronics & Logic Design", credits: 3, grade: "A" },
-      { id: "c15", name: "Object Oriented Programming", credits: 3, grade: "O" },
-      { id: "c16", name: "Computer Organization & Architecture", credits: 3, grade: "B" },
-      { id: "c17", name: "DSA Lab", credits: 1.5, grade: "O" },
-    ],
-    4: [
-      { id: "c18", name: "Engineering Mathematics III", credits: 4, grade: "A" },
-      { id: "c19", name: "Operating Systems", credits: 3, grade: "O" },
-      { id: "c20", name: "Database Management Systems", credits: 3, grade: "A" },
-      { id: "c21", name: "Software Engineering", credits: 3, grade: "A" },
-      { id: "c22", name: "Computer Networks", credits: 3, grade: "B" },
-      { id: "c23", name: "DBMS Lab", credits: 1.5, grade: "O" },
-    ],
-  },
-  aids: {
-    1: [
-      { id: "a1", name: "Engineering Mathematics I", credits: 4, grade: "A" },
-      { id: "a2", name: "Applied Physics", credits: 4, grade: "A" },
-      { id: "a3", name: "Python Programming for AI", credits: 3, grade: "O" },
-      { id: "a4", name: "Basic Electrical Engineering", credits: 3, grade: "B" },
-      { id: "a5", name: "Engineering Graphics", credits: 2, grade: "A" },
-    ],
-    2: [
-      { id: "a6", name: "Engineering Mathematics II", credits: 4, grade: "A" },
-      { id: "a7", name: "Applied Chemistry", credits: 4, grade: "B" },
-      { id: "a8", name: "Data Structures & Algorithms", credits: 3, grade: "O" },
-      { id: "a9", name: "Basic Electronics Engineering", credits: 3, grade: "A" },
-    ],
-    3: [
-      { id: "a10", name: "Discrete Structures & Graph Theory", credits: 4, grade: "A" },
-      { id: "a11", name: "Data Science Fundamentals", credits: 3, grade: "O" },
-      { id: "a12", name: "Object Oriented Programming in Java", credits: 3, grade: "A" },
-      { id: "a13", name: "Database Management Systems", credits: 3, grade: "A" },
-    ],
-    4: [
-      { id: "a14", name: "Statistics for Data Science", credits: 4, grade: "O" },
-      { id: "a15", name: "Artificial Intelligence Fundamentals", credits: 3, grade: "O" },
-      { id: "a16", name: "Operating Systems", credits: 3, grade: "A" },
-      { id: "a17", name: "Design & Analysis of Algorithms", credits: 3, grade: "B" },
-    ],
-  },
-  entc: {
-    1: [
-      { id: "e1", name: "Engineering Mathematics I", credits: 4, grade: "A" },
-      { id: "e2", name: "Applied Physics", credits: 4, grade: "B" },
-      { id: "e3", name: "Basic Electronics Engineering", credits: 3, grade: "O" },
-      { id: "e4", name: "C Programming", credits: 3, grade: "A" },
-    ],
-    2: [
-      { id: "e5", name: "Engineering Mathematics II", credits: 4, grade: "A" },
-      { id: "e6", name: "Applied Chemistry", credits: 4, grade: "A" },
-      { id: "e7", name: "Electronic Devices & Circuits", credits: 3, grade: "B" },
-    ],
-  },
-  mechanical: {
-    1: [
-      { id: "m1", name: "Engineering Mathematics I", credits: 4, grade: "B" },
-      { id: "m2", name: "Engineering Physics", credits: 4, grade: "A" },
-      { id: "m3", name: "Systems in Mechanical Eng.", credits: 3, grade: "A" },
-      { id: "m4", name: "Engineering Graphics", credits: 3, grade: "O" },
-    ],
-  },
-  civil: {
-    1: [
-      { id: "cv1", name: "Engineering Mathematics I", credits: 4, grade: "A" },
-      { id: "cv2", name: "Engineering Chemistry", credits: 4, grade: "A" },
-      { id: "cv3", name: "Basic Civil Engineering", credits: 3, grade: "O" },
-      { id: "cv4", name: "Engineering Mechanics", credits: 3, grade: "B" },
-    ],
-  },
-};
+export function parseCalculatorData(raw: unknown): CalculatorData | null {
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as Record<string, unknown>;
+  if (!Array.isArray(obj.semesters)) return null;
+
+  const semesters: SemesterEntry[] = [];
+  for (const s of obj.semesters.slice(0, MAX_SEMESTERS)) {
+    if (!s || typeof s !== "object" || !Array.isArray((s as { subjects?: unknown }).subjects)) continue;
+    const subjects: SubjectEntry[] = [];
+    for (const r of (s as { subjects: unknown[] }).subjects.slice(0, MAX_SUBJECTS_PER_SEMESTER)) {
+      if (!r || typeof r !== "object") continue;
+      const row = r as Record<string, unknown>;
+      const credits = typeof row.credits === "number" && isFinite(row.credits) ? Math.min(Math.max(row.credits, 0), 10) : 0;
+      const grade = typeof row.grade === "string" && KNOWN_GRADES.has(row.grade) ? row.grade : "";
+      subjects.push({
+        id: typeof row.id === "string" && row.id ? row.id.slice(0, 64) : newSubject().id,
+        name: typeof row.name === "string" ? row.name.slice(0, 80) : "",
+        credits,
+        grade,
+      });
+    }
+    semesters.push({ semNumber: semesters.length + 1, subjects });
+  }
+  if (semesters.length === 0) return null;
+
+  return {
+    semesters,
+    studentName: typeof obj.studentName === "string" ? obj.studentName.slice(0, 80) : "",
+    prn: typeof obj.prn === "string" ? obj.prn.slice(0, 30) : "",
+  };
+}
+
+/** True when the student has typed anything worth keeping. */
+export function hasUserData(data: CalculatorData): boolean {
+  return data.studentName.trim() !== "" || data.prn.trim() !== "" || data.semesters.some((s) => s.subjects.length > 0);
+}
