@@ -70,7 +70,7 @@ export default function PWAInstallBanner() {
   return (
     <div
       id="pwa-install-banner"
-      className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-[60] animate-in slide-in-from-bottom-4 duration-300"
+      className="print:hidden fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-[60] animate-in slide-in-from-bottom-4 duration-300"
       role="banner"
       aria-label="Install Study Buddy KKW app"
     >

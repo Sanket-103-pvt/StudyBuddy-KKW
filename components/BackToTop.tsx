@@ -42,7 +42,7 @@ export default function BackToTop({ scrollContainerId }: BackToTopProps) {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-white shadow-lg hover:bg-primary-container transition-all duration-300 ${
+      className={`print:hidden fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-white shadow-lg hover:bg-primary-container transition-all duration-300 ${
         showButton ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
       aria-label="Back to top"

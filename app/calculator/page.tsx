@@ -251,7 +251,7 @@ export default function CalculatorPage() {
         </div>
 
         {/* Results */}
-        <section className="mt-8 grid md:grid-cols-3 border border-[var(--lp-ink)]" aria-label="Results">
+        <section className="print:hidden mt-8 grid md:grid-cols-3 border border-[var(--lp-ink)]" aria-label="Results">
           <div className="p-6 md:border-r border-[var(--lp-ink)] border-b md:border-b-0">
             <p className={eyebrow}>Semester {semester.semNumber} SGPA</p>
             <p className="mt-2 font-tight font-semibold text-5xl tracking-tight">{sgpa.totalCredits > 0 ? sgpa.sgpa.toFixed(2) : "–"}</p>
@@ -394,7 +394,7 @@ export default function CalculatorPage() {
             if (s.subjects.length === 0) return null;
             return (
               <div key={s.semNumber} className="mb-5 break-inside-avoid">
-                <h2 className="font-bold mb-1">Semester {s.semNumber}: SGPA {r.totalCredits > 0 ? r.sgpa.toFixed(2) : "-"}</h2>
+                <h2 className="font-bold mb-1">Semester {s.semNumber} &nbsp;|&nbsp; SGPA {r.totalCredits > 0 ? r.sgpa.toFixed(2) : "-"} &nbsp;|&nbsp; Credits counted {r.totalCredits}</h2>
                 <table className="w-full text-sm border-collapse">
                   <thead><tr className="border-b border-black text-left"><th className="py-1">Subject</th><th>Credits</th><th>Grade</th><th>Points</th></tr></thead>
                   <tbody>
@@ -411,7 +411,11 @@ export default function CalculatorPage() {
               </div>
             );
           })}
-          <p className="font-bold mt-4">CGPA: {cgpa.totalCredits > 0 ? cgpa.cgpa.toFixed(2) : "-"} &nbsp;|&nbsp; {cgpa.totalCredits > 0 ? klass.className : ""}</p>
+          <div className="mt-4 pt-3 border-t-2 border-black break-inside-avoid">
+            <p className="font-bold text-lg">CGPA: {cgpa.totalCredits > 0 ? cgpa.cgpa.toFixed(2) : "-"} &nbsp;|&nbsp; Class: {cgpa.totalCredits > 0 ? klass.className : "-"}</p>
+            <p className="text-sm mt-1">Credits counted {cgpa.totalCredits}, credits earned {cgpa.earnedCredits}</p>
+            <p className="text-xs mt-6 text-gray-600">Calculated on www.studybuddykkw.dev using the K.K. Wagh grade card rules. Check against your official grade card.</p>
+          </div>
         </section>
 
         {/* Grade card reference (Tables 1, 2 and 3 of the K.K. Wagh grade card) */}

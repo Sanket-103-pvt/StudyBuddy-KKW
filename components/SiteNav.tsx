@@ -106,7 +106,7 @@ export default function SiteNav() {
   const firstName = auth.displayName?.split(" ")[0] ?? "Account";
 
   return (
-    <header ref={ref} className="relative z-40 shrink-0 bg-[var(--lp-bg)] border-b border-[var(--lp-line)]" onMouseLeave={hoverClose}>
+    <header ref={ref} className="print:hidden relative z-40 shrink-0 bg-[var(--lp-bg)] border-b border-[var(--lp-line)]" onMouseLeave={hoverClose}>
       <div className="max-w-[1240px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-2.5 text-[var(--lp-ink)]" aria-label="StudyBuddy home">
           {/* eslint-disable-next-line @next/next/no-img-element */}

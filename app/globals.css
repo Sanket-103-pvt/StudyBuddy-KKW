@@ -50,3 +50,10 @@
 }
 .lp-drop { animation: lp-drop 160ms ease-out; }
 @media (prefers-reduced-motion: reduce) { .lp-drop { animation: none; } }
+
+/* Printing: the app shell scrolls inside a fixed-height box on screen; let it flow across pages on paper. */
+@media print {
+  html, body { height: auto !important; overflow: visible !important; background: #fff !important; color: #000 !important; }
+  body > div, #main-scroll-area { height: auto !important; min-height: 0 !important; overflow: visible !important; display: block !important; }
+  @page { margin: 14mm; }
+}
