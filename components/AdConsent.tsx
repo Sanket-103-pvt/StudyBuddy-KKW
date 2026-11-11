@@ -1,7 +1,7 @@
 "use client";
 
 // Ad consent: asks once, loads the Google ad script only after "Allow", and lets people change their mind
-// from the footer. Everything here does nothing unless NEXT_PUBLIC_ADSENSE_CLIENT is set (see lib/ads-config.ts).
+// from the footer. Everything here does nothing unless NEXT_PUBLIC_ADS_ENABLED=1 is set (see lib/ads-config.ts).
 
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
