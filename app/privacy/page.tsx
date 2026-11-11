@@ -16,7 +16,7 @@ export default function Page() {
       <main className="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-12">
         <div className="max-w-3xl mx-auto font-inter text-body-md text-text-secondary-light dark:text-text-secondary-dark space-y-4 leading-relaxed">
           <h1 className="font-tight font-semibold text-4xl md:text-5xl text-on-surface dark:text-text-primary-dark">Privacy Policy</h1>
-          <p className="text-sm">Last updated: 9 November 2026</p>
+          <p className="text-sm">Last updated: 11 November 2026</p>
           <p>Study Buddy KKW is a free student project run by Sanket Chaudhari. This page says what we store and why. We do not sell data and we do not run advertising trackers.</p>
 
           <h2 className={H2}>If you only browse</h2>
@@ -35,13 +35,16 @@ export default function Page() {
           <p>Only the site admin can see pending submissions and who sent them. Other students see only approved items and public display names. Our hosting and database providers (Vercel and Supabase) process data on our behalf and keep standard server logs such as IP addresses.</p>
 
           <h2 className={H2}>Page view statistics</h2>
-          <p>We use Vercel Web Analytics to count page views and see which pages are used. It does not use cookies and does not follow you across other websites. We also keep a simple daily visit count (one number per day, no personal data).</p>
+          <p>We use Cloudflare Web Analytics to count page views and see which pages are used. Cloudflare describes it as privacy-first analytics that does not track you across websites. We also keep a simple daily visit count (one number per day, no personal data).</p>
 
           <h2 className={H2}>Error reports</h2>
           <p>When the site crashes in your browser, an error report (the error message, the page address and basic browser details) is sent to Sentry so we can fix it. We turn off sending IP addresses and personal details, and we do not record what you type.</p>
 
+          <h2 className={H2}>Ads (Google AdSense)</h2>
+          <p>This site is free. To cover its costs it may show ads served by Google AdSense, only on pages that have study material, never on empty pages. Before any ad is loaded we ask for your permission with a banner. If you choose Decline, the Google ad script is not loaded and no ad cookies are set. If you choose Allow, Google and its advertising partners may use cookies to show and measure ads, and may personalise them. You can change your choice any time with the Ad choices link in the footer. You can also manage Google ad personalisation at <a className="underline" href="https://adssettings.google.com" rel="noopener noreferrer">adssettings.google.com</a> and read how Google uses data from sites that use its services at <a className="underline" href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">policies.google.com/technologies/partner-sites</a>. Ads are shown only to people who allow them; we do not sell your data and we do not give Google your name or email.</p>
+
           <h2 className={H2}>Cookies</h2>
-          <p>We do not set advertising or tracking cookies, so there is no cookie banner. Sign-in and preferences (such as light or dark theme) use browser storage.</p>
+          <p>Without ads, we set no advertising or tracking cookies. Sign-in and preferences (such as light or dark theme and your ad choice) use browser storage. Advertising cookies are set by Google only if you choose Allow in the ads banner.</p>
 
           <h2 className={H2}>Your choices</h2>
           <p>To see or delete your account and everything you submitted, email Studybuddykkw@gmail.com from your Google address and we will remove it. You can also clear local data any time from your browser settings.</p>

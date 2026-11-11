@@ -8,6 +8,7 @@ import { ChevronLeft } from "lucide-react";
 
 import Footer from "@/components/Footer";
 import UnitList from "@/components/UnitList";
+import AdSlot from "@/components/AdSlot";
 import SubjectViewTracker from "@/components/SubjectViewTracker";
 import SubjectHeaderProgress from "@/components/SubjectHeaderProgress";
 import CommunityResources from "@/components/CommunityResources";
@@ -204,6 +205,8 @@ export default async function SubjectPage({ params }: PageProps) {
           units={subjectData.units} 
           bonus={subjectData.bonus} 
         />
+        {/* Ads only on pages that have real links (never on empty subject pages). */}
+        <AdSlot hasContent={subjectData.units.some((u) => (u.resources?.length ?? 0) > 0)} />
         <CommunityResources subjectId={subjectData.id} />
         <SubjectViewTracker 
           subjectId={subjectData.id} 

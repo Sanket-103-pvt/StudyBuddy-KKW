@@ -12,6 +12,8 @@ import AuthProvider from "@/components/AuthProvider";
 import { Analytics } from "@vercel/analytics/next";
 import ErrorMonitor from "@/components/ErrorMonitor";
 import { VisitTracker } from "@/components/VisitCounter";
+import { AdConsentBanner } from "@/components/AdConsent";
+import { ADSENSE_CLIENT } from "@/lib/ads-config";
 
 // Fonts are self-hosted (latin subset, variable weight) so builds never depend on Google Fonts being reachable.
 const inter = localFont({ src: "./fonts/Inter.woff2", variable: "--font-inter", display: "swap", weight: "100 900" });
@@ -20,6 +22,8 @@ const interTight = localFont({ src: "./fonts/InterTight.woff2", variable: "--fon
 const jetbrainsMono = localFont({ src: "./fonts/JetBrainsMono.woff2", variable: "--font-mono", display: "swap", weight: "100 800" });
 
 export const metadata: Metadata = {
+  // Lets AdSense verify site ownership. A meta tag sets no cookies and loads nothing.
+  ...(ADSENSE_CLIENT ? { other: { "google-adsense-account": ADSENSE_CLIENT } } : {}),
   metadataBase: new URL("https://www.studybuddykkw.dev"),
   title: "Study Buddy KKW - K.K. Wagh Engineering Notes, PYQs & Study Hub",
   description: "Official study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students. Subject-wise notes, SGPA/CGPA calculator and study tracking.",
@@ -76,6 +80,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
             <PWAInstallBanner />
+            <AdConsentBanner />
           </AuthProvider>
           </ToastProvider>
         </ThemeProvider>

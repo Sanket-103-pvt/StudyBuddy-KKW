@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { VisitCount } from "@/components/VisitCounter";
+import { AdChoicesLink } from "@/components/AdConsent";
 
 export default function Footer() {
   return (
@@ -97,6 +98,9 @@ export default function Footer() {
               >
                 Terms of Service
               </Link>
+            </li>
+            <li>
+              <AdChoicesLink className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" />
             </li>
           </ul>
         </div>
