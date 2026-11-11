@@ -1,0 +1,39 @@
+{
+  "fourth-year": [
+    {
+      "id": "research-methodology",
+      "name": "Research Methodology",
+      "icon": "search",
+      "unitCount": 5,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "generative-ai-and-prompt-engineering",
+      "name": "Generative AI and Prompt Engineering",
+      "icon": "sparkles",
+      "unitCount": 5,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "information-retrieval-and-computational-vision",
+      "name": "Information Retrieval and Computational Vision",
+      "icon": "eye",
+      "unitCount": 5,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "deep-learning",
+      "name": "Deep Learning",
+      "icon": "brain",
+      "unitCount": 5,
+      "lastUpdated": "2026-11-09"
+    },
+    {
+      "id": "computational-intelligence",
+      "name": "Computational Intelligence",
+      "icon": "brain",
+      "unitCount": 5,
+      "lastUpdated": "2026-11-09"
+    }
+  ]
+}
