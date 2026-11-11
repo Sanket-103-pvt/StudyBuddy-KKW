@@ -313,7 +313,7 @@ export default function LandingPage() {
           ))}
         </div>
         <div className={`${wrap} py-6 border-t border-white/10 text-xs text-white/50`}>
-          © {new Date().getFullYear()} Study Buddy KKW. Open source under the MIT License. Not an official page of KKWIEER. Built by{" "}
+          © {new Date().getFullYear()} Study Buddy KKW. All rights reserved. Not an official page of KKWIEER. Built by{" "}
           <a href="https://sanketchaudhari.in" target="_blank" rel="noopener noreferrer" className="text-white/80 underline underline-offset-4 hover:text-white">
             Sanket Chaudhari (sanketchaudhari.in)
           </a>

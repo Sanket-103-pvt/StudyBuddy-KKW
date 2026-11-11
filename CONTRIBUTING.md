@@ -2,7 +2,7 @@
 
 Thank you for helping make **StudyBuddy KKW** better for K.K. Wagh students. This guide covers two kinds of help: sharing notes (no coding needed) and improving the code or content (pull requests).
 
-By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md). The repository is source-available, not open source: read the [LICENSE](LICENSE) first. Contributions you submit are accepted under section 4 of that license, and the code may not be copied or hosted elsewhere.
 
 ---
 

@@ -4,7 +4,7 @@
 
 # StudyBuddy KKW
 
-**Free, open-source study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students.**
+**Free study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students.**
 
 Subject-wise notes, a grade-card accurate SGPA/CGPA calculator, instant search and a student contributor system, all in one place.
 
@@ -13,7 +13,7 @@ Subject-wise notes, a grade-card accurate SGPA/CGPA calculator, instant search a
 <br />
 
 [![CI](https://github.com/Sanket-103-pvt/StudyBuddy-KKW/actions/workflows/e2e.yml/badge.svg?branch=master)](https://github.com/Sanket-103-pvt/StudyBuddy-KKW/actions/workflows/e2e.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All_Rights_Reserved-b91c1c.svg)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-e8832a.svg)](CONTRIBUTING.md)
 ![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
@@ -88,54 +88,6 @@ Notes get lost in WhatsApp groups, Drive links die, and nobody remembers how the
 | Monitoring | Cloudflare Web Analytics, optional Sentry for browser errors |
 | Tests | Jest (unit), Cypress (end to end, runs in CI) |
 
-## Getting started
-
-You need Node.js 18+ and npm.
-
-```bash
-git clone https://github.com/Sanket-103-pvt/StudyBuddy-KKW.git
-cd StudyBuddy-KKW
-npm install
-npm run dev
-```
-
-Open http://localhost:3000. Browsing, search and the calculator work without any setup.
-
-Login, contributions, the admin page and the leaderboard switch on when Supabase is configured. See [`supabase/README.md`](supabase/README.md).
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start the development server |
-| `npm run validate` | Check every file in `content/` against the schema |
-| `npm test` | Run the Jest unit tests |
-| `npm run lint` | Run ESLint |
-| `npm run build` | Validate content, then build for production |
-
-### Environment variables
-
-Copy nothing into the repo. Put these in `.env.local` (local) or in your host's build settings. All are optional.
-
-| Variable | Purpose |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (turns on login and contributions) |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon public key (never use the `service_role` key) |
-| `NEXT_PUBLIC_SENTRY_DSN` | Browser error reports (off when empty) |
-| `NEXT_PUBLIC_ADSENSE_CLIENT` | Google AdSense publisher id, for example `ca-pub-123...` (ads stay off when empty) |
-| `NEXT_PUBLIC_ADSENSE_SLOT_SUBJECT` | Ad unit id for subject pages |
-
-## Deploying
-
-The site has no server code, so it builds to plain files and runs on any static host. On Cloudflare:
-
-```bash
-# build command
-STATIC_EXPORT=1 npm run build
-# output directory
-out
-```
-
-`wrangler.jsonc` points Cloudflare at `out/`, and `public/_headers` and `public/_redirects` carry the security headers and redirects. The daily Supabase keepalive runs from `.github/workflows/keepalive.yml` (add the two Supabase repository secrets).
-
 ## Project structure
 
 ```
@@ -155,9 +107,9 @@ cypress/        End-to-end tests
 There are two ways to help:
 
 - **Share notes (students).** Sign in on the site, open **Contribute**, and submit a link. An admin reviews it before it goes live.
-- **Improve the code or content (developers).** Read [CONTRIBUTING.md](CONTRIBUTING.md), then open a pull request. Adding notes only needs a JSON edit in `content/`.
+- **Improve the code or content (developers).** Read [CONTRIBUTING.md](CONTRIBUTING.md), then open a pull request. Adding notes only needs a JSON edit in `content/`. Contributions are accepted under the terms in [LICENSE](LICENSE).
 
-Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+Local setup steps for contributors are in [CONTRIBUTING.md](CONTRIBUTING.md). Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Roadmap
 
@@ -168,9 +120,11 @@ Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License and credits
 
-The code is released under the [MIT License](LICENSE). The StudyBuddy name and logo identify the official site, so please do not present a fork as the official StudyBuddy KKW.
+The source is public so you can read it, learn from it and send improvements. **It is not open source: all rights are reserved.** Copying the code, the content, the design or the branding, or running a copy or a close clone of this project, is not allowed without written permission. See [LICENSE](LICENSE) for exactly what you may and may not do. To ask for permission, write to Studybuddykkw@gmail.com.
 
-Created and maintained by [Sanket Chaudhari](https://github.com/Sanket-103-pvt). Thanks to every student who shares notes and reports broken links.
+Notes shared by students belong to their authors and are only linked from the site.
+
+Created and maintained by [Sanket Chaudhari](https://github.com/sanket1035). Thanks to every student who shares notes and reports broken links.
 
 <div align="center">
 

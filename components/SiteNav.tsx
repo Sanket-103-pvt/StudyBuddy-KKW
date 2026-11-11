@@ -38,7 +38,7 @@ const MENUS: { label: string; items: Item[] }[] = [
     items: [
       { title: "About", text: "Why Study Buddy exists and who runs it.", href: "/about" },
       { title: "Contact", text: "Write to us or report a problem.", href: "/contact" },
-      { title: "GitHub", text: "The project is open source.", href: "https://github.com/Sanket-103-pvt/StudyBuddy-KKW", external: true },
+      { title: "GitHub", text: "View the source and contribute on GitHub.", href: "https://github.com/Sanket-103-pvt/StudyBuddy-KKW", external: true },
     ],
   },
 ];

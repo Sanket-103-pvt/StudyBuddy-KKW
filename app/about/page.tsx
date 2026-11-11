@@ -28,13 +28,13 @@ export default function AboutPage() {
             </p>
 
             <h2 className="font-sora font-semibold text-headline-sm text-on-surface dark:text-text-primary-dark mt-8 mb-4">
-              Open Source Initiative
+              Community Contributions
             </h2>
             <p>
-              To ensure the content remains accurate, up-to-date, and comprehensive, Study Buddy KKW is now an open-source project. Any student can contribute by adding unit-wise notes, updating syllabus details, or correcting links.
+              To ensure the content remains accurate, up-to-date, and comprehensive, Study Buddy KKW accepts contributions from students. Any student can contribute by adding unit-wise notes, updating syllabus details, or correcting links.
             </p>
             <p>
-              This collaborative model helps the portal grow while giving student contributors real-world experience working with GitHub and open-source workflows.
+              This collaborative model helps the portal grow while giving student contributors real-world experience working with GitHub and collaborative workflows.
             </p>
           </div>
         </div>

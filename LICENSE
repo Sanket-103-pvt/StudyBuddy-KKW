@@ -1,21 +1,67 @@
-MIT License
+StudyBuddy KKW License (All Rights Reserved, source available)
 
-Copyright (c) 2026 Study Buddy KKW Contributors
+Copyright (c) 2026 Sanket Chaudhari. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is public so that students can read the code, learn from it,
+and send improvements. Public does not mean free to copy. Except for the
+permissions listed in section 1, no rights are granted.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. WHAT YOU MAY DO
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+   a. View and read the source code on GitHub.
+   b. Run a copy on your own computer for personal study and evaluation.
+   c. Fork the repository on GitHub, only as far as GitHub's Terms of Service
+      allow, and use the fork to prepare and submit a pull request to this
+      repository.
+   d. Submit contributions as described in section 4.
+
+2. WHAT YOU MAY NOT DO WITHOUT PRIOR WRITTEN PERMISSION FROM THE OWNER
+
+   a. Copy, publish, host, distribute, sell, or sublicense this code, in whole
+      or in part, or any modified version of it.
+   b. Operate a website or app that copies this project or is substantially
+      similar to it in its code, design, layout, or content structure.
+   c. Copy or republish the site's original content: its text, design assets,
+      logos, icons, illustrations, screenshots, poster and letter designs,
+      curated subject lists, and the way resources are organised and presented.
+   d. Use the names "StudyBuddy", "Study Buddy KKW" or "StudyBuddy KKW", the
+      logo, or the domain name studybuddykkw.dev in a way that suggests your
+      project is this one or is approved by it.
+   e. Scrape the site or the repository to build or fill another product.
+   f. Remove or change this notice or any copyright notice.
+
+3. THIRD-PARTY CONTENT
+
+   Notes, documents and files that students share are owned by their authors
+   and are linked from the site, not owned by the project. This license does
+   not cover them, and nothing here gives you rights to them. The grade card
+   rules and college names that appear in the project belong to their owners.
+
+4. CONTRIBUTIONS
+
+   If you submit code, content, or any other material to this project (a pull
+   request, an issue, or a resource through the site), you confirm that you
+   have the right to submit it, and you give the owner a perpetual, worldwide,
+   royalty-free, non-exclusive license to use, modify, publish, and
+   sublicense it as part of this project and its future versions. You keep
+   your own copyright.
+
+5. ENFORCEMENT
+
+   Use outside this license is unauthorised and infringes the owner's
+   copyright. The owner may take any action the law allows, including takedown
+   notices to hosting providers and platforms, and legal proceedings for
+   damages and injunctions. Nothing in this license limits the rights the
+   owner has under law, such as the Copyright Act, 1957 (India), or limits the
+   rights you have under law that cannot be removed by agreement.
+
+6. NO WARRANTY
+
+   THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED. THE OWNER IS NOT LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY
+   ARISING FROM THE SOFTWARE OR ITS USE.
+
+7. PERMISSION
+
+   To ask for permission, write to Studybuddykkw@gmail.com with who you are,
+   what you want to use, and why.

@@ -15,7 +15,7 @@ export default function Footer() {
             One hub for every note, PYQ, and resource K.K. Wagh engineering students actually need. Built for students, by students.
           </p>
           <p className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark">
-            © {new Date().getFullYear()} Study Buddy KKW. Open Source Project under MIT License.
+            © {new Date().getFullYear()} Study Buddy KKW. All rights reserved.
           </p>
           <VisitCount />
         </div>

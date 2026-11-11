@@ -44,5 +44,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.23.4",
     "typescript": "^5"
-  }
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Sanket Chaudhari"
 }

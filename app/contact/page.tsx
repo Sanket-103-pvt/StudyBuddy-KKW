@@ -116,7 +116,7 @@ export default function ContactPage() {
             <div className="grid md:grid-cols-[260px_1fr] gap-2 md:gap-10 py-7 border-b border-[var(--lp-line)]">
               <h3 className="font-tight font-semibold text-lg">Bugs and feature requests</h3>
               <div>
-                <p className="text-[var(--lp-muted)] leading-relaxed">StudyBuddy is open source. Report a problem or request a missing subject on GitHub.</p>
+                <p className="text-[var(--lp-muted)] leading-relaxed">The source is public on GitHub. Report a problem or request a missing subject on GitHub.</p>
                 <a
                   href="https://github.com/Sanket-103-pvt/StudyBuddy-KKW/issues"
                   target="_blank"
