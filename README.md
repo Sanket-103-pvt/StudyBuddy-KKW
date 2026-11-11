@@ -278,3 +278,16 @@ Built with ❤️ for the students of K.K. Wagh Institute of Engineering Educati
 ## Error monitoring (optional)
 
 Create a free project at sentry.io (platform: Browser JavaScript), copy its DSN and set it as the Vercel environment variable `NEXT_PUBLIC_SENTRY_DSN`, then redeploy. Without it, monitoring stays off and nothing is loaded.
+
+## Static hosting (Cloudflare Pages)
+
+The site has no server code except the Vercel keepalive cron, so it can be built as plain files:
+
+```
+mv app/api /tmp/api_bak && STATIC_EXPORT=1 npm run build; mv /tmp/api_bak app/api
+```
+
+Output goes to `out/`. `public/_headers` and `public/_redirects` carry the security headers and the old quiz redirect.
+On Cloudflare Pages use build command `rm -rf app/api && STATIC_EXPORT=1 npm run build`, output directory `out`, and set the
+`NEXT_PUBLIC_*` environment variables. Turn on Web Analytics in the Pages project (Metrics). The daily Supabase keepalive then runs from
+`.github/workflows/keepalive.yml` (add the two Supabase repository secrets).

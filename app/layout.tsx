@@ -71,7 +71,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
             </div>
             <VisitTracker />
-            <Analytics />
+            {process.env.STATIC_EXPORT !== "1" && <Analytics />}
             <ErrorMonitor />
             <CommandPalette />
             <BackToTop scrollContainerId="main-scroll-area" />
