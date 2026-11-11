@@ -1,293 +1,179 @@
 <div align="center">
 
-# Study Buddy KKW
+<img src="public/icon.svg" alt="StudyBuddy KKW logo" width="72" height="72" />
 
-**A modern, open-source academic resource platform built for K.K. Wagh Institute of Engineering Education & Research students.**
+# StudyBuddy KKW
 
-Find notes, previous year question papers, quizzes, GPA calculators, and academic resources in seconds.
+**Free, open-source study hub for K.K. Wagh Institute of Engineering Education & Research (KKWIEER) students.**
 
-[Live Website](https://studybuddykkw.dev) • [Documentation](CONTRIBUTING.md) • [Report Issue](../../issues) • [Request Feature](../../issues)
+Subject-wise notes, a grade-card accurate SGPA/CGPA calculator, instant search and a student contributor system, all in one place.
 
-<br>
+[**Live site**](https://www.studybuddykkw.dev) &nbsp;·&nbsp; [Contribute](CONTRIBUTING.md) &nbsp;·&nbsp; [Report a bug](../../issues) &nbsp;·&nbsp; [Request a feature](../../issues)
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-success?style=for-the-badge)
-![Open Source](https://img.shields.io/badge/Open%20Source-Yes-orange?style=for-the-badge)
+<br />
+
+[![CI](https://github.com/Sanket-103-pvt/StudyBuddy-KKW/actions/workflows/e2e.yml/badge.svg?branch=master)](https://github.com/Sanket-103-pvt/StudyBuddy-KKW/actions/workflows/e2e.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-e8832a.svg)](CONTRIBUTING.md)
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-auth_%26_data-3FCF8E?logo=supabase&logoColor=white)
+![Cloudflare](https://img.shields.io/badge/Hosted_on-Cloudflare-F38020?logo=cloudflare&logoColor=white)
+
+<br />
+
+<img src="docs/screenshots/home.png" alt="StudyBuddy home page" width="860" />
 
 </div>
 
 ---
 
-# Overview
+## Why this exists
 
-Study Buddy KKW is an open-source educational platform developed to simplify academic resource discovery for engineering students at **K.K. Wagh Institute of Engineering Education & Research (KKWIEER).**
+Notes get lost in WhatsApp groups, Drive links die, and nobody remembers how the grade card turns grades into an SGPA. StudyBuddy puts the useful parts in one fast site that works on a phone, with no account needed to browse.
 
-The platform centralizes handwritten notes, previous year question papers, reference materials, quizzes, academic utilities, and student tools into a single searchable interface.
+## Features
 
-Designed with performance, accessibility, and usability in mind, Study Buddy enables students to locate required study material in under **30 seconds**.
+| | |
+|---|---|
+| **Notes by year, subject and unit** | Browse First and Second Year subjects, open a unit and get the notes link. Mark units as done and keep your progress on your own device. |
+| **Instant search** | Press `Ctrl + K` (or tap the search icon) and jump to any subject. |
+| **SGPA and CGPA calculator** | Follows the K.K. Wagh grade card: SGPA = Σ(credits × grade point) ÷ Σ credits, and CGPA over all semesters. Handles audit (AC, ACN) and non-countable (PP, NP) courses, shows the class awarded, and prints a clean statement. |
+| **Grade card reference** | The grade table, class table and formula from the grade card, right under the calculator. |
+| **Study analytics** | Progress per subject, stored only in your browser. |
+| **Exam countdown and timetables** | Personal countdown, plus timetables shared by students and approved by an admin. |
+| **Contributor system** | Sign in with a KKWagh Google account, submit a resource link, and an admin reviews it. Approved items go live and the contributor appears on a leaderboard. |
+| **Light and dark themes** | Sharp, high-contrast design that reads well on small screens. |
+| **Installable PWA** | Add it to your home screen, and recently opened pages work offline. |
 
----
+### Privacy, by design
 
-# Features
+- Browsing needs no login and sets no tracking cookies.
+- Calculator data stays on your device unless you sign in and choose to keep it in your account.
+- Page views are counted with Cloudflare Web Analytics, which does not follow you across sites.
+- Optional ads (Google AdSense) are off by default and, when enabled, load only after the visitor allows them. See the [Privacy Policy](app/privacy/page.tsx).
 
-## Academic Resource Management
+## Screenshots
 
-- Structured notes organized by academic year and subject
-- Previous Year Question Paper (PYQ) repository
-- Unit-wise study materials
-- Reference books and external learning resources
-- Fast navigation across semesters
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/first-year.png" alt="Subject list" /><br /><sub><b>Subjects by year</b></sub></td>
+    <td width="50%"><img src="docs/screenshots/subject.png" alt="Subject page with units" /><br /><sub><b>Units and notes</b></sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/calculator.png" alt="SGPA and CGPA calculator" /><br /><sub><b>SGPA and CGPA calculator</b></sub></td>
+    <td width="50%"><img src="docs/screenshots/login.png" alt="Login page" /><br /><sub><b>KKWagh email login</b></sub></td>
+  </tr>
+</table>
 
----
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/mobile-home.png" alt="Home on mobile" width="260" /><br /><sub><b>Mobile home</b></sub></td>
+    <td align="center"><img src="docs/screenshots/mobile-calculator.png" alt="Calculator on mobile" width="260" /><br /><sub><b>Mobile calculator</b></sub></td>
+  </tr>
+</table>
 
-## Smart Search
+> The calculator screenshots use made-up sample subjects. The real site never pre-fills data.
 
-- Global Command Palette (`Ctrl + K`)
-- Instant subject and note search
-- Web Worker powered indexing
-- Zero input lag during searches
+## Tech stack
 
----
+| Area | Tools |
+|---|---|
+| Framework | Next.js 14 (App Router), React 18, TypeScript |
+| Styling | Tailwind CSS, self-hosted Inter, Inter Tight and JetBrains Mono |
+| Content | Plain JSON files in `content/`, validated against `content-schema.json` (AJV) |
+| Auth and data | Supabase (Google sign-in restricted to `@kkwagh.edu.in`, Postgres with Row Level Security) |
+| Hosting | Cloudflare (static export served from a Worker) |
+| Monitoring | Cloudflare Web Analytics, optional Sentry for browser errors |
+| Tests | Jest (unit), Cypress (end to end, runs in CI) |
 
-## Interactive Quiz System
+## Getting started
 
-- Unit-wise MCQ practice
-- Timer based assessments
-- Instant answer explanations
-- Progress tracking
-- High score persistence
-
----
-
-## Academic Utilities
-
-### SPPU SGPA & CGPA Calculator
-
-- Semester GPA calculation
-- Overall CGPA calculator
-- Official credit-weight support
-
----
-
-### Study Analytics
-
-- Study time tracker
-- Subject-wise activity
-- Learning statistics
-- Local-first privacy
-
----
-
-## Offline Support
-
-Progressive Web App (PWA)
-
-- Service Worker caching
-- Offline access to resources
-- Automatic updates
-- Network status indicator
-
----
-
-## Accessibility
-
-- Light Theme
-- Dark Theme
-- High Contrast Mode
-- Keyboard Shortcut Support
-- WCAG AA/AAA Compliance
-
----
-
-## Community Features
-
-- Note Upload Portal
-- Contributor Leaderboard
-- Open Contribution Workflow
-- Community Driven Content
-
----
-
-# Technology Stack
-
-| Category | Technologies |
-|-----------|--------------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Icons | Lucide React |
-| Theme | next-themes |
-| Validation | AJV JSON Schema |
-| Search | Web Workers |
-| Offline | Service Workers (PWA) |
-| Deployment | Vercel |
-| Version Control | Git & GitHub |
-
----
-
-# Project Structure
-
-```
-app/
-components/
-content/
-public/
-workers/
-lib/
-hooks/
-styles/
-```
-
----
-
-# Performance Highlights
-
-- Static Site Generation (SSG)
-- Dynamic Routing
-- Web Worker Search Engine
-- Service Worker Offline Cache
-- Optimized Bundle Loading
-- Mobile First Design
-- Responsive Layout
-- Keyboard Navigation
-
----
-
-# Installation
-
-## Prerequisites
-
-- Node.js 18+
-- npm
-
-Clone the repository
+You need Node.js 18+ and npm.
 
 ```bash
 git clone https://github.com/Sanket-103-pvt/StudyBuddy-KKW.git
-```
-
-Move into the project
-
-```bash
 cd StudyBuddy-KKW
-```
-
-Install dependencies
-
-```bash
 npm install
-```
-
-Start development server
-
-```bash
 npm run dev
 ```
 
-Open
+Open http://localhost:3000. Browsing, search and the calculator work without any setup.
 
-```
-http://localhost:3000
-```
+Login, contributions, the admin page and the leaderboard switch on when Supabase is configured. See [`supabase/README.md`](supabase/README.md).
 
-Validate JSON resources
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run validate` | Check every file in `content/` against the schema |
+| `npm test` | Run the Jest unit tests |
+| `npm run lint` | Run ESLint |
+| `npm run build` | Validate content, then build for production |
+
+### Environment variables
+
+Copy nothing into the repo. Put these in `.env.local` (local) or in your host's build settings. All are optional.
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (turns on login and contributions) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon public key (never use the `service_role` key) |
+| `NEXT_PUBLIC_SENTRY_DSN` | Browser error reports (off when empty) |
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | Google AdSense publisher id, for example `ca-pub-123...` (ads stay off when empty) |
+| `NEXT_PUBLIC_ADSENSE_SLOT_SUBJECT` | Ad unit id for subject pages |
+
+## Deploying
+
+The site has no server code, so it builds to plain files and runs on any static host. On Cloudflare:
 
 ```bash
-npm run validate
+# build command
+STATIC_EXPORT=1 npm run build
+# output directory
+out
 ```
 
-Run tests
+`wrangler.jsonc` points Cloudflare at `out/`, and `public/_headers` and `public/_redirects` carry the security headers and redirects. The daily Supabase keepalive runs from `.github/workflows/keepalive.yml` (add the two Supabase repository secrets).
 
-```bash
-npm test
+## Project structure
+
+```
+app/            Pages and routes (Next.js App Router)
+components/     UI components
+content/        Subject notes as JSON (first-year, second-year, ...)
+lib/            Calculator rules, search index, Supabase helpers
+public/         Icons, manifest, _headers and _redirects
+supabase/       SQL for the database and a setup guide
+docs/           Screenshots and notes
+__tests__/      Jest tests
+cypress/        End-to-end tests
 ```
 
----
+## Contributing
 
-# Contributing
+There are two ways to help:
 
-Contributions are always welcome.
+- **Share notes (students).** Sign in on the site, open **Contribute**, and submit a link. An admin reviews it before it goes live.
+- **Improve the code or content (developers).** Read [CONTRIBUTING.md](CONTRIBUTING.md), then open a pull request. Adding notes only needs a JSON edit in `content/`.
 
-Academic content such as notes, PYQs, and resource links is stored inside the `content/` directory, allowing contributors to add or update study material without modifying application code.
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-Please read **CONTRIBUTING.md** before submitting a Pull Request.
+## Roadmap
 
----
+- Third and Fourth Year (AI&DS) notes, once there is real content for them
+- Previous year question papers (subject, year and session wise)
+- Verified notes from faculty, marked as verified
+- Notifications when new notes are added
 
-# Roadmap
+## License and credits
 
-- Authentication
-- Faculty Dashboard
-- AI-powered Semantic Search
-- Smart Recommendation Engine
-- Notes Version History
-- Mobile Application
-- Push Notifications
-- Cloud Sync
-- Multi-College Support
+The code is released under the [MIT License](LICENSE). The StudyBuddy name and logo identify the official site, so please do not present a fork as the official StudyBuddy KKW.
 
----
-
-# Screenshots
-
-| Home | Search | Quiz |
-|------|--------|------|
-| Add Screenshot | Add Screenshot | Add Screenshot |
-
----
-
-# License
-
-Distributed under the MIT License.
-
-See **LICENSE** for more information.
-
----
-
-# Maintainer
-
-**Sanket Chaudhari**
-
-GitHub: https://github.com/Sanket-103-pvt
-
----
+Created and maintained by [Sanket Chaudhari](https://github.com/Sanket-103-pvt). Thanks to every student who shares notes and reports broken links.
 
 <div align="center">
 
 Made for the students of K.K. Wagh Institute of Engineering Education & Research.
 
 </div>
-
----
-
-<div align="center">
-
-**Study Buddy KKW** © 2026 Sanket Chaudhari. All Rights Reserved.
-
-Unauthorized reproduction of the platform's branding, identity, design assets, and original content without prior written permission is prohibited.
-
-Built with ❤️ for the students of K.K. Wagh Institute of Engineering Education & Research.
-
-</div>
-
-
-## Error monitoring (optional)
-
-Create a free project at sentry.io (platform: Browser JavaScript), copy its DSN and set it as the Vercel environment variable `NEXT_PUBLIC_SENTRY_DSN`, then redeploy. Without it, monitoring stays off and nothing is loaded.
-
-## Static hosting (Cloudflare Pages)
-
-The site has no server code except the Vercel keepalive cron, so it can be built as plain files:
-
-```
-mv app/api /tmp/api_bak && STATIC_EXPORT=1 npm run build; mv /tmp/api_bak app/api
-```
-
-Output goes to `out/`. `public/_headers` and `public/_redirects` carry the security headers and the old quiz redirect.
-On Cloudflare Pages use build command `rm -rf app/api && STATIC_EXPORT=1 npm run build`, output directory `out`, and set the
-`NEXT_PUBLIC_*` environment variables. Turn on Web Analytics in the Pages project (Metrics). The daily Supabase keepalive then runs from
-`.github/workflows/keepalive.yml` (add the two Supabase repository secrets).

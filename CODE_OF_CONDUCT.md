@@ -1,34 +1,53 @@
 # Code of Conduct
 
-## Our Community
-Study Buddy KKW is a student-built, student-first platform for K.K. Wagh Institute of Engineering Education & Research. This Code of Conduct exists to keep our contributor community respectful, inclusive, and productive.
+## Our community
 
-## Expected Behavior
-- Be respectful and kind in all interactions
-- Welcome contributors of all experience levels
-- Give constructive feedback — critique code, not people
-- Help new contributors feel included
-- Keep discussions relevant to the project
+StudyBuddy KKW is a student-built, student-first project for K.K. Wagh Institute of Engineering Education & Research. This Code of Conduct keeps the community respectful, inclusive and useful for everyone who uses or contributes to it.
 
-## Unacceptable Behavior
-- Harassment, insults, or personal attacks of any kind
-- Sharing others' private information without consent
-- Spamming issues or pull requests with low-effort content
-- Plagiarizing notes or materials from other students
+It applies to everything around the project: the website, the GitHub repository (issues, pull requests, discussions), submitted notes and links, and any space where people represent the project.
 
-## Content Guidelines
-When contributing notes, PYQs, or resources:
-- Only share materials you have the right to share
-- Credit original authors where applicable
-- Do not upload copyrighted textbook PDFs
-- Ensure links are working and publicly accessible
+## What we expect
 
-## Reporting Issues
-If you experience or witness unacceptable behavior, please open a private issue or contact the maintainer directly via GitHub.
+- Be respectful and kind. Disagree with ideas, not with people.
+- Welcome beginners. Everyone started somewhere.
+- Give constructive feedback and say what you would change, not only what is wrong.
+- Keep discussions on topic and short enough that people can read them.
+- Credit other people's work.
+
+## What is not acceptable
+
+- Harassment, insults, discrimination or personal attacks of any kind.
+- Sharing someone's private information (phone numbers, addresses, marks, IDs) without their consent.
+- Spam, or low-effort pull requests and submissions made only to gain points on the leaderboard.
+- Passing off other people's notes as your own, or gaming the leaderboard in any way.
+- Fake data: invented statistics, invented syllabus content, or links that do not lead to what they claim.
+
+## Content rules for notes, PYQs and links
+
+- Share only what you have the right to share.
+- Do not upload or link copyrighted textbook PDFs or paid course material.
+- Links must work and be publicly accessible.
+- If your notes were written or improved with AI, say so in the title or description. Mark errors you know about.
+- Do not include personal details of students or faculty in notes.
+- Anyone who owns content on the site can ask for its removal. We take such requests seriously and act on them quickly.
+
+## Reporting a problem
+
+If you see or experience unacceptable behaviour, or want content removed:
+
+- Email **Studybuddykkw@gmail.com** with a link or screenshot and what happened, or
+- Open an issue on GitHub (do not post private information in public issues, email instead).
+
+Reports are handled by the maintainer and treated as confidential as far as possible.
 
 ## Enforcement
-Project maintainers reserve the right to remove, edit, or reject contributions that violate this Code of Conduct, and to temporarily or permanently ban contributors for repeated violations.
+
+Maintainers may edit, reject or remove any contribution that breaks this Code, and may remove points that were gained unfairly. For repeated or serious violations, contributors can be warned, suspended or permanently banned from contributing. Maintainers decide in good faith and explain the reason when they can.
+
+## Changes
+
+This document may be updated as the project grows. The latest version is always the one in the repository.
 
 ---
 
-Built with ❤️ for KKW students, by KKW students.
+Built with care for KKW students, by KKW students.

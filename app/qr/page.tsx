@@ -1,7 +1,7 @@
 "use client";
 
 // Landing address for the printed poster QR code. Opening it counts as one page view of /qr in
-// Vercel Analytics, which is how poster scans are counted, then it sends the visitor to the home page.
+// Cloudflare Web Analytics, which is how poster scans are counted, then it sends the visitor to the home page.
 // Keep this route: printed posters point here.
 
 import { useEffect } from "react";

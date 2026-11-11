@@ -1,11 +1,14 @@
-# Contributing to Study Buddy KKW
+# Contributing to StudyBuddy KKW
 
-Thank you for your interest in contributing to **Study Buddy KKW**! We welcome contributions from developers, students, and open-source enthusiasts. Whether you are fixing a bug, enhancing the UI, standardizing syllabus docs, or adding new subject notes, this guide will help you set up your development environment and follow project standards.
+Thank you for helping make **StudyBuddy KKW** better for K.K. Wagh students. This guide covers two kinds of help: sharing notes (no coding needed) and improving the code or content (pull requests).
+
+By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 
 ## 📋 Table of Contents
 
+- [Sharing notes (students)](#-sharing-notes-students)
 - [Getting Started & Local Setup](#-getting-started--local-setup)
   - [Prerequisites](#prerequisites)
   - [Forking & Cloning](#forking--cloning)
@@ -26,12 +29,26 @@ Thank you for your interest in contributing to **Study Buddy KKW**! We welcome c
 
 ---
 
+## 📝 Sharing notes (students)
+
+You do not need to know Git to help.
+
+1. Open the site and tap **Login**. Use your KKWagh college email (`@kkwagh.edu.in`).
+2. Go to **Contribute** and submit a link to your notes (a public Google Drive link works well).
+3. An admin checks the link and approves it. Approved items go live with your name, and you appear on the leaderboard.
+
+Only share material you have the right to share. Do not upload copyrighted textbook PDFs. See the content rules in the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+Found a broken link? Use the report button next to it.
+
+---
+
 ## 🚀 Getting Started & Local Setup
 
 ### Prerequisites
 
 Ensure your system meets the following requirements before getting started:
-- **Node.js**: `v18.0.0` or higher
+- **Node.js**: `v18.0.0` or higher (20 recommended)
 - **npm**: `v9.0.0` or higher
 - **Git**: Installed and configured on your machine
 
@@ -48,6 +65,19 @@ Ensure your system meets the following requirements before getting started:
    git remote add upstream https://github.com/Sanket-103-pvt/StudyBuddy-KKW.git
    git fetch upstream
    ```
+
+### Environment Configuration
+
+The site runs with no configuration, so you can skip this for most changes. Browsing, search and the calculator work as is.
+
+To work on login, contributions or the admin page, create a free Supabase project, follow [`supabase/README.md`](supabase/README.md), and put these in a `.env.local` file (never commit it):
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+Never use or commit a `service_role` key.
 
 ### Installing Dependencies
 
@@ -66,7 +96,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ### Content Validation
 
-Study Buddy uses an automatic **AJV JSON Schema Validator** to ensure subject notes and resource links in `content/` conform strictly to `content-schema.json`.
+StudyBuddy uses an automatic **AJV JSON Schema Validator** to ensure subject notes and resource links in `content/` conform strictly to `content-schema.json`.
 
 Run the validator script locally:
 ```bash
@@ -75,9 +105,19 @@ npm run validate
 
 ### Testing & Building
 
+Lint the code:
+```bash
+npm run lint
+```
+
 Run unit tests using Jest:
 ```bash
 npm test
+```
+
+To check the static build that is deployed on Cloudflare:
+```bash
+STATIC_EXPORT=1 npm run build
 ```
 
 Verify that the production build compiles cleanly (this automatically triggers content schema validation during `prebuild`):
@@ -175,7 +215,7 @@ type(scope): description
 
 You can add new handwritten notes, Drive folders, or PYQ papers by editing the JSON files in the `content/` folder without touching application code.
 
-1. Locate the year directory (e.g. `content/first-year/` or `content/second-year/`).
+1. Locate the year directory. Today the site shows `content/first-year/` and `content/second-year/`. Third and Fourth Year folders exist but are hidden until they have real content, so do not add placeholder links there.
 2. Add or modify the subject JSON file adhering strictly to `content-schema.json`:
    ```json
    {
@@ -209,6 +249,9 @@ You can add new handwritten notes, Drive folders, or PYQ papers by editing the J
 Before opening your Pull Request, make sure you complete the following checklist:
 
 - [ ] My branch is created from the latest `upstream/master` branch.
+- [ ] The change is small and focused (one issue per pull request).
+- [ ] I tested the page on a phone-sized screen if the change affects the UI.
+- [ ] I added no fake data, fake statistics or invented syllabus content.
 - [ ] My branch name follows the required format (`feat/*`, `fix/*`, `docs/*`, etc.).
 - [ ] All subject content JSON files pass schema validation (`npm run validate`).
 - [ ] All unit tests pass cleanly (`npm test`).
@@ -220,4 +263,4 @@ Before opening your Pull Request, make sure you complete the following checklist
 
 ---
 
-Thank you for helping make **Study Buddy KKW** better for every engineering student! 🎓🚀
+Thank you for helping make **StudyBuddy KKW** better for every engineering student! 🎓

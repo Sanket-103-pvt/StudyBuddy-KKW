@@ -32,7 +32,7 @@ export default function Page() {
           <p>The SGPA and CGPA calculator keeps the subjects, credits, grades and the optional name and PRN you type on your own device. If you are signed in, the same data is also saved in your account so you can open it on another device. Only you can read it, and you can clear it with the Clear button.</p>
 
           <h2 className={H2}>Who can see it</h2>
-          <p>Only the site admin can see pending submissions and who sent them. Other students see only approved items and public display names. Our hosting and database providers (Vercel and Supabase) process data on our behalf and keep standard server logs such as IP addresses.</p>
+          <p>Only the site admin can see pending submissions and who sent them. Other students see only approved items and public display names. Our hosting and database providers (Cloudflare and Supabase) process data on our behalf and keep standard server logs such as IP addresses.</p>
 
           <h2 className={H2}>Page view statistics</h2>
           <p>We use Cloudflare Web Analytics to count page views and see which pages are used. Cloudflare describes it as privacy-first analytics that does not track you across websites. We also keep a simple daily visit count (one number per day, no personal data).</p>
