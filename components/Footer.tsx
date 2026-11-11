@@ -40,14 +40,6 @@ export default function Footer() {
                 Second Year Materials
               </Link>
             </li>
-            <li>
-              <Link
-                href="/third-year"
-                className="font-inter text-body-sm text-text-secondary-light dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary-fixed-dim transition-colors"
-              >
-                Third Year Materials (AI&DS only)
-              </Link>
-            </li>
           </ul>
         </div>
 

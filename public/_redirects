@@ -1,4 +1,5 @@
 # Quiz feature was removed in 2.0. Keep old indexed URLs alive by sending them to the subject page.
 /:year/:subject/quiz /:year/:subject 301
-# Fourth year is hidden for now (no content yet). Bring it back by restoring docs/hidden-fourth-year-index.json into content/index.json.
+# Third and fourth year are hidden for now (no content yet). Bring them back by restoring docs/hidden-*-year-index.json into content/index.json.
 /fourth-year / 302
+/third-year / 302

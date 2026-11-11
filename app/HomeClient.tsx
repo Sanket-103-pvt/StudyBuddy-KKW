@@ -56,11 +56,6 @@ export default function HomeClient({ landing }: { landing: React.ReactNode }) {
                 desc: "Core departmental subjects for Semesters III & IV (AI&DS / CS).",
                 tags: ["Data Structures", "DELD", "Operating Systems", "DBMS", "Discrete Math", "Maths 3"],
               },
-              "third-year": {
-                title: "Third Year (AI&DS only)",
-                desc: "AI&DS core and elective courses for Semesters V & VI.",
-                tags: ["DSA", "AI", "Data Science", "TOC", "Cloud Computing", "NLP"],
-              },
             };
 
             const details = yearDetails[yearKey] || {
